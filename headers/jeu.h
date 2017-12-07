@@ -29,6 +29,8 @@ public:
 	vector<ennemi> getVectEnnemi();
 	void supprEnnemi(int index);
 	bool tourCheck();
+	void tourEnnemi(ennemi enemy);
+	vector<ennemi> getVectEnnemi();
 	~jeu();
 };
 
