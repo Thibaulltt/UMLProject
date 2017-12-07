@@ -15,11 +15,9 @@ class joueur : public entite
 	bool victoire;
 	vector<objet> equipement;
 
-
 public:
 	joueur(string nom_n);
 	~joueur();
-	coords getSlot();
 
 	bool getPelle();
 	void deplacerJoueur();

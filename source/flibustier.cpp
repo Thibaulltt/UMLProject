@@ -3,7 +3,7 @@
 
 flibustier::flibustier(string nom_n) : ennemi(nom_n)
 {
-	nom = "Flibustier";
+	nom = nom_n;
 	scoreATT = 100;
 	scoreDEF = 100;
 	porteeATT = 1;
