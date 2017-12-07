@@ -1,5 +1,6 @@
+#include "../headers/objet.h"
+
 #pragma once
-#include "objet.h"
 
 class pelle : public objet
 {

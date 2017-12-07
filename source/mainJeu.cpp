@@ -1,12 +1,12 @@
-#include <cstdlib>
+ï»¿#include <cstdlib>
 #include <ctime>
 #include <iostream>
 #include <string>
 #include <unistd.h>
 
-#include "jeu.h"
-#include "joueur.h"
-#include "coords.h"
+#include "../headers/jeu.h"
+#include "../headers/joueur.h"
+#include "../headers/coords.h"
 
 
 using namespace std;
@@ -19,7 +19,7 @@ int main()
 	{
 		jeu current;
 
-		//Présentation des règles à mettre ici
+		//PrÃ©sentation des rÃ¨gles Ã  mettre ici
 
 		cout << "\n";
 		cout << "                                Bienvenue\n";
@@ -66,15 +66,15 @@ int main()
 
 	///Choix action [beg]
 		string s_choice = "";				//Stockage input
-		bool valid = false;					//Validité de l'input
+		bool valid = false;					//ValiditÃ© de l'input
 
 		while (valid == false)				//Input non valide
 		{
 			getline(cin, s_choice);			//Input
 
-			while (isNumber(s_choice) == false)	//NaN
+			while (isInteger(s_choice) == false)	//NaN
 			{
-				cout << "Valeur incorrecte. Veuillez réessayer: ";
+				cout << "Valeur incorrecte. Veuillez rÃ©essayer: ";
 				getline(cin, s_choice);		//Input
 			}
 
@@ -101,7 +101,7 @@ int main()
 				default:					//Mauvaise valeur
 				{
 					valid = false;
-					cout << "Valeur incorrecte. Veuillez réessayer: ";
+					cout << "Valeur incorrecte. Veuillez rÃ©essayer: ";
 				}
 			}
 		}
@@ -124,7 +124,7 @@ int main()
 
 			if (current.getVectJoueur().size() == 0)	//tous joueurs morts
 			{
-				return 0;	//Défaite
+				return 0;	//DÃ©faite
 			}
 		}
 	///Partie[end]

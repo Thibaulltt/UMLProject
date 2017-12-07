@@ -1,9 +1,9 @@
-#pragma once
+#include "../headers/ennemi.h"
 
-#include "ennemi.h"
+#pragma once
 
 class boucanier : public ennemi
 {
 public:
-	boucanier();
+	boucanier(string nom_n);
 };

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ennemi.h"
+#include "../headers/ennemi.h"
 
 class flibustier : public ennemi
 {
 public:
 
-	flibustier();
+	flibustier(string nom_n);
 };

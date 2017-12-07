@@ -1,10 +1,11 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <vector>
 
-#include "joueur.h"
-#include "objet.h"
-#include "ennemi.h"
+#include "../headers/ennemi.h"
+#include "../headers/joueur.h"
+#include "../headers/objet.h"
+
 
 #pragma once
 
@@ -23,10 +24,15 @@ public:
 	void lancerPartie();
 	void tourJoueur(joueur player);
 	vector<joueur> getVectJoueur();
-	vector<ennemi> getVectEnnemi();
+	void supprJoueur(int index);
 	void tourEnnemi(ennemi enemy);
+	vector<ennemi> getVectEnnemi();
+	void supprEnnemi(int index);
+	bool tourCheck();
+	void tourEnnemi(ennemi enemy);
+	vector<ennemi> getVectEnnemi();
 	~jeu();
 };
 
 //Fonctions diverses
-bool isNumber(std::string s_input);
+bool isInteger(std::string s_input);

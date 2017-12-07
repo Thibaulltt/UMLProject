@@ -1,6 +1,6 @@
-#pragma once
-#include "objet.h"
+﻿#include "../headers/objet.h"
 
+#pragma once
 
 class objetCombat : public objet
 {
@@ -11,4 +11,6 @@ protected:
 public:
 	objetCombat(int ID_n);
 	~objetCombat();
+	int getAttack();
+	int getDefense();
 };

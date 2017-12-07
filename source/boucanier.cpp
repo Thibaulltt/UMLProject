@@ -1,9 +1,9 @@
-#include "boucanier.h"
+#include "../headers/boucanier.h"
 
 
-boucanier::boucanier() : ennemi()
+boucanier::boucanier(string nom_n) : ennemi(nom_n)
 {
-	nom = "Boucanier";
+	nom = nom_n;
 	scoreATT = 100;
 	scoreDEF = 100;
 	porteeDEP = 2;
