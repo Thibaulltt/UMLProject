@@ -4,7 +4,6 @@
 objet::objet(int ID_n)
 {
 	ID = ID_n;
-	ramasse = false;
 }
 
 int objet::getID()

@@ -27,7 +27,13 @@ public:
 	void tourEnnemi(ennemi enemy);
 	vector<ennemi> getVectEnnemi();
 	void supprEnnemi(int index);
+<<<<<<< HEAD
 	void supprJoueur(int index);
+=======
+	bool tourCheck();
+	void tourEnnemi(ennemi enemy);
+	vector<ennemi> getVectEnnemi();
+>>>>>>> 9564d06ae7c0771892a5a4e78d295d012120ea55
 	~jeu();
 };
 

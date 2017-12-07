@@ -21,7 +21,6 @@ public:
 
 	bool getPelle();
 	void deplacerJoueur();
-	void creuser();
 	void ramasser();
 	bool getVictoire();
 
