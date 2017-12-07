@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "coords.h"
+#include "../headers/coords.h"
 
 using namespace std;
 
