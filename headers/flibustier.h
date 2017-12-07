@@ -6,5 +6,5 @@ class flibustier : public ennemi
 {
 public:
 
-	flibustier();
+	flibustier(string nom_n);
 };

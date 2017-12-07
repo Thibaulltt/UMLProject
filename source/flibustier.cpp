@@ -1,7 +1,7 @@
 #include "../headers/flibustier.h"
 
 
-flibustier::flibustier() : ennemi()
+flibustier::flibustier(string nom_n) : ennemi(nom_n)
 {
 	nom = "Flibustier";
 	scoreATT = 100;
