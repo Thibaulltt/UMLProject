@@ -1,4 +1,4 @@
-#include "../headers/objetCombat.h"
+﻿#include "../headers/objetCombat.h"
 
 objetCombat::objetCombat(int ID_n) : objet(ID_n)
 {

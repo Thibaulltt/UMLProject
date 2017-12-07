@@ -24,11 +24,10 @@ public:
 	void lancerPartie();
 	void tourJoueur(joueur player);
 	vector<joueur> getVectJoueur();
-	void supprJoueur(int index);
 	void tourEnnemi(ennemi enemy);
 	vector<ennemi> getVectEnnemi();
 	void supprEnnemi(int index);
-	bool tourCheck();
+	void supprJoueur(int index);
 	~jeu();
 };
 
