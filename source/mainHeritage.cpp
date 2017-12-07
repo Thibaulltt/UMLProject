@@ -1,10 +1,10 @@
-#include "flibustier.h"
-#include "boucanier.h"
-#include "joueur.h"
-#include "pelle.h"
-#include "tresor.h"
-#include "armure.h"
-#include "mousquet.h"
+#include "../headers/flibustier.h"
+#include "../headers/boucanier.h"
+#include "../headers/joueur.h"
+#include "../headers/pelle.h"
+#include "../headers/tresor.h"
+#include "../headers/armure.h"
+#include "../headers/mousquet.h"
 
 #include <iostream>
 

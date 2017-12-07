@@ -2,9 +2,10 @@
 #include <string>
 #include <vector>
 
-#include "joueur.h"
-#include "objet.h"
-#include "ennemi.h"
+#include "../headers/ennemi.h"
+#include "../headers/joueur.h"
+#include "../headers/objet.h"
+
 
 #pragma once
 

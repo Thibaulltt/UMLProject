@@ -1,5 +1,5 @@
-#include "coords.h"
-#include "joueur.h"
+#include "../headers/coords.h"
+#include "../headers/joueur.h"
 
 //Fonctions classe joueur
 joueur::joueur(string nom_n) : entite(nom_n)

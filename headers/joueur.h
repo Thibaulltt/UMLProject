@@ -1,7 +1,8 @@
 #include <string>
-#include "entite.h"
-#include "coords.h"
 #include <vector>
+
+#include "../headers/entite.h"
+#include "../headers/coords.h"
 
 #pragma once
 

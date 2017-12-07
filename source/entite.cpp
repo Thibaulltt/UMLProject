@@ -1,5 +1,5 @@
-#include "coords.h"
-#include "entite.h"
+#include "../headers/coords.h"
+#include "../headers/entite.h"
 
 using namespace std;
 

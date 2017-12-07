@@ -1,5 +1,7 @@
+#include "../headers/objet.h"
+
 #pragma once
-#include "objet.h"
+
 class tresor : public objet
 {
 public:

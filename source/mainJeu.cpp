@@ -4,9 +4,9 @@
 #include <string>
 #include <unistd.h>
 
-#include "jeu.h"
-#include "joueur.h"
-#include "coords.h"
+#include "../headers/jeu.h"
+#include "../headers/joueur.h"
+#include "../headers/coords.h"
 
 
 using namespace std;

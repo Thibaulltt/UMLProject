@@ -1,5 +1,6 @@
-#include "coords.h"
 #include <vector>
+
+#include "../headers/coords.h"
 
 #pragma once
 

@@ -1,8 +1,7 @@
-#include "coords.h"
+#include "../headers/coords.h"
+#include "../headers/entite.h"
+
 #pragma once
-
-#include "entite.h"
-
 
 class ennemi : public entite //Classe ennemi heritant d'entite
 {
