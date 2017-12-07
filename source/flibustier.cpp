@@ -1,4 +1,4 @@
-#include "flibustier.h"
+#include "../headers/flibustier.h"
 
 
 flibustier::flibustier() : ennemi()

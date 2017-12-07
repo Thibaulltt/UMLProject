@@ -1,5 +1,6 @@
+#include "../headers/objetCombat.h"
+
 #pragma once
-#include "objetCombat.h"
 
 class mousquet : public objetCombat
 {

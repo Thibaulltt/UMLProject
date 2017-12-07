@@ -1,6 +1,6 @@
-#pragma once
-#include "objet.h"
+#include "../headers/objet.h"
 
+#pragma once
 
 class objetCombat : public objet
 {

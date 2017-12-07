@@ -2,10 +2,10 @@
 #include <math.h>
 #include <vector>
 
-#include "carte.h"
-#include "ennemi.h"
-#include "jeu.h"
-#include "joueur.h"
+#include "../headers/carte.h"
+#include "../headers/ennemi.h"
+#include "../headers/jeu.h"
+#include "../headers/joueur.h"
 
 jeu::jeu()
 {

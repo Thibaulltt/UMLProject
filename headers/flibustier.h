@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ennemi.h"
+#include "../headers/ennemi.h"
 
 class flibustier : public ennemi
 {

@@ -1,4 +1,4 @@
-#include "boucanier.h"
+#include "../headers/boucanier.h"
 
 
 boucanier::boucanier() : ennemi()
