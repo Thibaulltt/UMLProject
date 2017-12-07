@@ -92,7 +92,7 @@ void joueur::ramasser()
 				armure armor;
 				this->equipement[4] = armor;
 				aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
-				this->scoreATT += armor.getAttack(); //MaJ stat joueur (attaque)
+				this->scoreATT *= 2; //MaJ stat joueur (attaque)
 				this->scoreDEF += armor.getDefense(); //MaJ stat joueur (defense)
 				cout << "Bravo ! Vous avez trouvé l'armure !" << endl;								////////// COUT A MODIFIER ////////////
 			}
