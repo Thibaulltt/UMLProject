@@ -1,4 +1,4 @@
-#include <map>
+ï»¿#include <map>
 #include <math.h>
 #include <vector>
 
@@ -16,9 +16,9 @@ void jeu::lancerPartie()
 	bool validation = false;
 	vector<string> vect_string;
 
-	while (validation == false)		//tant que les saisies n'ont pas été validées
+	while (validation == false)		//tant que les saisies n'ont pas Ã©tÃ© validÃ©es
 	{
-		cout << "\n                   -- Création de nouvelle partie --\n";
+		cout << "\n                   -- CrÃ©ation de nouvelle partie --\n";
 
 		//Choix nombre joueurs
 		string s_nb_joueurs = "";
@@ -31,9 +31,9 @@ void jeu::lancerPartie()
 		{
 			getline(cin, s_nb_joueurs);
 
-			while (isNumber(s_nb_joueurs) == false)
+			while (isInteger(s_nb_joueurs) == false)
 			{
-				cout << "\nValeur incorrecte. Veuillez réessayer: ";
+				cout << "\nValeur incorrecte. Veuillez rÃ©essayer: ";
 				getline(cin, s_nb_joueurs);
 			}
 
@@ -41,7 +41,7 @@ void jeu::lancerPartie()
 
 			if (nb_joueurs < 1 || nb_joueurs > 4)
 			{
-				cout << "\nValeur incorrecte. Veuillez réessayer: ";
+				cout << "\nValeur incorrecte. Veuillez rÃ©essayer: ";
 			}
 			else
 			{
@@ -66,10 +66,10 @@ void jeu::lancerPartie()
 			vect_string.push_back(nom);
 		}
 
-		//Choix difficulté
+		//Choix difficultÃ©
 		string s_difficulte = "";
 
-		cout << "\nVeuillez choisir la difficulté de la partie (1, 2 ou 3): \n";
+		cout << "\nVeuillez choisir la difficultÃ© de la partie (1, 2 ou 3): \n";
 		cout << "                          1- Facile\n";
 		cout << "                          2- Normal\n";
 		cout << "                          3- Difficile\n";
@@ -80,9 +80,9 @@ void jeu::lancerPartie()
 		{
 			getline(cin, s_difficulte);
 
-			while (isNumber(s_difficulte) == false)
+			while (isInteger(s_difficulte) == false)
 			{
-				cout << "\nValeur incorrecte. Veuillez réessayer: ";
+				cout << "\nValeur incorrecte. Veuillez rÃ©essayer: ";
 				getline(cin, s_difficulte);
 			}
 
@@ -90,7 +90,7 @@ void jeu::lancerPartie()
 
 			if (difficulte < 1 || difficulte > 3)
 			{
-				cout << "\nValeur incorrecte. Veuillez réessayer: ";
+				cout << "\nValeur incorrecte. Veuillez rÃ©essayer: ";
 			}
 			else
 			{
@@ -101,7 +101,7 @@ void jeu::lancerPartie()
 		//Confirmation choix
 		string s_validation = "";
 
-		cout << "Vous avez choisi une partie à " << vect_string.size();
+		cout << "Vous avez choisi une partie Ã  " << vect_string.size();
 		
 		if (vect_string.size() == 1)
 		{
@@ -131,7 +131,7 @@ void jeu::lancerPartie()
 			}
 		}
 
-		cout << ") en difficulté " << difficulte << ".\n";
+		cout << ") en difficultÃ© " << difficulte << ".\n";
 		cout << "Validez-vous ces choix? (o/n)\n";
 
 		getline(cin, s_validation);
@@ -144,16 +144,16 @@ void jeu::lancerPartie()
 
 	int alea = 0;
 
-	//Création des joueurs
+	//CrÃ©ation des joueurs
 	for (unsigned int i = 0; i < vect_string.size(); i++)
 	{
 		joueur dummy(vect_string[i]);
 		vect_joueur.push_back(dummy);
 	}
 
-	//Création des ennemis
+	//CrÃ©ation des ennemis
 	vector<ennemi> vect_ennemi;
-	ennemi boucanier("bouc");
+	ennemi boucanier("Boucanier");
 	ennemi flibustier("flib");
 
 	vect_ennemi.push_back(boucanier);
@@ -167,7 +167,7 @@ void jeu::lancerPartie()
 
 	cout << "\n";
 
-	//Création objets + carte
+	//CrÃ©ation objets + carte
 	objet tresor(1);
 	objet pelle(2);
 	objet mousquet(3);
@@ -187,7 +187,7 @@ void jeu::lancerPartie()
 		}
 	}
 
-	//Placement trésor
+	//Placement trÃ©sor
 	vect_objet.push_back(tresor);
 	vector<objet>::iterator itvo = vect_objet.begin();
 
@@ -224,7 +224,7 @@ void jeu::lancerPartie()
 		vect_objet.push_back(mousquet);
 		vect_objet.push_back(armure);
 
-		while (vect_objet.empty() == false)	//tant qu'un objet doit être placé
+		while (vect_objet.empty() == false)	//tant qu'un objet doit Ãªtre placÃ©
 		{
 			itvo = vect_objet.begin();
 			alea = rand() % (vect_case.size() + 1);
@@ -237,7 +237,7 @@ void jeu::lancerPartie()
 		}
 	}
 	
-	//Test affichage map début partie
+	//Test affichage map dÃ©but partie
 	for (int i = 0; i < desert.getTaille(); i++)
 	{
 		for (int j = 0; j < desert.getTaille(); j++)
@@ -290,32 +290,31 @@ void jeu::tourJoueur(joueur player)
 
 void jeu::tourEnnemi(ennemi enemy)
 {
-	//Déplacement ennemis
+	//DÃ©placement ennemis
 	for (unsigned int i = 0; i < getVectEnnemi().size(); i++)
 	{
 		getVectEnnemi()[i].deplacerMob();
 	}
 
-	//Check joueurs à portée
+	//Check joueurs Ã  portÃ©e
 	for (unsigned int i = 0; i < getVectEnnemi().size(); i++)	//Pour chaque ennemi
 	{
 		for (unsigned int j = 0; j < getVectEnnemi()[i].getVectPort().size(); j++)	//Pour chaque case accessible
 		{
 			for (unsigned int k = 0; k < getVectJoueur().size(); k++)	//Pour chaque joueur
 			{
-				if (getVectEnnemi()[i].getVectPort()[j].getValeurs() == getVectJoueur()[k].getSlot().getValeurs())	//Si joueur à portée
-				{
-					//Joueur à portée, combat
-
+				if (getVectEnnemi()[i].getVectPort()[j].getValeurs() == getVectJoueur()[k].getSlot().getValeurs())	//Si joueur Ã  portÃ©e
+				{				
+					//Scores de base:
 					//Corsaire: 0 ATT, 0 DEF
 					//Pirate: 100 ATT, 100 DEF
 
-					//Règles scores:
+					//RÃ¨gles scores:
 					//Mousquet = +150 ATT
 					//Armure = +91 DEF, ATT * 2
 					
-					//Règle combat: pour avoir 100% de chances de tuer l'ennemi,
-					//le score d'ATT doit être au moins égal à 2 * la DEF adverse.
+					//RÃ¨gle combat: pour avoir 100% de chances de tuer l'ennemi,
+					//le score d'ATT doit Ãªtre au moins Ã©gal Ã  2 * la DEF adverse.
 					//Sous cette valeur, on a un pourcentage de chances de tuer seulement.
 					//Si ATT = DEF: 0% de chances.
 					//Si ATT = 1.5 * DEF: 50% de chances.
@@ -323,27 +322,29 @@ void jeu::tourEnnemi(ennemi enemy)
 
 					//Attaque joueur
 					double d_resATTJoueur = (getVectJoueur()[j].getScoreATT() * 100) / getVectEnnemi()[i].getScoreDEF();
-					d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+					d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies Ã  l'unitÃ© supÃ©rieure)
 					int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
 
 					int alea = rand() % 100 + 1;	//entre 1 et 100
 
 					if (alea < resATTJoueur)	//Coup fatal
 					{
-						//Pirate mort (stocker l'indice pour suppression du pirate dans vectEnnemi)
+						supprEnnemi(i);
+						i--;		//Replacement i pour tenir compte de l'Ã©lÃ©ment supprimÃ©
 						goto nextEnnemi;
 					}
 
 					//Attaque pirate
 					double d_resATTEnnemi = (getVectEnnemi()[i].getScoreATT() * 100) / getVectJoueur()[j].getScoreDEF();
-					d_resATTEnnemi = ceil(d_resATTEnnemi - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+					d_resATTEnnemi = ceil(d_resATTEnnemi - 100); //Chances de tuer sur 100 (arrondies Ã  l'unitÃ© supÃ©rieure)
 					int resATTEnnemi = (int)d_resATTEnnemi;	//Conversion entier
 
 					alea = rand() % 100 + 1;	//entre 1 et 100
 
 					if (alea < resATTEnnemi)	//Coup fatal
 					{
-						//Joueur mort (stocker l'indice pour suppression du joueur dans vectJoueur)
+						supprJoueur(k);
+						k--;		//Replacement k pour tenir compte de l'Ã©lÃ©ment supprimÃ©
 					}
 				}
 			}
@@ -357,6 +358,11 @@ vector<joueur> jeu::getVectJoueur()
 	return vect_joueur;
 }
 
+void jeu::supprJoueur(int index)
+{
+	vect_joueur.erase(index);
+}
+
 vector<ennemi> jeu::getVectEnnemi()
 {
 	return vect_ennemi;
@@ -368,7 +374,7 @@ jeu::~jeu()
 }
 
 //Fonctions diverses
-bool isNumber(std::string s_input)
+bool isInteger(std::string s_input)
 {
 	for (unsigned int i = 0; i < s_input.size(); i++)
 	{

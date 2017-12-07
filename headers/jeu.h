@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <vector>
 
@@ -24,10 +24,13 @@ public:
 	void lancerPartie();
 	void tourJoueur(joueur player);
 	vector<joueur> getVectJoueur();
+	void supprJoueur(int index);
 	void tourEnnemi(ennemi enemy);
 	vector<ennemi> getVectEnnemi();
+	void supprEnnemi(int index);
+	bool tourCheck();
 	~jeu();
 };
 
 //Fonctions diverses
-bool isNumber(std::string s_input);
+bool isInteger(std::string s_input);
