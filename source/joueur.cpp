@@ -7,11 +7,6 @@ joueur::joueur(string nom_n) : entite(nom_n)
 
 }
 
-coords joueur::getSlot()
-{
-	return slot;
-}
-
 bool joueur::getPelle()
 {
 	return pelle;

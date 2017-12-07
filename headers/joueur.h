@@ -18,7 +18,6 @@ class joueur : public entite
 public:
 	joueur(string nom_n);
 	~joueur();
-	coords getSlot();
 
 	bool getPelle();
 	void deplacerJoueur();

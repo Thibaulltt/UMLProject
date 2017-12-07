@@ -5,5 +5,5 @@
 class boucanier : public ennemi
 {
 public:
-	boucanier();
+	boucanier(string nom_n);
 };

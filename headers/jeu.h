@@ -24,8 +24,8 @@ public:
 	void lancerPartie();
 	void tourJoueur(joueur player);
 	vector<joueur> getVectJoueur();
-	vector<ennemi> getVectEnnemi();
 	void tourEnnemi(ennemi enemy);
+	vector<ennemi> getVectEnnemi();
 	~jeu();
 };
 
