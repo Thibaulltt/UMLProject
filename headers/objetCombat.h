@@ -1,4 +1,4 @@
-#include "../headers/objet.h"
+﻿#include "../headers/objet.h"
 
 #pragma once
 
@@ -11,4 +11,6 @@ protected:
 public:
 	objetCombat(int ID_n);
 	~objetCombat();
+	int getAttack();
+	int getDefense();
 };

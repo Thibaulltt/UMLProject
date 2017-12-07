@@ -1,8 +1,9 @@
-#include <string>
+﻿#include <string>
 #include <vector>
 
 #include "../headers/entite.h"
 #include "../headers/coords.h"
+#include "../headers/objet.h"
 
 #pragma once
 
@@ -12,16 +13,16 @@ class joueur : public entite
 {
 	bool pelle;
 	bool victoire;
-	//vector<objet> equipement;
+	vector<objet> equipement;
 
 
 public:
 	joueur(string nom_n);
 	~joueur();
+	coords getSlot();
 
 	bool getPelle();
 	void deplacerJoueur();
-	void creuser();
 	void ramasser();
 	bool getVictoire();
 
