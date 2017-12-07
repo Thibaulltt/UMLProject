@@ -1,0 +1,1 @@
+// Corps de toutes les fonctions du namespace IO
