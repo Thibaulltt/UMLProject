@@ -291,65 +291,57 @@ void jeu::tourJoueur(joueur player)
 void jeu::tourEnnemi(ennemi enemy)
 {
 	//Déplacement ennemis
-	for (unsigned int i = 0; i < getVectEnnemi().size(); i++)
-	{
-		getVectEnnemi()[i].deplacerMob();
-	}
+	enemy.deplacerMob();
 
 	//Check joueurs à portée
-	for (unsigned int i = 0; i < getVectEnnemi().size(); i++)	//Pour chaque ennemi
+	for (unsigned int j = 0; j < enemy.getVectPort().size(); j++)	//Pour chaque case accessible
 	{
-		for (unsigned int j = 0; j < getVectEnnemi()[i].getVectPort().size(); j++)	//Pour chaque case accessible
+		for (unsigned int k = 0; k < getVectJoueur().size(); k++)	//Pour chaque joueur
 		{
-			for (unsigned int k = 0; k < getVectJoueur().size(); k++)	//Pour chaque joueur
-			{
-				if (getVectEnnemi()[i].getVectPort()[j].getValeurs() == getVectJoueur()[k].getSlot().getValeurs())	//Si joueur à portée
-				{				
-					//Scores de base:
-					//Corsaire: 0 ATT, 0 DEF
-					//Pirate: 100 ATT, 100 DEF
+			if (enemy.getVectPort()[j].getValeurs() == getVectJoueur()[k].getSlot().getValeurs())	//Si joueur à portée
+			{				
+				//Scores de base:
+				//Corsaire: 0 ATT, 0 DEF
+				//Pirate: 100 ATT, 100 DEF
 
-					//Règles scores:
-					//Mousquet = +150 ATT
-					//Armure = +91 DEF, ATT * 2
+				//Règles scores:
+				//Mousquet = +150 ATT
+				//Armure = +91 DEF, ATT * 2
 					
-					//Règle combat: pour avoir 100% de chances de tuer l'ennemi,
-					//le score d'ATT doit être au moins égal à 2 * la DEF adverse.
-					//Sous cette valeur, on a un pourcentage de chances de tuer seulement.
-					//Si ATT = DEF: 0% de chances.
-					//Si ATT = 1.5 * DEF: 50% de chances.
-					//etc...
+				//Règle combat: pour avoir 100% de chances de tuer l'ennemi,
+				//le score d'ATT doit être au moins égal à 2 * la DEF adverse.
+				//Sous cette valeur, on a un pourcentage de chances de tuer seulement.
+				//Si ATT = DEF: 0% de chances.
+				//Si ATT = 1.5 * DEF: 50% de chances.
+				//etc...
 
-					//Attaque joueur
-					double d_resATTJoueur = (getVectJoueur()[j].getScoreATT() * 100) / getVectEnnemi()[i].getScoreDEF();
-					d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
-					int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
+				//Attaque joueur
+				double d_resATTJoueur = (getVectJoueur()[j].getScoreATT() * 100) / getVectEnnemi()[i].getScoreDEF();
+				d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+				int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
 
-					int alea = rand() % 100 + 1;	//entre 1 et 100
+				int alea = rand() % 100 + 1;	//entre 1 et 100
 
-					if (alea < resATTJoueur)	//Coup fatal
-					{
-						supprEnnemi(i);
-						i--;		//Replacement i pour tenir compte de l'élément supprimé
-						goto nextEnnemi;
-					}
+				if (alea < resATTJoueur)	//Coup fatal
+				{
+					supprEnnemi(i);
+					i--;		//Replacement i pour tenir compte de l'élément supprimé
+				}
 
-					//Attaque pirate
-					double d_resATTEnnemi = (getVectEnnemi()[i].getScoreATT() * 100) / getVectJoueur()[j].getScoreDEF();
-					d_resATTEnnemi = ceil(d_resATTEnnemi - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
-					int resATTEnnemi = (int)d_resATTEnnemi;	//Conversion entier
+				//Attaque pirate
+				double d_resATTEnnemi = (enemy.getScoreATT() * 100) / getVectJoueur()[j].getScoreDEF();
+				d_resATTEnnemi = ceil(d_resATTEnnemi - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+				int resATTEnnemi = (int)d_resATTEnnemi;	//Conversion entier
 
-					alea = rand() % 100 + 1;	//entre 1 et 100
+				alea = rand() % 100 + 1;	//entre 1 et 100
 
-					if (alea < resATTEnnemi)	//Coup fatal
-					{
-						supprJoueur(k);
-						k--;		//Replacement k pour tenir compte de l'élément supprimé
-					}
+				if (alea < resATTEnnemi)	//Coup fatal
+				{
+					supprJoueur(k);
+					k--;		//Replacement k pour tenir compte de l'élément supprimé
 				}
 			}
 		}
-	nextEnnemi: continue;
 	}
 }
 

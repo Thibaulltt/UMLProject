@@ -8,6 +8,7 @@
 #include "../headers/joueur.h"
 #include "../headers/coords.h"
 
+//g++ -std=c++11 -Wall -pedantic armure.cpp boucanier.cpp carte.cpp coords.cpp ennemi.cpp flibustier.cpp io.cpp jeu.cpp joueur.cpp mainJeu.cpp mousquet.cpp objet.cpp objetCombat.cpp pelle.cpp tresor.cpp -o Dig_or_die 
 
 using namespace std;
 

@@ -1,4 +1,5 @@
 ﻿#include "../headers/coords.h"
+#include "../headers/jeu.h"
 #include "../headers/joueur.h"
 
 //Fonctions classe joueur
@@ -19,7 +20,7 @@ void joueur::deplacerJoueur()
 }
 
 
-void joueur::ramasser()
+void joueur::ramasser(jeu game)
 {
 	//Vecteur contenant les objets de la carte
 	vector<vector<int>> aireJeu = game.getAireJeu();
