@@ -36,6 +36,11 @@ void carte::setCase(pair<int, int> slot, int value)
 
 }
 
+int carte::getCase(pair<int,int> slot) 
+{
+	return aireJeu[slot.first][slot.second];
+}
+
 vector<vector<int>> carte::getAireJeu()
 {
 	return aireJeu;
