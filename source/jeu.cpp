@@ -9,6 +9,7 @@
 
 jeu::jeu()
 {
+	carte mappe;
 }
 
 int jeu::lancerPartie()
@@ -173,14 +174,13 @@ int jeu::lancerPartie()
 	objet mousquet(3);
 	objet armure(4);
 
-	carte desert;
 	vector<pair<int, int>> vect_case;
 	pair<int, int> duo;
 
 	//Vecteur cases (x, y)
-	for (int i = 0; i < desert.getTaille(); i++)
+	for (int i = 0; i < mappe.getTaille(); i++)
 	{
-		for (int j = 0; j < desert.getTaille(); j++)
+		for (int j = 0; j < mappe.getTaille(); j++)
 		{
 			duo = pair<int, int>(i, j);
 			vect_case.push_back(duo);
@@ -194,7 +194,7 @@ int jeu::lancerPartie()
 	alea = rand() % (vect_case.size() + 1);
 
 	duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-	desert.setAireJeu(duo, (*itvo).getID());
+	mappe.setAireJeu(duo, (*itvo).getID());
 	vect_objet.erase(itvo);
 	vect_case.erase(vect_case.begin() + alea);
 
@@ -230,7 +230,7 @@ int jeu::lancerPartie()
 			alea = rand() % (vect_case.size() + 1);
 
 			duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-			desert.setAireJeu(duo, (*itvo).getID());
+			mappe.setAireJeu(duo, (*itvo).getID());
 
 			vect_objet.erase(itvo);
 			vect_case.erase(vect_case.begin() + alea);
@@ -238,15 +238,15 @@ int jeu::lancerPartie()
 	}
 	
 	//Test affichage map début partie
-	for (int i = 0; i < desert.getTaille(); i++)
+	for (int i = 0; i < mappe.getTaille(); i++)
 	{
-		for (int j = 0; j < desert.getTaille(); j++)
+		for (int j = 0; j < mappe.getTaille(); j++)
 		{
 			pair<int, int> posit (i,j);
 
-			if (desert.getAireJeu()[i][j] != 0)
+			if (mappe.getAireJeu()[i][j] != 0)
 			{
-				cout << desert.getAireJeu()[i][j] << " ";
+				cout << mappe.getAireJeu()[i][j] << " ";
 			}
 			else
 			{
@@ -279,12 +279,12 @@ void jeu::tourJoueur(joueur player)
 	player.deplacerJoueur();
 
 	//Ramassage auto
-	player.ramasser();
+	player.ramasser(mappe);
 
 	//Creusage auto
-	if (player.getPelle() == true)
+	if (player.getPellePoss() == true)
 	{
-		player.ramasser(this);
+		player.ramasser(mappe);
 	}
 }
 
