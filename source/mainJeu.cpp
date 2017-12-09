@@ -1,4 +1,4 @@
-#include <cstdlib>
+ï»¿#include <cstdlib>
 #include <ctime>
 #include <iostream>
 #include <string>
@@ -8,6 +8,7 @@
 #include "../headers/joueur.h"
 #include "../headers/coords.h"
 
+//g++ -std=c++11 -Wall -pedantic armure.cpp boucanier.cpp carte.cpp coords.cpp ennemi.cpp flibustier.cpp io.cpp jeu.cpp joueur.cpp mainJeu.cpp mousquet.cpp objet.cpp objetCombat.cpp pelle.cpp tresor.cpp -o Dig_or_die 
 
 using namespace std;
 
@@ -19,7 +20,7 @@ int main()
 	{
 		jeu current;
 
-		//Présentation des règles à mettre ici
+		//PrÃ©sentation des rÃ¨gles Ã  mettre ici
 
 		cout << "\n";
 		cout << "                                Bienvenue\n";
@@ -66,15 +67,15 @@ int main()
 
 	///Choix action [beg]
 		string s_choice = "";				//Stockage input
-		bool valid = false;					//Validité de l'input
+		bool valid = false;					//ValiditÃ© de l'input
 
 		while (valid == false)				//Input non valide
 		{
 			getline(cin, s_choice);			//Input
 
-			while (isNumber(s_choice) == false)	//NaN
+			while (isInteger(s_choice) == false)	//NaN
 			{
-				cout << "Valeur incorrecte. Veuillez réessayer: ";
+				cout << "Valeur incorrecte. Veuillez rÃ©essayer: ";
 				getline(cin, s_choice);		//Input
 			}
 
@@ -101,7 +102,7 @@ int main()
 				default:					//Mauvaise valeur
 				{
 					valid = false;
-					cout << "Valeur incorrecte. Veuillez réessayer: ";
+					cout << "Valeur incorrecte. Veuillez rÃ©essayer: ";
 				}
 			}
 		}
@@ -124,7 +125,7 @@ int main()
 
 			if (current.getVectJoueur().size() == 0)	//tous joueurs morts
 			{
-				return 0;	//Défaite
+				return 0;	//DÃ©faite
 			}
 		}
 	///Partie[end]

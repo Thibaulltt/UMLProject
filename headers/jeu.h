@@ -1,3 +1,4 @@
+﻿#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,7 +8,7 @@
 #include "../headers/objet.h"
 
 
-#pragma once
+
 
 using namespace std;
 
@@ -24,10 +25,15 @@ public:
 	void lancerPartie();
 	void tourJoueur(joueur player);
 	vector<joueur> getVectJoueur();
+	void supprJoueur(int index);
+	void tourEnnemi(ennemi enemy);
+	vector<ennemi> getVectEnnemi();
+	void supprEnnemi(int index);
+	bool tourCheck();
 	void tourEnnemi(ennemi enemy);
 	vector<ennemi> getVectEnnemi();
 	~jeu();
 };
 
 //Fonctions diverses
-bool isNumber(std::string s_input);
+bool isInteger(std::string s_input);
