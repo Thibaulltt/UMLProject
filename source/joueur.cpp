@@ -1,4 +1,5 @@
 ﻿#include "../headers/coords.h"
+#include "../headers/jeu.h"
 #include "../headers/joueur.h"
 
 //Fonctions classe joueur
@@ -19,7 +20,7 @@ void joueur::deplacerJoueur()
 }
 
 
-void joueur::ramasser()
+void joueur::ramasser(jeu game)
 {
 	//Vecteur contenant les objets de la carte
 	vector<vector<int>> aireJeu = game.getAireJeu();
@@ -87,7 +88,7 @@ void joueur::ramasser()
 				armure armor;
 				this->equipement[4] = armor;
 				aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
-				this->scoreATT += armor.getAttack(); //MaJ stat joueur (attaque)
+				this->scoreATT *= 2; //MaJ stat joueur (attaque)
 				this->scoreDEF += armor.getDefense(); //MaJ stat joueur (defense)
 				cout << "Bravo ! Vous avez trouvé l'armure !" << endl;								////////// COUT A MODIFIER ////////////
 			}
