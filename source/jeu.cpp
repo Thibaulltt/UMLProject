@@ -11,7 +11,7 @@ jeu::jeu()
 {
 }
 
-void jeu::lancerPartie()
+int jeu::lancerPartie()
 {
 	bool validation = false;
 	vector<string> vect_string;
@@ -271,7 +271,7 @@ void jeu::lancerPartie()
 		cout << "\n";
 	}
 
-	return;
+	return nb_joueurs;
 }
 
 void jeu::tourJoueur(joueur player)
@@ -284,11 +284,11 @@ void jeu::tourJoueur(joueur player)
 	//Creusage auto
 	if (player.getPelle() == true)
 	{
-		player.creuser();
+		player.ramasser(this);
 	}
 }
 
-void jeu::tourEnnemi(ennemi enemy)
+void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 {
 	//Déplacement ennemis
 	enemy.deplacerMob();
@@ -316,7 +316,7 @@ void jeu::tourEnnemi(ennemi enemy)
 				//etc...
 
 				//Attaque joueur
-				double d_resATTJoueur = (getVectJoueur()[j].getScoreATT() * 100) / getVectEnnemi()[i].getScoreDEF();
+				double d_resATTJoueur = (getVectJoueur()[j].getScoreATT() * 100) / enemy.getScoreDEF();
 				d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
 				int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
 
@@ -324,8 +324,8 @@ void jeu::tourEnnemi(ennemi enemy)
 
 				if (alea < resATTJoueur)	//Coup fatal
 				{
-					supprEnnemi(i);
-					i--;		//Replacement i pour tenir compte de l'élément supprimé
+					enemy.setVivant(false);	//Ennemi mort
+					return;
 				}
 
 				//Attaque pirate
@@ -337,8 +337,8 @@ void jeu::tourEnnemi(ennemi enemy)
 
 				if (alea < resATTEnnemi)	//Coup fatal
 				{
-					supprJoueur(k);
-					k--;		//Replacement k pour tenir compte de l'élément supprimé
+					getVectJoueur()[j].setVivant(false);	//Joueur mort
+					nb_joueurs_n--;
 				}
 			}
 		}
@@ -348,11 +348,6 @@ void jeu::tourEnnemi(ennemi enemy)
 vector<joueur> jeu::getVectJoueur()
 {
 	return vect_joueur;
-}
-
-void jeu::supprJoueur(int index)
-{
-	vect_joueur.erase(index);
 }
 
 vector<ennemi> jeu::getVectEnnemi()
