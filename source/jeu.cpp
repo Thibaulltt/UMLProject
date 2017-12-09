@@ -298,6 +298,11 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 	{
 		for (unsigned int k = 0; k < getVectJoueur().size(); k++)	//Pour chaque joueur
 		{
+			if (getVectJoueur()[k].getVivant() == false)
+			{
+				continue;
+			}
+
 			if (enemy.getVectPort()[j].getValeurs() == getVectJoueur()[k].getSlot().getValeurs())	//Si joueur à portée
 			{				
 				//Scores de base:
