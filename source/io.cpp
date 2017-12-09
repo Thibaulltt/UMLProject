@@ -22,12 +22,12 @@
 #define TERM_MOVE_CURSOR_RIGHT(s) printf("\033[%iC",(s))
 #define TERM_MOVE_CURSOR_LEFT(s) printf("\033[%iD",(s))
 // Sequences d'echappement pour le terminal
-#define BLANK "\033[0m"
-#define RED "\033[91m"
-#define GREEN "\033[92m"
-#define YELLOW "\033[93m"
-#define BLUE "\033[94m"
-#define MAGENTA "\033[95m"
+#define TERM_COLOR_TEXT_BLANK "\033[0m"
+#define TERM_COLOR_TEXT_RED "\033[91m"
+#define TERM_COLOR_TEXT_GREEN "\033[92m"
+#define TERM_COLOR_TEXT_YELLOW "\033[93m"
+#define TERM_COLOR_TEXT_BLUE "\033[94m"
+#define TERM_COLOR_TEXT_MAGENTA "\033[95m"
 
 using namespace std;
 
@@ -124,7 +124,6 @@ namespace io {
 		vector< pair<coords,bool> > positionsPossibles = genererMouvements(gameMap, posJ.getValeurs()); // Positions possibles dans la vicinite directe du joueur
 		// Maintenant on update l'affichage pour chaque case dispo
 		// afficherMouvements(positionsPossibles);
-		cout << "Test : " << TERM_MOVE_CURSOR_LEFT(6) << "his" << TERM_MOVE_CURSOR_RIGHT(3) << "is bullshit." << TERM_MOVE_CURSOR_DOWN(2) << TERM_MOVE_CURSOR_RIGHT(1) << printf("\033[%iC",1)  << printf("\033[%iC",1) << endl;
 		return;
 	}
 
