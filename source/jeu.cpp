@@ -11,7 +11,7 @@ jeu::jeu()
 {
 }
 
-void jeu::lancerPartie()
+int jeu::lancerPartie()
 {
 	bool validation = false;
 	vector<string> vect_string;
@@ -271,7 +271,7 @@ void jeu::lancerPartie()
 		cout << "\n";
 	}
 
-	return;
+	return nb_joueurs;
 }
 
 void jeu::tourJoueur(joueur player)
@@ -284,17 +284,17 @@ void jeu::tourJoueur(joueur player)
 	//Creusage auto
 	if (player.getPelle() == true)
 	{
-		player.creuser();
+		player.ramasser(this);
 	}
 }
 
-void jeu::tourEnnemi(ennemi enemy)
+void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 {
 	//Déplacement ennemis
 	enemy.deplacerMob();
 
 	//Check joueurs à portée
-	for (unsigned int j = 0; j < getVectEnnemi()[i].getVectPort().size(); j++)	//Pour chaque case accessible
+	for (unsigned int j = 0; j < enemy.getVectPort().size(); j++)	//Pour chaque case accessible
 	{
 		for (unsigned int k = 0; k < getVectJoueur().size(); k++)	//Pour chaque joueur
 		{
@@ -324,8 +324,8 @@ void jeu::tourEnnemi(ennemi enemy)
 
 				if (alea < resATTJoueur)	//Coup fatal
 				{
-					///supprEnnemi(i); A REVOIR
-					i--;		//Replacement i pour tenir compte de l'élément supprimé
+					enemy.setVivant(false);	//Ennemi mort
+					return;
 				}
 
 				//Attaque pirate
@@ -337,8 +337,8 @@ void jeu::tourEnnemi(ennemi enemy)
 
 				if (alea < resATTEnnemi)	//Coup fatal
 				{
-					supprJoueur(k);
-					k--;		//Replacement k pour tenir compte de l'élément supprimé
+					getVectJoueur()[j].setVivant(false);	//Joueur mort
+					nb_joueurs_n--;
 				}
 			}
 		}
@@ -350,21 +350,9 @@ vector<joueur> jeu::getVectJoueur()
 	return vect_joueur;
 }
 
-void jeu::supprJoueur(int index)
-{
-	vector<joueur>::iterator itv = vect_joueur.begin() + index;
-	vect_joueur.erase(itv);
-}
-
 vector<ennemi> jeu::getVectEnnemi()
 {
 	return vect_ennemi;
-}
-
-void jeu::supprEnnemi(int index)
-{
-	vector<ennemi>::iterator itv = vect_ennemi.begin() + index;
-	vect_ennemi.erase(itv);
 }
 
 jeu::~jeu()
