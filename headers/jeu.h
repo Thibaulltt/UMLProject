@@ -1,13 +1,12 @@
-﻿#include <iostream>
+﻿#pragma once
+
+#include <iostream>
 #include <string>
 #include <vector>
 
 #include "../headers/ennemi.h"
 #include "../headers/joueur.h"
 #include "../headers/objet.h"
-
-
-#pragma once
 
 using namespace std;
 
@@ -18,18 +17,14 @@ class jeu
 	vector<joueur> vect_joueur;
 	vector<objet> vect_objet;
 	vector<ennemi> vect_ennemi;
+	carte mappe;
 
 public:
 	jeu();
-	void lancerPartie();
+	int lancerPartie();
 	void tourJoueur(joueur player);
 	vector<joueur> getVectJoueur();
-	void supprJoueur(int index);
-	void tourEnnemi(ennemi enemy);
-	vector<ennemi> getVectEnnemi();
-	void supprEnnemi(int index);
-	bool tourCheck();
-	void tourEnnemi(ennemi enemy);
+	void tourEnnemi(ennemi enemy, int & nb_joueurs_n);
 	vector<ennemi> getVectEnnemi();
 	~jeu();
 };

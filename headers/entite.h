@@ -26,4 +26,6 @@ public :
 	coords getSlot();
 	void setVectPort(coords slot_n);
 	vector<coords> getVectPort();
+	void setVivant(bool vivant_n);
+	bool getVivant();
 };

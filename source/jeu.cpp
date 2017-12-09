@@ -9,9 +9,10 @@
 
 jeu::jeu()
 {
+	carte mappe;
 }
 
-void jeu::lancerPartie()
+int jeu::lancerPartie()
 {
 	bool validation = false;
 	vector<string> vect_string;
@@ -173,14 +174,13 @@ void jeu::lancerPartie()
 	objet mousquet(3);
 	objet armure(4);
 
-	carte desert;
 	vector<pair<int, int>> vect_case;
 	pair<int, int> duo;
 
 	//Vecteur cases (x, y)
-	for (int i = 0; i < desert.getTaille(); i++)
+	for (int i = 0; i < mappe.getTaille(); i++)
 	{
-		for (int j = 0; j < desert.getTaille(); j++)
+		for (int j = 0; j < mappe.getTaille(); j++)
 		{
 			duo = pair<int, int>(i, j);
 			vect_case.push_back(duo);
@@ -194,7 +194,7 @@ void jeu::lancerPartie()
 	alea = rand() % (vect_case.size() + 1);
 
 	duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-	desert.setAireJeu(duo, (*itvo).getID());
+	mappe.setAireJeu(duo, (*itvo).getID());
 	vect_objet.erase(itvo);
 	vect_case.erase(vect_case.begin() + alea);
 
@@ -230,7 +230,7 @@ void jeu::lancerPartie()
 			alea = rand() % (vect_case.size() + 1);
 
 			duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-			desert.setAireJeu(duo, (*itvo).getID());
+			mappe.setAireJeu(duo, (*itvo).getID());
 
 			vect_objet.erase(itvo);
 			vect_case.erase(vect_case.begin() + alea);
@@ -238,15 +238,15 @@ void jeu::lancerPartie()
 	}
 	
 	//Test affichage map début partie
-	for (int i = 0; i < desert.getTaille(); i++)
+	for (int i = 0; i < mappe.getTaille(); i++)
 	{
-		for (int j = 0; j < desert.getTaille(); j++)
+		for (int j = 0; j < mappe.getTaille(); j++)
 		{
 			pair<int, int> posit (i,j);
 
-			if (desert.getAireJeu()[i][j] != 0)
+			if (mappe.getAireJeu()[i][j] != 0)
 			{
-				cout << desert.getAireJeu()[i][j] << " ";
+				cout << mappe.getAireJeu()[i][j] << " ";
 			}
 			else
 			{
@@ -271,7 +271,7 @@ void jeu::lancerPartie()
 		cout << "\n";
 	}
 
-	return;
+	return nb_joueurs;
 }
 
 void jeu::tourJoueur(joueur player)
@@ -279,88 +279,75 @@ void jeu::tourJoueur(joueur player)
 	player.deplacerJoueur();
 
 	//Ramassage auto
-	player.ramasser();
+	player.ramasser(mappe);
 
 	//Creusage auto
-	if (player.getPelle() == true)
+	if (player.getPellePoss() == true)
 	{
-		player.creuser();
+		player.ramasser(mappe);
 	}
 }
 
-void jeu::tourEnnemi(ennemi enemy)
+void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 {
 	//Déplacement ennemis
-	for (unsigned int i = 0; i < getVectEnnemi().size(); i++)
-	{
-		getVectEnnemi()[i].deplacerMob();
-	}
+	enemy.deplacerMob();
 
 	//Check joueurs à portée
-	for (unsigned int i = 0; i < getVectEnnemi().size(); i++)	//Pour chaque ennemi
+	for (unsigned int j = 0; j < enemy.getVectPort().size(); j++)	//Pour chaque case accessible
 	{
-		for (unsigned int j = 0; j < getVectEnnemi()[i].getVectPort().size(); j++)	//Pour chaque case accessible
+		for (unsigned int k = 0; k < getVectJoueur().size(); k++)	//Pour chaque joueur
 		{
-			for (unsigned int k = 0; k < getVectJoueur().size(); k++)	//Pour chaque joueur
-			{
-				if (getVectEnnemi()[i].getVectPort()[j].getValeurs() == getVectJoueur()[k].getSlot().getValeurs())	//Si joueur à portée
-				{				
-					//Scores de base:
-					//Corsaire: 0 ATT, 0 DEF
-					//Pirate: 100 ATT, 100 DEF
+			if (enemy.getVectPort()[j].getValeurs() == getVectJoueur()[k].getSlot().getValeurs())	//Si joueur à portée
+			{				
+				//Scores de base:
+				//Corsaire: 0 ATT, 0 DEF
+				//Pirate: 100 ATT, 100 DEF
 
-					//Règles scores:
-					//Mousquet = +150 ATT
-					//Armure = +91 DEF, ATT * 2
+				//Règles scores:
+				//Mousquet = +150 ATT
+				//Armure = +91 DEF, ATT * 2
 					
-					//Règle combat: pour avoir 100% de chances de tuer l'ennemi,
-					//le score d'ATT doit être au moins égal à 2 * la DEF adverse.
-					//Sous cette valeur, on a un pourcentage de chances de tuer seulement.
-					//Si ATT = DEF: 0% de chances.
-					//Si ATT = 1.5 * DEF: 50% de chances.
-					//etc...
+				//Règle combat: pour avoir 100% de chances de tuer l'ennemi,
+				//le score d'ATT doit être au moins égal à 2 * la DEF adverse.
+				//Sous cette valeur, on a un pourcentage de chances de tuer seulement.
+				//Si ATT = DEF: 0% de chances.
+				//Si ATT = 1.5 * DEF: 50% de chances.
+				//etc...
 
-					//Attaque joueur
-					double d_resATTJoueur = (getVectJoueur()[j].getScoreATT() * 100) / getVectEnnemi()[i].getScoreDEF();
-					d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
-					int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
+				//Attaque joueur
+				double d_resATTJoueur = (getVectJoueur()[j].getScoreATT() * 100) / enemy.getScoreDEF();
+				d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+				int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
 
-					int alea = rand() % 100 + 1;	//entre 1 et 100
+				int alea = rand() % 100 + 1;	//entre 1 et 100
 
-					if (alea < resATTJoueur)	//Coup fatal
-					{
-						supprEnnemi(i);
-						i--;		//Replacement i pour tenir compte de l'élément supprimé
-						goto nextEnnemi;
-					}
+				if (alea < resATTJoueur)	//Coup fatal
+				{
+					enemy.setVivant(false);	//Ennemi mort
+					return;
+				}
 
-					//Attaque pirate
-					double d_resATTEnnemi = (getVectEnnemi()[i].getScoreATT() * 100) / getVectJoueur()[j].getScoreDEF();
-					d_resATTEnnemi = ceil(d_resATTEnnemi - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
-					int resATTEnnemi = (int)d_resATTEnnemi;	//Conversion entier
+				//Attaque pirate
+				double d_resATTEnnemi = (enemy.getScoreATT() * 100) / getVectJoueur()[j].getScoreDEF();
+				d_resATTEnnemi = ceil(d_resATTEnnemi - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+				int resATTEnnemi = (int)d_resATTEnnemi;	//Conversion entier
 
-					alea = rand() % 100 + 1;	//entre 1 et 100
+				alea = rand() % 100 + 1;	//entre 1 et 100
 
-					if (alea < resATTEnnemi)	//Coup fatal
-					{
-						supprJoueur(k);
-						k--;		//Replacement k pour tenir compte de l'élément supprimé
-					}
+				if (alea < resATTEnnemi)	//Coup fatal
+				{
+					getVectJoueur()[j].setVivant(false);	//Joueur mort
+					nb_joueurs_n--;
 				}
 			}
 		}
-	nextEnnemi: continue;
 	}
 }
 
 vector<joueur> jeu::getVectJoueur()
 {
 	return vect_joueur;
-}
-
-void jeu::supprJoueur(int index)
-{
-	vect_joueur.erase(index);
 }
 
 vector<ennemi> jeu::getVectEnnemi()

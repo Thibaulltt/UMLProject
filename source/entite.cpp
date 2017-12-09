@@ -77,6 +77,16 @@ vector<coords> entite::getVectPort()
 	return vectPort;
 }
 
+void entite::setVivant(bool vivant_n)
+{
+	vivant = vivant_n;
+}
+
+bool entite::getVivant()
+{
+	return vivant;
+}
+
 entite::~entite()
 {
 

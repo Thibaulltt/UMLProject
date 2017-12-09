@@ -1,4 +1,5 @@
 ﻿#include "../headers/coords.h"
+#include "../headers/jeu.h"
 #include "../headers/joueur.h"
 
 //Fonctions classe joueur
@@ -7,9 +8,9 @@ joueur::joueur(string nom_n) : entite(nom_n)
 	this->equipement.resize(5);
 }
 
-bool joueur::getPelle()
+bool joueur::getPellePoss()
 {
-	return pelle;
+	return pellePoss;
 }
 
 void joueur::deplacerJoueur()
@@ -19,14 +20,14 @@ void joueur::deplacerJoueur()
 }
 
 
-void joueur::ramasser()
+void joueur::ramasser(carte map)
 {
 	//Vecteur contenant les objets de la carte
-	vector<vector<int>> aireJeu = game.getAireJeu();
+	vector<vector<int>> aireJeu = map.getAireJeu();
 
 	//Coordonnées du joueur
-	int x = this.slot.getValeurs().first;
-	int y = this.slot.getValeurs().second;
+	int x = slot.getValeurs().first;
+	int y = slot.getValeurs().second;
 
 
 	if (aireJeu[x][y] != 0) //Si la case n'est pas vides
@@ -34,9 +35,9 @@ void joueur::ramasser()
 		//Case tresor
 		if (aireJeu[x][y] == 1) //Si on est sur le tresor
 		{
-			if (this.pelle == true) //Si le joueur a une pelle
+			if (pellePoss == true) //Si le joueur a une pelle
 			{
-				tresor coffre;
+				tresor coffre(1);
 				this->equipement[1] = coffre;
 				aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
 				cout << "Vous avez trouvé le trésor ! " << endl;									////////// COUT A MODIFIER ////////////
@@ -46,16 +47,16 @@ void joueur::ramasser()
 		//Case pelle
 		if (aireJeu[x][y] == 2) //Si on est sur la pelle
 		{
-			if (this.pelle == false) //Si le joueur n'a pas de pelle
+			if (pellePoss == false) //Si le joueur n'a pas de pelle
 			{
-				this.pelle = true;
-				pelle shovel;	
+				pellePoss = true;
+				pelle shovel(2);
 				this->equipement[2] = shovel;
 				aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
 				cout << "Bravo ! Vous avez trouvé la pelle !" << endl;								////////// COUT A MODIFIER ////////////
 			}
 			
-			if (this.pelle == false) //Si le joueur a déjà une pelle
+			if (pellePoss == false) //Si le joueur a déjà une pelle
 			{
 				cout << "Vous avez trouvé une pelle, mais vous en avez déjà une." << endl;			////////// COUT A MODIFIER ////////////
 			}
@@ -64,16 +65,16 @@ void joueur::ramasser()
 		//Case mousquet
 		if (aireJeu[x][y] == 3) //Si on est sur une case avec mousquet
 		{
-			if (this.equipement[3] == NULL) //Si le joueur n'a pas de mousquet
+			if (equipement[3].getID() != 3) //Si le joueur n'a pas de mousquet
 			{
-				mousquet fusil;
-				this->equipement[3] = fusil;
+				mousquet fusil(3);
+				equipement[3] = fusil;
 				aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
 				this->scoreATT += fusil.getAttack(); //MaJ stat joueur
 				cout << "Bravo ! Vous avez trouvé le mousquet !" << endl;							////////// COUT A MODIFIER ////////////
 			}
 
-			if (this.equipement[3] != NULL) //Si le joueur a déjà un mousquet
+			if (equipement[3].getID() == 3 ) //Si le joueur a déjà un mousquet
 			{
 				cout << "Vous avez trouvé un mousquet, mais vous en avez déjà un." << endl;			////////// COUT A MODIFIER ////////////
 			}
@@ -82,17 +83,17 @@ void joueur::ramasser()
 		//Case armure
 		if (aireJeu[x][y] == 4) //Si on est sur une case avec armure
 		{
-			if (this.equipement[4] == NULL) //Si le joueur n'a pas d'armure
+			if (equipement[4].getID( ) != 4) //Si le joueur n'a pas d'armure
 			{
-				armure armor;
-				this->equipement[4] = armor;
+				armure armor(4);
+				equipement[4] = armor;
 				aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
 				this->scoreATT *= 2; //MaJ stat joueur (attaque)
 				this->scoreDEF += armor.getDefense(); //MaJ stat joueur (defense)
 				cout << "Bravo ! Vous avez trouvé l'armure !" << endl;								////////// COUT A MODIFIER ////////////
 			}
 
-			if (this.equipement[4] != NULL) //Si le joueur a déjà un mousquet
+			if (equipement[4].getID() == 4) //Si le joueur a déjà un mousquet
 			{
 				cout << "Vous avez trouvé une armure, mais vous en avez déjà une." << endl;			////////// COUT A MODIFIER ////////////
 			}
