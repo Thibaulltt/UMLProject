@@ -20,6 +20,8 @@ int main()
 	{
 		jeu current;
 
+		int nb_joueurs_g = 0;
+
 		//Présentation des règles à mettre ici
 
 		cout << "\n";
@@ -121,9 +123,9 @@ int main()
 
 		for (unsigned int i = 0; i < current.getVectEnnemi().size(); i++)	//pour chaque ennemi
 		{
-			current.tourEnnemi(current.getVectEnnemi()[i]);
+			current.tourEnnemi(current.getVectEnnemi()[i], nb_joueurs_g);
 
-			if (current.getVectJoueur().size() == 0)	//tous joueurs morts
+			if (nb_joueurs_g == 0)	//tous joueurs morts
 			{
 				return 0;	//Défaite
 			}

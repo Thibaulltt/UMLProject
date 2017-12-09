@@ -17,6 +17,7 @@ class jeu
 	vector<joueur> vect_joueur;
 	vector<objet> vect_objet;
 	vector<ennemi> vect_ennemi;
+	carte mappe;
 
 public:
 	jeu();
