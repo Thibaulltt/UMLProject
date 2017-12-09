@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
+#include <vector>
 #include "carte.h"
 #include "coords.h"
 #include "joueur.h"
@@ -37,6 +39,9 @@ namespace io {
 	int getTerminalWidth();
 	// prends la hauteur du terminal
 	int getTerminalHeight();
+	void ChangeTerminal(bool Ech);
+	void ResetTerminal();
+	char de();
 	//affiche la totalite de la carte
 	extern void afficherCarte(vector< vector<int> >);
 	// permet au joueur de choisir ou il va se deplacer
