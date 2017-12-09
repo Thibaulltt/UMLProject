@@ -1,4 +1,4 @@
-// Corps de toutes les fonctions du namespace IO
+﻿// Corps de toutes les fonctions du namespace IO
 
 #include <iostream>
 #include <fstream>

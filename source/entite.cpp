@@ -1,4 +1,4 @@
-#include "../headers/coords.h"
+ï»¿#include "../headers/coords.h"
 #include "../headers/entite.h"
 
 using namespace std;
@@ -48,9 +48,9 @@ void entite::setVectPort(coords slot_n)
 	pair<int, int> pair_c = slot_n.getValeurs();
 	coords dummy;
 
-	for (int i = 0; i < 8; i++)	//8 coordonnées à entrer
+	for (int i = 0; i < 8; i++)	//8 coordonnÃ©es Ã  entrer
 	{
-		for (int j = 1; j <= porteeATT; j++)	//Prolongement des coordonnées (= portée)
+		for (int j = 1; j <= porteeATT; j++)	//Prolongement des coordonnÃ©es (= portÃ©e)
 		{
 			dummy.setValeurs(pair<int, int>(pair_c.first - (1 * i), pair_c.second - (1 * i)));	//(x-i, y-1)
 			vectPort.push_back(dummy);

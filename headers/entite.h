@@ -1,8 +1,8 @@
+#pragma once
+
 #include <vector>
 
 #include "../headers/coords.h"
-
-#pragma once
 
 class entite
 {

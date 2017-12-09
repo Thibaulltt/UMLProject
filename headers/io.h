@@ -1,4 +1,4 @@
-// Ici, on definit le namespace IO, qui sert a
+﻿// Ici, on definit le namespace IO, qui sert a
 // se charger de toutes les operations d'entree
 // sortie du programme.
 
@@ -49,4 +49,4 @@ namespace io {
 	vector< pair<coords,bool> > genererMouvements(carte, pair<int,int>);
 	// verifie que le terminal est bien configure avant de commencer le programme
 	bool setup();
-};
+}
