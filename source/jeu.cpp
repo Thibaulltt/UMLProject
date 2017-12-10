@@ -155,7 +155,7 @@ int jeu::lancerPartie()
 	//Création des ennemis
 	vector<ennemi> vect_ennemi;
 	ennemi boucanier("Boucanier");
-	ennemi flibustier("flib");
+	ennemi flibustier("Flibustier");
 
 	vect_ennemi.push_back(boucanier);
 	vect_ennemi.push_back(flibustier);
