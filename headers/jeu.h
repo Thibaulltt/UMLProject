@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include "../headers/ennemi.h"
 #include "../headers/joueur.h"
@@ -26,6 +27,7 @@ public:
 	vector<joueur> getVectJoueur();
 	void tourEnnemi(ennemi enemy, int & nb_joueurs_n);
 	vector<ennemi> getVectEnnemi();
+	void sauvegarderPartie();
 	~jeu();
 };
 

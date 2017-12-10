@@ -90,6 +90,7 @@ int main()
 				case 1:						//Nouvelle partie
 				{
 					current.lancerPartie();
+					current.sauvegarderPartie();
 					break;
 				}
 				case 2:						//Chargement de partie
@@ -132,6 +133,9 @@ int main()
 		}
 	///Partie[end]
 	}
+
+
+
 
 	return 0;
 }

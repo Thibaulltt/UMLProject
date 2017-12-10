@@ -12,4 +12,5 @@ public:
 	ennemi(string nom_n);
 	void attaquer();
 	void deplacerMob();
+	string ennemiString();
 };
