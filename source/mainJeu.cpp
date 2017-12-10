@@ -110,6 +110,7 @@ int main()
 		}
 	///Choix action [end]
 
+
 	///Partie[beg]
 		for (unsigned int i = 0; i < current.getVectJoueur().size(); i++)	//pour chaque joueur
 		{
