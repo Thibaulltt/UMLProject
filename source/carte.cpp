@@ -21,6 +21,22 @@ carte::carte()
 	}
 }
 
+string carte::carteString()
+{
+	string stringRetour = "";
+
+	for (int i = 0; i < aireJeu.size(); i++)
+	{
+		for (int j = 0; j < aireJeu[i].size(); j++)
+		{
+			stringRetour += to_string(aireJeu[i][j]);
+		}
+	}
+
+	return stringRetour;
+}
+
+
 int carte::getTaille()
 {
 	return taille;

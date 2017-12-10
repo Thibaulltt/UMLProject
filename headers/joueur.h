@@ -30,5 +30,6 @@ public:
 	void deplacerJoueur();
 	void ramasser(carte map);
 	bool getVictoire();
+	string joueurString();
 
 };
