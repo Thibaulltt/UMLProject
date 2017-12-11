@@ -101,6 +101,41 @@ void joueur::ramasser(carte map)
 	}
 }
 
+
+string joueur::joueurString() //Format retour : nom / idObjet1 : idObjet2 : idObjet3 : idObjet4 / coordX : coordY / boolVivant : boolPossPelle / porteeDEP : scoreATT : scoreDEF
+{
+	string stringRetour = "";
+
+	//Ajout vecteur objet 
+	string idObjet = "";
+	for (int i = 1; i < equipement.size(); i++)
+	{
+		if (i != (equipement.size()) - 1)
+		{
+			idObjet = idObjet + to_string(equipement[i].getID()) + ":";
+		}
+		else
+		{
+			idObjet = idObjet + to_string(equipement[i].getID());
+		}
+	}
+
+	//Ajout coordonnées
+	string coordonnees = to_string(slot.getValeurs().first) + ":" + to_string(slot.getValeurs().second);
+
+	//Ajout bool
+	string booleens = to_string(vivant) + ":" + to_string(pellePoss);
+
+	//Ajout stats
+	string stats = to_string(porteeATT) + ":" + to_string(scoreATT) + ":" + to_string(scoreDEF);
+
+	//String final
+	stringRetour = nom + "/" + idObjet + "/" + coordonnees + "/" + booleens + "/" + stats;
+
+
+	return stringRetour;
+}
+
 bool joueur::getVictoire()
 {
 	return victoire;
