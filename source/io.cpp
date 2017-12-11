@@ -11,6 +11,7 @@
 // Taille de la carte
 #define MAX_X_MAP 12
 #define MAX_Y_MAP 12
+#define TERM_MESSAGE_HEIGHT 5
 // Taille requise du terminal
 #define TERM_MIN_WIDTH MAX_X_MAP+2
 #define TERM_MIN_HEIGHT MAX_Y_MAP+5
@@ -21,6 +22,7 @@
 #define TERM_MOVE_CURSOR_DOWN(s) printf("\033[%iB",(s))
 #define TERM_MOVE_CURSOR_RIGHT(s) printf("\033[%iC",(s))
 #define TERM_MOVE_CURSOR_LEFT(s) printf("\033[%iD",(s))
+#define TERM_MOVE_CURSOR_GOTO(x,y) printf("\033[%i;%iH",(y),(x))
 // Sequences d'echappement pour le terminal
 #define TERM_COLOR_TEXT_BLANK "\033[0m"
 #define TERM_COLOR_TEXT_RED "\033[91m"
@@ -92,6 +94,31 @@ namespace io {
 		}
 	}
 
+	void ChangeTerminal(bool Ech)
+	{
+		tcgetattr(0, &before);			/* Grab old terminal i/o settings */
+		after = before;				/* Make new settings same as old settings */
+		after.c_lflag &= ~ICANON;		/* Disable buffered i/o */
+		after.c_lflag &= Ech==1 ? ECHO:~ECHO;	/* Set echo mode */
+		tcsetattr(0, TCSANOW, &after);		/* Use these new terminal i/o settings now */
+	}
+
+	void ResetTerminal()
+	{
+		tcsetattr(0, TCSANOW, &before);		// Restore old terminal I/O settings
+	}
+
+	char de()
+	{
+		char ch;				// Return character
+		ChangeTerminal();
+		ch = getchar();				// getchar() ne prends qu'un caractère
+		ResetTerminal();
+		if (ch == 27)
+			throw 27;
+		return ch;
+	}
+
 	void choisirCase(carte gameMap, coords &posJ){
 		//a faire dans joueur.cpp, fonction deplacerJoueur :
 		/*
@@ -106,15 +133,18 @@ namespace io {
 
 		prendre coordonnees actuelles
 		verifier ou il peut aller (en regardant coordonnees + taille carte)
+		  = fonction genererMouvements()
 		proposer les bons prompt sur le message de bas d'ecran
 		mettre a jour le message de bas d'ecran
 		afficher une croix ou le joueur peut aller
 		mettre a jour la carte
+		  = fonction afficherMouvements()
 		faire :
 			- attendre entree clavier
 			- quand entree clavier, verifier que on peut l'accepter (joueur peut se deplacer la)
 			- mettre a jour affichage
 			- mettre a jour coordonnees choisies
+			  = fonction updateMouvements()
 		tant que entree != touche valider
 		une fois la case choisie :
 		mettre x,y dans posJ
@@ -158,11 +188,56 @@ namespace io {
 		// Verifie d'abord la taille du terminal
 		int tempTermWidth = getTerminalWidth();
 		int tempTermHeight = getTerminalHeight();
+		// Tant que le terminal est pas de la bonne taille
 		while (tempTermWidth < io::TermWidth || tempTermHeight < io::TermHeight) {
 			cout << TERM_ERASE_SCREEN;
 			cout << "Taille non conforme. Veillez a ce que votre terminal soit d'une taille superieure ou egale a ";
 			cout << TERM_MIN_WIDTH << "x" << TERM_MIN_HEIGHT;
 			cout << ".\nAppuyez sur une touche une fois votre terminal redimensionne." << endl;
 		}
+		return true;
+	}
+
+	void afficherCarte(carte gameMap) {
+		io::TermHeight = getTerminalHeight();
+		io::TermWidth = getTerminalWidth();
+		int leftMarginMap = (io::TermWidth - MAX_X_MAP) / 2;
+		int upperMarginMap = (io::TermHeight - MAX_Y_MAP - TERM_MESSAGE_HEIGHT) / 2;
+		if (upperMarginMap != 0) {
+			cout << std::string(upperMarginMap, '\n');
+		}
+		for (int i = 0; i < MAX_Y_MAP; i++) {
+			cout << std::string(leftMarginMap, ' ');
+			for (int j = 0; j < MAX_X_MAP; j++) {
+				int contenuCase = gameMap.getCase(std::make_pair(i,j));
+				switch (contenuCase) {
+					case 1:
+						cout << TERM_COLOR_TEXT_BLUE << 'X' << TERM_COLOR_TEXT_BLANK;
+						break;
+					case 2:
+						cout << TERM_COLOR_TEXT_GREEN << 'Y' << TERM_COLOR_TEXT_BLANK;
+						break;
+					case 3:
+						cout << TERM_COLOR_TEXT_MAGENTA << 'O' << TERM_COLOR_TEXT_BLANK;
+						break;
+					case 4:
+						cout << TERM_COLOR_TEXT_RED << 'A' << TERM_COLOR_TEXT_BLANK;
+						break;
+					default:
+						cout << ' ';
+						break;
+				}
+			}
+			cout << endl;
+		}
+		if (upperMarginMap != 0) {
+			cout << std::string(upperMarginMap, '\n');
+		}
+		afficherMessage();
+		io::margesCarte.setValeurs(std::make_pair(leftMarginMap+1,upperMarginMap+1));
+	} 
+
+	void afficherMessage() {
+		return;
 	}
 }
