@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <termios.h>
 #include "carte.h"
 #include "coords.h"
 #include "joueur.h"
@@ -48,7 +49,7 @@ namespace io {
 	// permet au joueur de choisir ou il va se deplacer
 	extern void choisirCase(carte, coords&);
 	// affiche un message dans la baniere en bas du jeu
-	extern void afficherMessage(int, string);
+	extern void updateMessage(int, string);
 	extern void afficherMessage();
 	// contient case a mettre a jour
 	extern void updateCarte(coords);

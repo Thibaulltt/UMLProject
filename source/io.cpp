@@ -2,9 +2,13 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <utility>
 #include <stdio.h>
+#include <math.h>
 #include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "../headers/io.h"
 #include "../headers/carte.h"
 
@@ -12,9 +16,10 @@
 #define MAX_X_MAP 12
 #define MAX_Y_MAP 12
 #define TERM_MESSAGE_HEIGHT 5
+#define TERM_MESSAGE_LINES_AVAILABLE TERM_MESSAGE_HEIGHT-2
 // Taille requise du terminal
 #define TERM_MIN_WIDTH MAX_X_MAP+2
-#define TERM_MIN_HEIGHT MAX_Y_MAP+5
+#define TERM_MIN_HEIGHT MAX_Y_MAP+TERM_MESSAGE_HEIGHT
 // Fonctions emettant un code echappement terminal
 #define TERM_ERASE_LINE printf("\033[K")
 #define TERM_ERASE_SCREEN printf("\033[2J")
@@ -22,8 +27,8 @@
 #define TERM_MOVE_CURSOR_DOWN(s) printf("\033[%iB",(s))
 #define TERM_MOVE_CURSOR_RIGHT(s) printf("\033[%iC",(s))
 #define TERM_MOVE_CURSOR_LEFT(s) printf("\033[%iD",(s))
-#define TERM_MOVE_CURSOR_GOTO(x,y) printf("\033[%i;%iH",(y),(x))
-// Sequences d'echappement pour le terminal
+#define TERM_MOVE_CURSOR_GOTO(x,y) printf("\033[%i;%if",(x),(y))
+// Sequences d'echappement pour la couleur dans le terminal
 #define TERM_COLOR_TEXT_BLANK "\033[0m"
 #define TERM_COLOR_TEXT_RED "\033[91m"
 #define TERM_COLOR_TEXT_GREEN "\033[92m"
@@ -37,6 +42,7 @@ namespace io {
 
 	int TermHeight = 0;
 	int TermWidth = 0;
+	coords margesCarte;
 
 	int getTerminalWidth()
 	{
@@ -238,6 +244,67 @@ namespace io {
 	} 
 
 	void afficherMessage() {
-		return;
+		TERM_MOVE_CURSOR_GOTO(getTerminalHeight()-TERM_MESSAGE_HEIGHT, 1);
+
+		cout << TERM_COLOR_TEXT_BLUE << std::string(getTerminalWidth(), '*') << TERM_COLOR_TEXT_BLANK << endl;
+		for (int i = 0; i < TERM_MESSAGE_HEIGHT-2; i++) {
+			cout << TERM_COLOR_TEXT_BLUE << '*' << std::string(getTerminalWidth()-2, ' ') << '*' << endl;
+		}
+		cout << TERM_COLOR_TEXT_BLUE << std::string(getTerminalWidth(), '*') << TERM_COLOR_TEXT_BLANK;
+
+		TERM_MOVE_CURSOR_GOTO(io::margesCarte.getValeurs().first+1,io::margesCarte.getValeurs().second+1);
+	}
+
+	void updateMessage(int selectedLine, std::string desiredMessage) {
+		// On va au message
+		TERM_MOVE_CURSOR_GOTO(getTerminalHeight()-TERM_MESSAGE_HEIGHT + selectedLine + 1, 1);
+		
+		int stringPosition = 0;
+		int maxTextOnLine = getTerminalWidth()-4;
+
+		// dont ask why, it just works™
+		int ttemp = TERM_MESSAGE_LINES_AVAILABLE;
+		double temp = (double)TERM_MESSAGE_LINES_AVAILABLE;
+		
+		// Donne le nombre de lignes necessaires pour afficher TOUT le message
+		double numberLinesMessage = floor(((double)desiredMessage.length() / (double)maxTextOnLine)+1.0);
+		// Donne le nombre d' "ecrans" necessaires pour afficher TOUT le message
+		double quotientLinesMessage = numberLinesMessage / temp;
+		// eh je sais pas putain
+		int remainderLinesMessage = int(floor(numberLinesMessage)) % ttemp;
+
+		// faut faire des substrings
+		// et puis
+		// reste a afficher le message
+		for (int i = 0; i < int(floor(quotientLinesMessage+1.0)); i++) {
+			for (int j = 0; j < numberLinesMessage; j++) {
+				// On essaie d'afficher le message
+				std::string arrgh;
+				try {
+					arrgh = desiredMessage.substr(stringPosition, maxTextOnLine);
+				} catch (...) {
+					if (stringPosition <= desiredMessage.length()) {
+						arrgh = desiredMessage.substr(stringPosition);
+					} else {
+						arrgh = "";
+					}
+				}
+				int t = maxTextOnLine - arrgh.length();
+				// On affiche le debut du truc
+				cout << TERM_COLOR_TEXT_BLUE << '*' << TERM_COLOR_TEXT_BLANK << ' ' << std::string((int)t/2, ' ');
+				// On affiche une partie du message
+				cout << arrgh;
+				// On affiche la fin du truc
+				cout << std::string((int)(t/2+t%2), ' ') << ' ' << TERM_COLOR_TEXT_BLUE << '*' << TERM_COLOR_TEXT_BLANK;
+				// On remet le curseur au debut de la ligne
+				TERM_MOVE_CURSOR_GOTO(getTerminalHeight()-TERM_MESSAGE_HEIGHT+2+j, 1);
+				// On incremente la position de depart de la string
+				stringPosition += maxTextOnLine;
+			}
+			sleep(1);
+			// On remet le curseur dans le coin du message
+			TERM_MOVE_CURSOR_GOTO(getTerminalHeight()-TERM_MESSAGE_HEIGHT + 1, 1);
+		}
+		TERM_MOVE_CURSOR_GOTO(io::margesCarte.getValeurs().first+1,io::margesCarte.getValeurs().second+1);
 	}
 }
