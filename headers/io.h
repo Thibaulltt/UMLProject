@@ -28,6 +28,7 @@ namespace io {
 	extern vector< pair<ennemi,coords> > positionEnnemi;
 	extern int TermWidth;
 	extern int TermHeight;
+	static struct termios before, after;
 
 	//////////////////////////////////
 	//////////////////////////////////
@@ -39,7 +40,7 @@ namespace io {
 	int getTerminalWidth();
 	// prends la hauteur du terminal
 	int getTerminalHeight();
-	void ChangeTerminal(bool Ech);
+	void ChangeTerminal(bool Ech = 0);
 	void ResetTerminal();
 	char de();
 	//affiche la totalite de la carte
@@ -48,6 +49,7 @@ namespace io {
 	extern void choisirCase(carte, coords&);
 	// affiche un message dans la baniere en bas du jeu
 	extern void afficherMessage(int, string);
+	extern void afficherMessage();
 	// contient case a mettre a jour
 	extern void updateCarte(coords);
 	// genere les mouvements possibles sur une case passee en argument

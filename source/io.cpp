@@ -11,6 +11,7 @@
 // Taille de la carte
 #define MAX_X_MAP 12
 #define MAX_Y_MAP 12
+#define TERM_MESSAGE_HEIGHT 5
 // Taille requise du terminal
 #define TERM_MIN_WIDTH MAX_X_MAP+2
 #define TERM_MIN_HEIGHT MAX_Y_MAP+5
@@ -194,5 +195,49 @@ namespace io {
 			cout << TERM_MIN_WIDTH << "x" << TERM_MIN_HEIGHT;
 			cout << ".\nAppuyez sur une touche une fois votre terminal redimensionne." << endl;
 		}
+		return true;
+	}
+
+	void afficherCarte(carte gameMap) {
+		io::TermHeight = getTerminalHeight();
+		io::TermWidth = getTerminalWidth();
+		int leftMarginMap = (io::TermWidth - MAX_X_MAP) / 2;
+		int upperMarginMap = (io::TermHeight - MAX_Y_MAP - TERM_MESSAGE_HEIGHT) / 2;
+		if (upperMarginMap != 0) {
+			cout << std::string(upperMarginMap, '\n');
+		}
+		for (int i = 0; i < MAX_Y_MAP; i++) {
+			cout << std::string(leftMarginMap, ' ');
+			for (int j = 0; j < MAX_X_MAP; j++) {
+				int contenuCase = gameMap.getCase(std::make_pair(i,j));
+				switch (contenuCase) {
+					case 1:
+						cout << TERM_COLOR_TEXT_BLUE << 'X' << TERM_COLOR_TEXT_BLANK;
+						break;
+					case 2:
+						cout << TERM_COLOR_TEXT_GREEN << 'Y' << TERM_COLOR_TEXT_BLANK;
+						break;
+					case 3:
+						cout << TERM_COLOR_TEXT_MAGENTA << 'O' << TERM_COLOR_TEXT_BLANK;
+						break;
+					case 4:
+						cout << TERM_COLOR_TEXT_RED << 'A' << TERM_COLOR_TEXT_BLANK;
+						break;
+					default:
+						cout << ' ';
+						break;
+				}
+			}
+			cout << endl;
+		}
+		if (upperMarginMap != 0) {
+			cout << std::string(upperMarginMap, '\n');
+		}
+		afficherMessage();
+		io::margesCarte.setValeurs(std::make_pair(leftMarginMap+1,upperMarginMap+1));
+	} 
+
+	void afficherMessage() {
+		return;
 	}
 }
