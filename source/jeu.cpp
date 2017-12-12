@@ -349,6 +349,78 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 	}
 }
 
+void jeu::sauvegarderPartie()
+{
+	ifstream fichierSaveL("../saves.txt", ios::in);
+
+	//ID save
+	int nbLignes = 1;
+	string ligne;
+	while (getline(fichierSaveL, ligne))
+	{
+		nbLignes++;
+	}
+	ligne = to_string(nbLignes);
+	fichierSaveL.close();
+
+	ofstream fichierSave("../saves.txt", ios::app);
+
+
+	//Joueurs
+	string allPlayers = "";
+	for (int i = 0; i < vect_joueur.size(); i++)
+	{
+		if (vect_joueur.size() >= 2)
+		{
+			if (i != (vect_joueur.size()) - 1)
+			{
+				allPlayers = allPlayers + vect_joueur[i].joueurString() + "§";
+			}
+			else
+			{
+				allPlayers = allPlayers + vect_joueur[i].joueurString();
+			}
+		}
+
+		else
+		{
+			allPlayers = vect_joueur[0].joueurString();
+		}
+		
+	}
+
+	//Ennemis
+	string allEnemys = "";
+	for (int j = 0; j = vect_ennemi.size(); j++)
+	{
+		if (j != (vect_ennemi.size()) - 1)
+		{
+			allEnemys = allEnemys + vect_ennemi[j].ennemiString() + "§";
+		}
+		else
+		{
+			allEnemys = allEnemys + vect_ennemi[j].ennemiString();
+		}
+	}
+
+	//Carte
+	string strMap = mappe.carteString();
+
+	//String final
+	string finalString = ligne + "|" + strMap + "|" + allPlayers + "|" + allEnemys + "\n"; //Format final : IDsauvegarde | carte | joueur1 § joueur2 | ennemi1 § ennemi2 
+
+	if (fichierSave)
+	{
+		fichierSave << finalString; //Ecriture
+		fichierSave.close();
+	}
+
+	else
+	{
+		cout << "Impossible d'ouvrir le fichier de sauvegarde." << endl;								///////////// COUT A CHANGER //////////////
+	}
+}
+
 vector<joueur> jeu::getVectJoueur()
 {
 	return vect_joueur;
