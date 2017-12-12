@@ -1,6 +1,7 @@
 ﻿#include <map>
 #include <math.h>
 #include <vector>
+#include <unistd.h>
 
 #include "../headers/carte.h"
 #include "../headers/ennemi.h"
@@ -237,45 +238,17 @@ int jeu::lancerPartie()
 	}
 	
 	//Test affichage map début partie
-	for (int i = 0; i < mappe.getTaille(); i++)
-	{
-		for (int j = 0; j < mappe.getTaille(); j++)
-		{
-			pair<int, int> posit (i,j);
+	io::afficherCarte(mappe);
 
-			if (mappe.getAireJeu()[i][j] != 0)
-			{
-				cout << mappe.getAireJeu()[i][j] << " ";
-			}
-			else
-			{
-				bool joueur = false;
-
-				for (unsigned int k = 0; k < vect_joueur.size(); k++)
-				{
-					if (posit == vect_joueur[k].getSlot().getValeurs())
-					{
-						joueur = true;
-						cout << "j ";
-						break;
-					}
-				}
-
-				if (joueur == false)
-				{
-					cout << ". ";
-				}
-			}
-		}
-		cout << "\n";
-	}
+	cout.flush();
+	sleep(10);
 
 	return nb_joueurs;
 }
 
 void jeu::tourJoueur(joueur player)
 {
-	player.deplacerJoueur();
+	player.deplacerJoueur(mappe);
 
 	//Ramassage auto
 	player.ramasser(mappe);
@@ -391,7 +364,7 @@ void jeu::sauvegarderPartie()
 
 	//Ennemis
 	string allEnemys = "";
-	for (int j = 0; j = vect_ennemi.size(); j++)
+	for (int j = 0; j == vect_ennemi.size(); j++)
 	{
 		if (j != (vect_ennemi.size()) - 1)
 		{

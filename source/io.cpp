@@ -15,12 +15,14 @@
 // Taille de la carte
 #define MAX_X_MAP 12
 #define MAX_Y_MAP 12
+// Infos relatives au bandereau de message
 #define TERM_MESSAGE_HEIGHT 5
 #define TERM_MESSAGE_LINES_AVAILABLE TERM_MESSAGE_HEIGHT-2
+#define TERM_MESSAGE_REFRESH_DELAY 4
 // Taille requise du terminal
 #define TERM_MIN_WIDTH MAX_X_MAP+2
 #define TERM_MIN_HEIGHT MAX_Y_MAP+TERM_MESSAGE_HEIGHT
-// Fonctions emettant un code echappement terminal
+// Fonctions emettant un code echappement terminal pour le mouvement curseur
 #define TERM_ERASE_LINE printf("\033[K")
 #define TERM_ERASE_SCREEN printf("\033[2J")
 #define TERM_MOVE_CURSOR_UP(s) printf("\033[%iA",(s))
@@ -205,6 +207,8 @@ namespace io {
 	}
 
 	void afficherCarte(carte gameMap) {
+		TERM_ERASE_SCREEN;
+
 		io::TermHeight = getTerminalHeight();
 		io::TermWidth = getTerminalWidth();
 		int leftMarginMap = (io::TermWidth - MAX_X_MAP) / 2;
@@ -241,6 +245,15 @@ namespace io {
 		}
 		afficherMessage();
 		io::margesCarte.setValeurs(std::make_pair(leftMarginMap+1,upperMarginMap+1));
+
+		// Tests ...
+		std::stringstream launchMessage;
+		launchMessage << "Voila les coordonnees carte : (" << margesCarte.getValeurs().first;
+		launchMessage << "," << margesCarte.getValeurs().second << ").";
+		launchMessage << launchMessage.str();
+		launchMessage << launchMessage.str();
+		launchMessage << launchMessage.str();
+		updateMessage(0,launchMessage.str());
 	} 
 
 	void afficherMessage() {
@@ -263,6 +276,7 @@ namespace io {
 		int maxTextOnLine = getTerminalWidth()-4;
 
 		// dont ask why, it just works™
+		int timetemp = TERM_MESSAGE_REFRESH_DELAY;
 		int ttemp = TERM_MESSAGE_LINES_AVAILABLE;
 		double temp = (double)TERM_MESSAGE_LINES_AVAILABLE;
 		
@@ -301,7 +315,10 @@ namespace io {
 				// On incremente la position de depart de la string
 				stringPosition += maxTextOnLine;
 			}
-			sleep(1);
+			cout.flush();
+			// On attends pour changer de message, pour que l'utilisateur 
+			// puisse lire un peu ce qu'il y a ecrit
+			sleep(TERM_MESSAGE_REFRESH_DELAY);
 			// On remet le curseur dans le coin du message
 			TERM_MOVE_CURSOR_GOTO(getTerminalHeight()-TERM_MESSAGE_HEIGHT + 1, 1);
 		}

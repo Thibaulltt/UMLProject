@@ -1,6 +1,7 @@
 ﻿#include "../headers/coords.h"
 #include "../headers/jeu.h"
 #include "../headers/joueur.h"
+#include "../headers/io.h"
 
 //Fonctions classe joueur
 joueur::joueur(string nom_n) : entite(nom_n)
@@ -13,10 +14,12 @@ bool joueur::getPellePoss()
 	return pellePoss;
 }
 
-void joueur::deplacerJoueur()
+void joueur::deplacerJoueur(carte map)
 {
 	//mettre à jour nouvelle position (slot)
 	//en utilisant setSlot() et la position précédente + direction de déplacement
+	// Ici, on utilise la valeur slot dans entite.h pour modifier la case joueur
+	io::choisirCase(map, slot);
 }
 
 

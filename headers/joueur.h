@@ -11,8 +11,7 @@
 #include "../headers/pelle.h"
 #include "../headers/objet.h"
 #include "../headers/tresor.h"
-
-
+#include "../headers/io.h"
 
 using namespace std;
 
@@ -27,7 +26,7 @@ public:
 	~joueur();
 
 	bool getPellePoss();
-	void deplacerJoueur();
+	void deplacerJoueur(carte map);
 	void ramasser(carte map);
 	bool getVictoire();
 	string joueurString();
