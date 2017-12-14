@@ -1,4 +1,7 @@
-﻿// Ici, on definit le namespace IO, qui sert a
+﻿#ifndef IO_H
+#define IO_H
+#pragma once 
+// Ici, on definit le namespace IO, qui sert a
 // se charger de toutes les operations d'entree
 // sortie du programme.
 
@@ -45,7 +48,7 @@ namespace io {
 	void ResetTerminal();
 	char de();
 	//affiche la totalite de la carte
-	extern void afficherCarte(vector< vector<int> >);
+	extern void afficherCarte(carte);
 	// permet au joueur de choisir ou il va se deplacer
 	extern void choisirCase(carte, coords&);
 	// affiche un message dans la baniere en bas du jeu
@@ -58,3 +61,4 @@ namespace io {
 	// verifie que le terminal est bien configure avant de commencer le programme
 	bool setup();
 }
+#endif

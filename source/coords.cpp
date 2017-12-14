@@ -23,6 +23,13 @@ void coords::setValeurs(pair<int, int> valeurs_n)
 	valeurs.second = valeurs_n.second;
 }
 
+void coords::setValeurs(coords valeurs_n)
+{
+	pair<int,int> bufferValue = valeurs_n.getValeurs();
+	valeurs.first = bufferValue.first;
+	valeurs.second = bufferValue.second;
+}
+
 pair<int, int> coords::getValeurs()
 {
 	return valeurs;

@@ -12,5 +12,6 @@ public:
 	coords();
 	~coords();
 	void setValeurs(pair<int, int> valeurs_n);
+	void setValeurs(coords valeurs_n);
 	pair<int, int> getValeurs();
 };
