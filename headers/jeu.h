@@ -19,6 +19,7 @@ class jeu
 	vector<objet> vect_objet;
 	vector<ennemi> vect_ennemi;
 	carte mappe;
+	vector<string> input_Interdit();
 
 public:
 	jeu();

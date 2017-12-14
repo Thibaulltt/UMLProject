@@ -1,2 +1,5 @@
 
 source/Dig_or_die
+*.o
+*.exe
+source/Dig_or_die
