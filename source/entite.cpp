@@ -71,7 +71,7 @@ void entite::setVectPort(coords slot_n, int tailleMap) //[A DEPLACER DANS ENTITE
 
 	for (int i = sup_g.first; i <= inf_d.first; i++)
 	{
-		for (int j = sup_g.second; j < inf_d.second; j++)
+		for (int j = sup_g.second; j <= inf_d.second; j++)
 		{
 			if (i < 0 || j < 0 || i > tailleMap || j > tailleMap)	//hors map
 			{
