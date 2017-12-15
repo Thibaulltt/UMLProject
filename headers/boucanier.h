@@ -4,6 +4,7 @@
 
 class boucanier : public ennemi
 {
-public:
-	boucanier(string nom_n);
+		public:
+			boucanier(string nom_n);
+			virtual string getType() override;
 };

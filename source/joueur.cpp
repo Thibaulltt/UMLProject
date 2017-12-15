@@ -148,3 +148,7 @@ joueur::~joueur()
 {
 
 }
+
+string joueur::getType() {
+	return std::string("joueur");
+}

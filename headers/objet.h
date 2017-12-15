@@ -1,13 +1,13 @@
-﻿
-#pragma once
+﻿#pragma once
 
-class objet
+#include <string>
+
+#include "../headers/objetCarte.h"
+
+class objet : public objetCarte
 {
-	int ID;
-
-public:
-	objet();
-	objet(int ID_n);
-	int getID();
-	~objet();
+	public:
+		objet();
+		~objet();
+		virtual string getType() override;
 };

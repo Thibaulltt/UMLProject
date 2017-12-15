@@ -4,6 +4,7 @@
 
 class tresor : public objet
 {
-public:
-	tresor(int ID_n);
+	public:
+		tresor();
+		virtual string getType() override;
 };

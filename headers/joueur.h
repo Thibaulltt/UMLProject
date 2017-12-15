@@ -30,5 +30,6 @@ public:
 	void ramasser(carte map);
 	bool getVictoire();
 	string joueurString();
+	virtual string getType() override;
 
 };

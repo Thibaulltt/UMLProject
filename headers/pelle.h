@@ -4,6 +4,7 @@
 
 class pelle : public objet
 {
-public:
-	pelle(int ID_n);
+	public:
+		pelle();
+		virtual string getType() override;
 };

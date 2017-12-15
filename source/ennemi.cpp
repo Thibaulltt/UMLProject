@@ -13,7 +13,7 @@ string ennemi::ennemiString() //Format retour : nom / coordX : coordY / boolViva
 	string stringRetour = "";
 
 	//Ajout coordonnées
-	string coordonnees = to_string(slot.getValeurs().first) + ":" + to_string(slot.getValeurs().second);
+	string coordonnees = to_string(getCoordonnees().first) + ":" + to_string(getCoordonnees().second);
 
 	//Ajout bool
 	string booleens = to_string(vivant);
@@ -37,4 +37,8 @@ void ennemi::attaquer()
 void ennemi::deplacerMob()
 {
 
+}
+
+string ennemi::getType() {
+	return std::string("ennemi");
 }

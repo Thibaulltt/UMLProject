@@ -4,6 +4,7 @@
 
 class armure : public objetCombat
 {
-public:
-	armure(int ID_n);
+	public:
+		armure();
+		virtual string getType() override;
 };
