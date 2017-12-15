@@ -22,7 +22,13 @@ int main()
 
 		int nb_joueurs_g = 0;
 
-		//Présentation des règles à mettre ici
+		cout << "\nDig or Die est un jeu dans lequel vous devez trouver des objets\n";
+		cout << "et combattre d'impitoyables pirates afin de vous frayer un chemin jusqu'au trésor.\n";
+		cout << "Mais attention! Vous devrez trouver la précieuse pelle afin d'avoir une chance de le trouver!\n";
+		cout << "\n Appuyez sur n'importe quelle touche pour continuer...\n";
+
+		string cont;
+		getline(cin, cont);
 
 		cout << "\n";
 		cout << "                                Bienvenue\n";
