@@ -13,3 +13,6 @@ obj_carte: source/carte.cpp headers/carte.h
 	@echo "Compiling $@ ..."
 	@g++ -c $< -o objects/carte.o -std=c++11
 	@echo "Compilation of $@ done."
+
+all: source/$(wildcard*.cpp)
+	cd source && g++ -std=c++11 -Wall -pedantic armure.cpp boucanier.cpp carte.cpp coords.cpp ennemi.cpp entite.cpp flibustier.cpp io.cpp jeu.cpp joueur.cpp mainJeu.cpp mousquet.cpp objet.cpp objetCombat.cpp pelle.cpp tresor.cpp -o ../Dig_or_die

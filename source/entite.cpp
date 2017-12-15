@@ -1,4 +1,6 @@
-﻿#include "../headers/coords.h"
+﻿#include <math.h>
+
+#include "../headers/coords.h"
 #include "../headers/entite.h"
 
 using namespace std;
@@ -41,12 +43,12 @@ coords entite::getSlot()
 	return slot;
 }
 
-void entite::setVectPort(coords slot_n, int tailleMap)
+void entite::setVectPort(coords slot_n, int tailleMap) //[A DEPLACER DANS ENTITE CONCERNEE]
 {
 	pair<int, int> pair_c = slot_n.getValeurs();
 	coords dummy;
 
-	/*Refonte fonctionnement portée [A DEPLACER DANS ENTITE CONCERNEE]
+	/*Refonte fonctionnement portée
 	Désormais, on prend la stat de portée d'attaque, et on entre 2 points:
 	- le point supérieur gauche (i-porteeATT, j-porteeATT) = a
 	- le point inférieur droit (i+porteeATT, j+porteeATT) = b
@@ -64,7 +66,8 @@ void entite::setVectPort(coords slot_n, int tailleMap)
 
 	vectPort.resize(pow(sup_g.second - sup_g.first + 1, 2));
 
-	vectPort.push_back(pair_c);
+	dummy.setValeurs(pair_c);
+	vectPort.push_back(dummy);
 
 	for (int i = sup_g.first; i <= inf_d.first; i++)
 	{
@@ -75,7 +78,8 @@ void entite::setVectPort(coords slot_n, int tailleMap)
 				continue;
 			}
 
-			vectPort.push_back(make_pair(i, j));
+			dummy.setValeurs(make_pair(i, j));
+			vectPort.push_back(dummy);
 		}
 	}
 }
