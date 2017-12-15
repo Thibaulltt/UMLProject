@@ -127,7 +127,7 @@ namespace io {
 		return ch;
 	}
 
-	void choisirCase(carte gameMap, coords &posJ){
+	void choisirCase(carte gameMap, pair<int,int> &posJ){
 		//a faire dans joueur.cpp, fonction deplacerJoueur :
 		/*
 		prendre coordonnees joueur actuelles
@@ -159,7 +159,7 @@ namespace io {
 		mettre a jour affichage
 		retourner
 		*/
-		vector< pair<coords,bool> > positionsPossibles = genererMouvements(gameMap, posJ.getValeurs()); // Positions possibles dans la vicinite directe du joueur
+		vector< pair<coords,bool> > positionsPossibles = genererMouvements(gameMap, posJ); // Positions possibles dans la vicinite directe du joueur
 		// Maintenant on update l'affichage pour chaque case dispo
 		// afficherMouvements(positionsPossibles);
 		return;

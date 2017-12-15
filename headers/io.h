@@ -50,7 +50,7 @@ namespace io {
 	//affiche la totalite de la carte
 	extern void afficherCarte(carte);
 	// permet au joueur de choisir ou il va se deplacer
-	extern void choisirCase(carte, coords&);
+	extern void choisirCase(carte, pair<int,int>&);
 	// affiche un message dans la baniere en bas du jeu
 	extern void updateMessage(int, string);
 	extern void afficherMessage();
