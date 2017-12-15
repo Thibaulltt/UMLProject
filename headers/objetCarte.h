@@ -6,7 +6,7 @@
 using namespace std;
 
 class objetCarte {
-	pair<int, int> coords;
+	pair<int, int> coordonnees;
 
 	public:
 		pair<int,int> getCoordonnees();

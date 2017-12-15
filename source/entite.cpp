@@ -1,5 +1,6 @@
-﻿#include <math.h>
-﻿#include <string>
+#include <math.h>
+#include <string>
+#include <vector>
 
 #include "../headers/coords.h"
 #include "../headers/entite.h"
@@ -31,16 +32,6 @@ int entite::getScoreATT()
 int entite::getScoreDEF()
 {
 	return scoreDEF;
-}
-
-void entite::setSlot(pair<int, int> slot_n)
-{
-	slot.setValeurs(pair<int, int>(slot_n.first, slot_n.second));
-}
-
-coords entite::getSlot()
-{
-	return slot;
 }
 
 void entite::setVectPort(coords slot_n, int tailleMap) //[A DEPLACER DANS ENTITE CONCERNEE]

@@ -6,17 +6,17 @@
 using namespace std;
 
 pair<int,int> objetCarte::getCoordonnees() {
-	return coords;
+	return coordonnees;
 }
 
 void objetCarte::setCoordonnees(pair<int,int> nouvellesCoordonnees) {
-	coords.first = nouvellesCoordonnees.first;
-	coords.second = nouvellesCoordonnees.second;
+	coordonnees.first = nouvellesCoordonnees.first;
+	coordonnees.second = nouvellesCoordonnees.second;
 }
 
 void objetCarte::setCoordonnees(int nouveauX, int nouveauY) {
-	coords.first = nouveauX;
-	coords.second = nouveauY;
+	coordonnees.first = nouveauX;
+	coordonnees.second = nouveauY;
 }
 
 std::string objetCarte::getType() {
