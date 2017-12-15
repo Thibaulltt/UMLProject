@@ -4,6 +4,7 @@
 
 class mousquet : public objetCombat
 {
-public:
-	mousquet(int ID_n);
+	public:
+		mousquet();
+		virtual string getType() override;
 };

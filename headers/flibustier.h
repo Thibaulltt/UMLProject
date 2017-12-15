@@ -4,7 +4,8 @@
 
 class flibustier : public ennemi
 {
-public:
+	public:
 
-	flibustier(string nom_n);
+		flibustier(string nom_n);
+		virtual string getType() override;
 };

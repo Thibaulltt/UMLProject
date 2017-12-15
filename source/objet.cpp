@@ -1,22 +1,12 @@
-﻿#include "../headers/objet.h"
+﻿#include <string>
+
+#include "../headers/objet.h"
 
 //Fonctions classe objet
-objet::objet()
-{
-	ID = -1;
-}
+objet::objet() {}
 
-objet::objet(int ID_n)
-{
-	ID = ID_n;
-}
+objet::~objet() {}
 
-int objet::getID()
-{
-	return this -> ID;
-}
-
-objet::~objet()
-{
-
+string objet::getType() {
+	return std::string("objet");
 }

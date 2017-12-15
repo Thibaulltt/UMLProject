@@ -1,6 +1,7 @@
 ﻿#include "../headers/tresor.h"
 
-tresor::tresor(int ID_n) : objet(ID_n)
-{
+tresor::tresor() : objet() {}
 
+string tresor::getType() {
+	return std::string("tresor");
 }

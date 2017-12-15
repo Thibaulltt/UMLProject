@@ -1,18 +1,27 @@
-test_io: headers/io.h source/io.cpp tests/main_io.cpp obj_io obj_carte obj_coords
-	@g++ tests/main_io.cpp objects/io.o objects/coords.o objects/carte.o -o tests/main_io.exe -std=c++11
+# The flags passed to the compiler for each instruction
+FLAGS=-Wall -pedantic -std=c++11
+# Target files
+TARGET=jeu
+# Rajoute .cpp pour l'entree
+SOURCEFILE=source/$(TARGET).cpp
+# Rajoute .o pour la sortie
+OUTPUTFILE=objects/$(TARGET).o
+HEADERFILE=headers/$(TARGET).h
 
-obj_io: source/io.cpp headers/io.h obj_carte obj_coords
+# Commande permettant de compiler tous fichiers 1 par 1
+object: $(SOURCEFILE) $(HEADERFILE)
+	@echo "Compiling $(SOURCEFILE) into $(OUTPUTFILE) ..."
+	@g++ $(FLAGS) -c $(SOURCEFILE) -o $(OUTPUTFILE)
+	@echo "Compiling of $(OUTPUTFILE) complete."
+
+Dig_or_die: objects/%.o headers/%.h
 	@echo "Compiling $@ ..."
-	@g++ -c source/io.cpp -o objects/io.o -std=c++11
-	@echo "Compilation of $@ done."
-
-obj_coords: source/coords.cpp headers/coords.h
-	@g++ -c source/coords.cpp -o objects/coords.o -std=c++11
-
-obj_carte: source/carte.cpp headers/carte.h
-	@echo "Compiling $@ ..."
+<<<<<<< HEAD
 	@g++ -c $< -o objects/carte.o -std=c++11
 	@echo "Compilation of $@ done."
 
 all: source/$(wildcard*.cpp)
 	cd source && g++ -std=c++11 -Wall -pedantic armure.cpp boucanier.cpp carte.cpp coords.cpp ennemi.cpp entite.cpp flibustier.cpp io.cpp jeu.cpp joueur.cpp mainJeu.cpp mousquet.cpp objet.cpp objetCombat.cpp pelle.cpp tresor.cpp -o ../Dig_or_die
+=======
+	@echo $<
+>>>>>>> 40daae720a4689edec2ccecea84845eb7a4f4c52

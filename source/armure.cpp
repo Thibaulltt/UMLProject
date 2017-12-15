@@ -1,6 +1,10 @@
 ﻿#include "../headers/armure.h"
 
-armure::armure(int ID_n) : objetCombat(ID_n)
+armure::armure() : objetCombat()
 {
 	defense = 91;
+}
+
+string armure::getType() {
+	return std::string("armure");
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿#include <math.h>
+=======
+﻿#include <string>
+>>>>>>> 40daae720a4689edec2ccecea84845eb7a4f4c52
 
 #include "../headers/coords.h"
 #include "../headers/entite.h"
@@ -15,7 +19,6 @@ entite::entite(string nom_n)
 	porteeATT = 0;
 	scoreDEF = 0;
 	vivant = true;
-	slot.setValeurs(pair<int, int>(0, 0));
 }
 
 string entite::getNom()
@@ -33,6 +36,7 @@ int entite::getScoreDEF()
 	return scoreDEF;
 }
 
+<<<<<<< HEAD
 void entite::setSlot(pair<int, int> slot_n)
 {
 	slot.setValeurs(pair<int, int>(slot_n.first, slot_n.second));
@@ -89,6 +93,8 @@ vector<coords> entite::getVectPort()
 	return vectPort;
 }
 
+=======
+>>>>>>> 40daae720a4689edec2ccecea84845eb7a4f4c52
 void entite::setVivant(bool vivant_n)
 {
 	vivant = vivant_n;
@@ -99,7 +105,8 @@ bool entite::getVivant()
 	return vivant;
 }
 
-entite::~entite()
-{
+entite::~entite() {}
 
+string entite::getType() {
+	return std::string("entite");
 }

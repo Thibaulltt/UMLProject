@@ -4,13 +4,14 @@
 
 class objetCombat : public objet
 {
-protected:
-	int attack;
-	int defense;
+	protected:
+		int attack;
+		int defense;
 
-public:
-	objetCombat(int ID_n);
-	~objetCombat();
-	int getAttack();
-	int getDefense();
+	public:
+		objetCombat();
+		~objetCombat();
+		int getAttack();
+		int getDefense();
+		virtual string getType() override;
 };
