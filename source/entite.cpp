@@ -41,33 +41,41 @@ coords entite::getSlot()
 	return slot;
 }
 
-void entite::setVectPort(coords slot_n)
+void entite::setVectPort(coords slot_n, int tailleMap)
 {
-	vectPort.resize(8 * porteeATT);	//8 directions
-
 	pair<int, int> pair_c = slot_n.getValeurs();
 	coords dummy;
 
-	for (int i = 0; i < 8; i++)	//8 coordonnées à entrer
+	/*Refonte fonctionnement portée [A DEPLACER DANS ENTITE CONCERNEE]
+	Désormais, on prend la stat de portée d'attaque, et on entre 2 points:
+	- le point supérieur gauche (i-porteeATT, j-porteeATT) = a
+	- le point inférieur droit (i+porteeATT, j+porteeATT) = b
+	Ensuite, on fait une boucle ij qui part de a et qui va jusqu'à b
+	en remplissant vectPort avec toutes les cases rencontrées.
+	Résumé: on crée un carré autour de l'entité et on remplit.
+	Avantages: moins sale qu'avant; permet d'avoir toutes les cases
+	(l'ancienne méthode ne rajoutait que les lignes droites et diagonales).
+	Inconvénient: oblige à réécrire cette fonction pour chaque entité qui a
+	un pattern différent, mais c'était pareil avant.
+	*/
+
+	pair<int, int> sup_g = make_pair(pair_c.first - porteeATT, pair_c.second - porteeATT);
+	pair<int, int> inf_d = make_pair(pair_c.first + porteeATT, pair_c.second + porteeATT);
+
+	vectPort.resize(pow(sup_g.second - sup_g.first + 1, 2));
+
+	vectPort.push_back(pair_c);
+
+	for (int i = sup_g.first; i <= inf_d.first; i++)
 	{
-		for (int j = 1; j <= porteeATT; j++)	//Prolongement des coordonnées (= portée)
+		for (int j = sup_g.second; j < inf_d.second; j++)
 		{
-			dummy.setValeurs(pair<int, int>(pair_c.first - (1 * i), pair_c.second - (1 * i)));	//(x-i, y-1)
-			vectPort.push_back(dummy);
-			dummy.setValeurs(pair<int, int>(pair_c.first - (1 * i), pair_c.second));			//(x-i, y)
-			vectPort.push_back(dummy);			
-			dummy.setValeurs(pair<int, int>(pair_c.first - (1 * i), pair_c.second + (1 * i)));	//(x-i, y+i)
-			vectPort.push_back(dummy);
-			dummy.setValeurs(pair<int, int>(pair_c.first, pair_c.second - (1 * i)));			//(x, y-i)
-			vectPort.push_back(dummy);
-			dummy.setValeurs(pair<int, int>(pair_c.first, pair_c.second + (1 * i)));			//(x, y+i)
-			vectPort.push_back(dummy);
-			dummy.setValeurs(pair<int, int>(pair_c.first + (1 * i), pair_c.second - (1 * i)));	//(x+i, y-1)
-			vectPort.push_back(dummy);
-			dummy.setValeurs(pair<int, int>(pair_c.first + (1 * i), pair_c.second));			//(x+i, y)
-			vectPort.push_back(dummy);
-			dummy.setValeurs(pair<int, int>(pair_c.first + (1 * i), pair_c.second + (i * i)));	//(x+i, y+i)
-			vectPort.push_back(dummy);
+			if (i < 0 || j < 0 || i > tailleMap || j > tailleMap)	//hors map
+			{
+				continue;
+			}
+
+			vectPort.push_back(make_pair(i, j));
 		}
 	}
 }

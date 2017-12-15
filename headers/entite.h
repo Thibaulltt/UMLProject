@@ -24,7 +24,7 @@ public :
 	int getScoreDEF();
 	void setSlot(pair<int, int> slot_n);
 	coords getSlot();
-	void setVectPort(coords slot_n);
+	void setVectPort(coords slot_n, int tailleMap);
 	vector<coords> getVectPort();
 	void setVivant(bool vivant_n);
 	bool getVivant();
