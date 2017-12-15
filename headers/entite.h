@@ -15,20 +15,6 @@ class entite : public objetCarte
 		bool vivant;		// Est il/elle vivant(e) ?
 		int porteeATT;		// Portee d'attaque
 
-<<<<<<< Updated upstream
-public :
-	entite(string nom_n);
-	~entite();
-	string getNom();
-	int getScoreATT();
-	int getScoreDEF();
-	void setSlot(pair<int, int> slot_n);
-	coords getSlot();
-	void setVectPort(coords slot_n, int tailleMap);
-	vector<coords> getVectPort();
-	void setVivant(bool vivant_n);
-	bool getVivant();
-=======
 	public :
 		entite(string nom_n);			// Construction de l'entite
 		~entite();				// Destruction
@@ -39,5 +25,4 @@ public :
 		void setVivant(bool vivant_n);		// IT'S ALIVE !!!
 		bool getVivant();			// It's alive ???
 		virtual string getType() override;	// Override de la fonction pere, renvoyant le type
->>>>>>> Stashed changes
 };
