@@ -44,7 +44,7 @@ namespace io {
 
 	int TermHeight = 0;
 	int TermWidth = 0;
-	coords margesCarte;
+	pair<int,int> margesCarte;
 
 	int getTerminalWidth()
 	{
@@ -159,31 +159,32 @@ namespace io {
 		mettre a jour affichage
 		retourner
 		*/
-		vector< pair<coords,bool> > positionsPossibles = genererMouvements(gameMap, posJ); // Positions possibles dans la vicinite directe du joueur
+		vector< pair<pair<int,int>,bool> > positionsPossibles = genererMouvements(gameMap, posJ); // Positions possibles dans la vicinite directe du joueur
 		// Maintenant on update l'affichage pour chaque case dispo
 		// afficherMouvements(positionsPossibles);
 		return;
 	}
 
-	vector< pair<coords,bool> > genererMouvements(carte gameMap, pair<int,int> playerPos) {
+	vector< pair<pair<int,int>,bool> > genererMouvements(carte gameMap, pair<int,int> playerPos) {
 		// Generation du vecteur avec des valeurs de base
-		vector< pair<coords,bool> > resultVector;
+		vector< pair<pair<int,int>,bool> > resultVector;
 		// Coordonnees utilisees pour la paire dans le vecteur
-		coords dummyCoordinates;
+		pair<int,int> dummyCoordinates;
 		for (int i = -1; i <= 1; i++) { // i va iterer pour x
 			for (int j = -1; j <= 1; j++) { // j va iterer pour y
-				dummyCoordinates.setValeurs(std::make_pair(playerPos.first+i, playerPos.second+j));
+				dummyCoordinates.first = playerPos.first+i
+				dummyCoordinates.second = playerPos.second+j;
 				resultVector.push_back(std::make_pair(dummyCoordinates, false));
 			}
 		}
 		// Des valeurs par default sont initialisees, donc on les traite maintenant
 		// On itere de vector.begin() a vector.end()
-		for (vector< pair<coords,bool> >::iterator i = resultVector.begin(); i != resultVector.end(); i++) {
-			int x = i->first.getValeurs().first;
-			int y = i->first.getValeurs().second;
+		for (vector< pair<pair<int,int>,bool> >::iterator i = resultVector.begin(); i != resultVector.end(); i++) {
+			int x = i->first.first;
+			int y = i->first.second;
 			if (x >= 0 && x < MAX_X_MAP && y >= 0 && y < MAX_Y_MAP) {
 				// Si la case de la map est pas prise
-				if (gameMap.getCase(i->first.getValeurs()) == 0) {
+				if (gameMap.getCase(i->first) == 0) {
 					// Mettre la valeur a true
 					i->second = true;
 				}

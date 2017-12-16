@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 
-#include "../headers/coords.h"
 #include "../headers/entite.h"
 
 using namespace std;
@@ -34,10 +33,10 @@ int entite::getScoreDEF()
 	return scoreDEF;
 }
 
-void entite::setVectPort(coords slot_n, int tailleMap) //[A DEPLACER DANS ENTITE CONCERNEE]
+void entite::setVectPort(pair<int,int> slot_n, int tailleMap) //[A DEPLACER DANS ENTITE CONCERNEE]
 {
 	pair<int, int> pair_c = slot_n.getValeurs();
-	coords dummy;
+	pair<int,int> dummy;
 
 	/*Refonte fonctionnement portée
 	Désormais, on prend la stat de portée d'attaque, et on entre 2 points:
@@ -57,7 +56,7 @@ void entite::setVectPort(coords slot_n, int tailleMap) //[A DEPLACER DANS ENTITE
 
 	vectPort.resize(pow(sup_g.second - sup_g.first + 1, 2));
 
-	dummy.setValeurs(pair_c);
+	dummy = pair_c;
 	vectPort.push_back(dummy);
 
 	for (int i = sup_g.first; i <= inf_d.first; i++)
@@ -75,7 +74,7 @@ void entite::setVectPort(coords slot_n, int tailleMap) //[A DEPLACER DANS ENTITE
 	}
 }
 
-vector<coords> entite::getVectPort()
+vector<pair<int,int>> entite::getVectPort()
 {
 	return vectPort;
 }
