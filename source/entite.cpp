@@ -35,7 +35,7 @@ int entite::getScoreDEF()
 
 void entite::setVectPort(pair<int,int> slot_n, int tailleMap) //[A DEPLACER DANS ENTITE CONCERNEE]
 {
-	pair<int, int> pair_c = slot_n.getValeurs();
+	pair<int, int> pair_c = slot_n;
 	pair<int,int> dummy;
 
 	/*Refonte fonctionnement portée
@@ -68,7 +68,7 @@ void entite::setVectPort(pair<int,int> slot_n, int tailleMap) //[A DEPLACER DANS
 				continue;
 			}
 
-			dummy.setValeurs(make_pair(i, j));
+			dummy = make_pair(i, j);
 			vectPort.push_back(dummy);
 		}
 	}
