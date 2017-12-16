@@ -4,7 +4,6 @@
 #include <string>
 
 #include "objetCarte.h"
-#include "coords.h"
 
 class entite : public objetCarte
 {
@@ -15,7 +14,7 @@ class entite : public objetCarte
 		int scoreDEF;		// Points de defense
 		bool vivant;		// Est il/elle vivant(e) ?
 		int porteeATT;		// Portee d'attaque
-		vector<coords> vectPort;
+		vector<pair<int,int>> vectPort;
 
 	public :
 		entite(string nom_n);			// Construction de l'entite
@@ -25,7 +24,7 @@ class entite : public objetCarte
 		int getScoreDEF();			// Retourne le nb de points de defense
 		void setVivant(bool vivant_n);		// IT'S ALIVE !!!
 		bool getVivant();			// It's alive ???
-		vector<coords> getVectPort();		// Get vector portee
-		void setVectPort(coords, int);		// Set vector portee
+		vector<pair<int,int>> getVectPort();		// Get vector portee
+		void setVectPort(pair<int,int>, int);		// Set vector portee
 		virtual string getType() override;	// Override de la fonction pere, renvoyant le type
 };

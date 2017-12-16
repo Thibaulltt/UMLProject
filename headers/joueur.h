@@ -6,7 +6,6 @@
 #include "../headers/armure.h"
 #include "../headers/entite.h"
 #include "../headers/carte.h"
-#include "../headers/coords.h"
 #include "../headers/mousquet.h"
 #include "../headers/pelle.h"
 #include "../headers/objet.h"

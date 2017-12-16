@@ -1,5 +1,4 @@
-﻿#include "../headers/coords.h"
-#include "../headers/jeu.h"
+﻿#include "../headers/jeu.h"
 #include "../headers/joueur.h"
 #include "../headers/io.h"
 

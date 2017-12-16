@@ -12,7 +12,6 @@
 #include <vector>
 #include <termios.h>
 #include "carte.h"
-#include "coords.h"
 #include "joueur.h"
 #include "ennemi.h"
 #include "carte.h"
@@ -25,11 +24,11 @@ namespace io {
 	/////////////////////////////////
 	
 	// Retiens la position du joueur pour mettre a jour l'affichage de la carte
-	extern coords positionJoueur;
+	extern pair<int,int> positionJoueur;
 	// Retiens la marge du coin HG de la carte par rapport au coin HG du terminal
-	extern coords margesCarte;
+	extern pair<int,int> margesCarte;
 	// Vecteur de paire contenant un ennemi et une coordonnee
-	extern vector< pair<ennemi,coords> > positionEnnemi;
+	extern vector< pair<ennemi,pair<int,int>> > positionEnnemi;
 	extern int TermWidth;
 	extern int TermHeight;
 	static struct termios before, after;
@@ -55,9 +54,9 @@ namespace io {
 	extern void updateMessage(int, string);
 	extern void afficherMessage();
 	// contient case a mettre a jour
-	extern void updateCarte(coords);
+	extern void updateCarte(pair<int,int>);
 	// genere les mouvements possibles sur une case passee en argument
-	vector< pair<coords,bool> > genererMouvements(carte, pair<int,int>);
+	vector< pair<pair<int,int>,bool> > genererMouvements(carte, pair<int,int>);
 	// verifie que le terminal est bien configure avant de commencer le programme
 	bool setup();
 }

@@ -19,7 +19,7 @@ Dig_or_die: objects/%.o headers/%.h
 	@echo "Compiling $@ ..."
 	@echo $<
 
-all_objects: $(ALL_OBJECTS)
+all_objects: 
 	@echo "Compiling all objects ..."
 	@ for loopTarget in armure boucanier ennemi entite flibustier joueur mousquet objet objetCombat pelle tresor; do \
 		make object TARGET=$$loopTarget; \
