@@ -23,12 +23,9 @@ class joueur : public entite
 public:
 	joueur(string nom_n);
 	~joueur();
-
+	void seDeplacer(carte mappe) override;
 	bool getPellePoss();
-	void deplacerJoueur(carte map);
 	void ramasser(carte map);
 	bool getVictoire();
 	string joueurString();
-	virtual string getType() override;
-
 };

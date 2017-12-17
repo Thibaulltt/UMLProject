@@ -4,7 +4,3 @@ armure::armure() : objetCombat()
 {
 	defense = 91;
 }
-
-string armure::getType() {
-	return std::string("armure");
-}

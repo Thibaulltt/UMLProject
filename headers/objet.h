@@ -9,5 +9,4 @@ class objet : public objetCarte
 	public:
 		objet();
 		~objet();
-		virtual string getType() override;
 };

@@ -13,13 +13,13 @@ bool joueur::getPellePoss()
 	return pellePoss;
 }
 
-void joueur::deplacerJoueur(carte map)
+void joueur::seDeplacer(carte mappe)
 {
 	//mettre à jour nouvelle position (slot)
 	//en utilisant setSlot() et la position précédente + direction de déplacement
 	// Ici, on utilise la valeur slot dans entite.h pour modifier la case joueur
 	pair<int,int> positionJoueur = getCoordonnees();
-	io::choisirCase(map, positionJoueur);
+	io::choisirCase(mappe, positionJoueur);
 }
 
 
@@ -147,8 +147,4 @@ bool joueur::getVictoire()
 joueur::~joueur()
 {
 
-}
-
-string joueur::getType() {
-	return std::string("joueur");
 }

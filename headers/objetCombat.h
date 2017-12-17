@@ -13,5 +13,4 @@ class objetCombat : public objet
 		~objetCombat();
 		int getAttack();
 		int getDefense();
-		virtual string getType() override;
 };

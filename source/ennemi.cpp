@@ -2,7 +2,7 @@
 
 using namespace std;
 
-ennemi::ennemi(string nom_n) : entite(nom_n)
+ennemi::ennemi(string nom_n)
 {
 	scoreATT = 100;
 	scoreDEF = 100;
@@ -26,19 +26,4 @@ string ennemi::ennemiString() //Format retour : nom / coordX : coordY / boolViva
 
 
 	return stringRetour;
-}
-
-
-void ennemi::attaquer()
-{
-
-}
-
-void ennemi::deplacerMob()
-{
-
-}
-
-string ennemi::getType() {
-	return std::string("ennemi");
 }

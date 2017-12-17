@@ -1,21 +1,23 @@
-#include <vector>
-#include <string>
 #pragma once
+
+#include <string>
+#include <vector>
+
+#include "objetCarte.h"
 
 using namespace std;
 
 class carte
 {
 	unsigned int taille;
-	vector<vector<int>> aireJeu;
+	vector<vector<vector<objetCarte>>> aireJeu;
 
 public:
-	carte();
+	carte(int taille_n);
 	int getTaille();
-	void setAireJeu(pair<int, int> slot, int value);
-	void setCase(pair<int, int> slot, int value);
-	int getCase(pair<int,int> slot);
+	void setCase(pair<int, int> slot, objetCarte objC);
+	vector<objetCarte> getCase(pair<int,int> slot);
 	string carteString();
-	vector<vector<int>> getAireJeu();
+	vector<vector<vector<objetCarte>>> getAireJeu();
 	~carte();
 };

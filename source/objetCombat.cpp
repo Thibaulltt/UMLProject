@@ -15,6 +15,7 @@ int objetCombat::getDefense()
 {
 	return this->defense;
 }
+
 objetCombat::~objetCombat()
 {
 

@@ -6,5 +6,4 @@ class pelle : public objet
 {
 	public:
 		pelle();
-		virtual string getType() override;
 };

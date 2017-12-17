@@ -21,7 +21,7 @@ class jeu
 	carte mappe;
 
 public:
-	jeu();
+	jeu(int taille_n);
 	int lancerPartie();
 	void tourJoueur(joueur player);
 	vector<joueur> getVectJoueur();

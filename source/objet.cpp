@@ -6,7 +6,3 @@
 objet::objet() {}
 
 objet::~objet() {}
-
-string objet::getType() {
-	return std::string("objet");
-}

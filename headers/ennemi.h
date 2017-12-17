@@ -5,9 +5,11 @@
 class ennemi : public entite //Classe ennemi heritant d'entite
 {
 	public:
-		ennemi(string nom_n);	// Construction d'un ennemi
-		void attaquer();	// Attaque de l'ennemi
-		void deplacerMob();	// Deplacement de l'ennemi
+		ennemi(string nom_n) override;	// Construction d'un ennemi
 		string ennemiString();	// Fonction pour la sauvegarde
-		virtual string getType() override;
+
+		//Virtual & override
+		virtual void attaquer() override;	// Attaque de l'ennemi
+		virtual void seDeplacer() override;	// Deplacement de l'ennemi
+		virtual void setVectPort(pair<int, int>, int) override;		// Set vector portee
 };

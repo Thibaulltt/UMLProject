@@ -8,9 +8,9 @@
 #include "../headers/jeu.h"
 #include "../headers/joueur.h"
 
-jeu::jeu()
+jeu::jeu(taille_n)
 {
-	carte mappe;
+	carte mappe(taille_n);
 }
 
 int jeu::lancerPartie()
@@ -138,7 +138,13 @@ int jeu::lancerPartie()
 
 		getline(cin, s_validation);
 
-		if (s_validation == "o" || s_validation == "O" || s_validation == "0")
+		while (s_validation != "o" || s_validation != "O" || s_validation != "n" || s_validation != "N")
+		{
+			cout << "\nValeur incorrecte.\nValidez-vous ces choix? (o/n)\n";
+			getline(cin, s_validation);
+		}
+
+		if (s_validation == "o" || s_validation == "O")
 		{
 			validation = true;
 		}
@@ -169,15 +175,15 @@ int jeu::lancerPartie()
 	cout << "\n";
 
 	//Création objets + carte
-	objet tresor(1);
-	objet pelle(2);
-	objet mousquet(3);
-	objet armure(4);
+	tresor tres;
+	pelle pel;
+	mousquet mousq;
+	armure arm;
 
 	vector<pair<int, int>> vect_case;
 	pair<int, int> duo;
 
-	//Vecteur cases (x, y)
+	//Vecteur cases disponibles pour placement objets (x, y)
 	for (int i = 0; i < mappe.getTaille(); i++)
 	{
 		for (int j = 0; j < mappe.getTaille(); j++)
@@ -188,23 +194,23 @@ int jeu::lancerPartie()
 	}
 
 	//Placement trésor
-	vect_objet.push_back(tresor);
+	vect_objet.push_back(tres);
 	vector<objet>::iterator itvo = vect_objet.begin();
 
-	alea = rand() % (vect_case.size() + 1);
+	alea = rand() % (vect_case.size() + 1);	//indice aléatoire
 
-	duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-	mappe.setAireJeu(duo, (*itvo).getID());
-	vect_objet.erase(itvo);
-	vect_case.erase(vect_case.begin() + alea);
+	duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);	//case aléatoire
+	mappe.setCase(duo, (*itvo));	//insertion dans case
+	vect_objet.erase(itvo);	//suppression objet inséré
+	vect_case.erase(vect_case.begin() + alea);	//suppression slot (dispo -> indispo)
 
 	//Placement joueurs
 	for (int i = 0; i < nb_joueurs; i++)	//pour chaque joueur
 	{
-		alea = rand() % (vect_case.size() + 1);
+		alea = rand() % (vect_case.size() + 1);	//indice aléatoire
 
-		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-		vect_joueur[i].setSlot(duo);
+		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);	//case aléatoire
+		vect_joueur[i].setCoordonnees(duo);
 		vect_case.erase(vect_case.begin() + alea);
 	}
 
@@ -220,20 +226,20 @@ int jeu::lancerPartie()
 	//Placement objets
 	for (unsigned int i = 0; i < vect_joueur.size(); i++)	//pour chaque joueur
 	{
-		vect_objet.push_back(pelle);
-		vect_objet.push_back(mousquet);
-		vect_objet.push_back(armure);
+		vect_objet.push_back(pel);
+		vect_objet.push_back(mousq);
+		vect_objet.push_back(arm);
 
 		while (vect_objet.empty() == false)	//tant qu'un objet doit être placé
 		{
 			itvo = vect_objet.begin();
-			alea = rand() % (vect_case.size() + 1);
+			alea = rand() % (vect_case.size() + 1);	//indice aléatoire
 
-			duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-			mappe.setAireJeu(duo, (*itvo).getID());
+			duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);	//case aléatoire
+			mappe.setCase(duo, (*itvo));	//insertion dans carte
 
-			vect_objet.erase(itvo);
-			vect_case.erase(vect_case.begin() + alea);
+			vect_objet.erase(itvo);	//suppression objet inséré
+			vect_case.erase(vect_case.begin() + alea);	//suppression case (dispo -> indispo)
 		}
 	}
 	

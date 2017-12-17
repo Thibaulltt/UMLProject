@@ -1,9 +1,15 @@
-#include <utility>
 #include <string>
+#include <typeinfo>
+#include <utility>
 
 #include "../headers/objetCarte.h"
 
 using namespace std;
+
+objetCarte::objetCarte(string nom_n)
+{
+	nom = nom_n;
+}
 
 pair<int,int> objetCarte::getCoordonnees() {
 	return coordonnees;
@@ -20,5 +26,5 @@ void objetCarte::setCoordonnees(int nouveauX, int nouveauY) {
 }
 
 std::string objetCarte::getType() {
-	return std::string("objetCarte");
+	return typeid(this).name();
 }

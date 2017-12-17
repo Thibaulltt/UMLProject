@@ -6,5 +6,4 @@ class tresor : public objet
 {
 	public:
 		tresor();
-		virtual string getType() override;
 };
