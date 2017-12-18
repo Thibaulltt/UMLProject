@@ -3,14 +3,18 @@
 #include <vector>
 #include <unistd.h>
 
+#include "../headers/boucanier.h"
 #include "../headers/carte.h"
 #include "../headers/ennemi.h"
+#include "../headers/flibustier.h"
 #include "../headers/jeu.h"
 #include "../headers/joueur.h"
+#include "../headers/objetCarte.h"
+#include "../headers/objetCombat.h"
 
-jeu::jeu(taille_n)
+jeu::jeu(int taille_n)
 {
-	carte mappe(taille_n);
+	mappe = carte(taille_n);
 }
 
 int jeu::lancerPartie()
@@ -155,16 +159,16 @@ int jeu::lancerPartie()
 	//Création des joueurs
 	for (unsigned int i = 0; i < vect_string.size(); i++)
 	{
-		joueur dummy(vect_string[i]);
+		joueur dummy(vect_string[i], false);
 		vect_joueur.push_back(dummy);
 	}
 
 	//Création des ennemis
-	ennemi boucanier("Boucanier");
-	ennemi flibustier("Flibustier");
+	boucanier bouc("Boucanier", false);
+	flibustier flib("Flibustier", false);
 
-	vect_ennemi.push_back(boucanier);
-	vect_ennemi.push_back(flibustier);
+	vect_ennemi.push_back(bouc);
+	vect_ennemi.push_back(flib);
 
 	for (int i = 0; i < ((2 * difficulte) + (nb_joueurs - 1)); i++)
 	{
@@ -175,10 +179,10 @@ int jeu::lancerPartie()
 	cout << "\n";
 
 	//Création objets + carte
-	tresor tres;
-	pelle pel;
-	mousquet mousq;
-	armure arm;
+	objetCarte tres("trésor", true);
+	objetCarte pel("pelle", true);
+	objetCombat mousq("mousquet", 150, 0, true);
+	objetCombat arm("armure", 91, 50, true);
 
 	vector<pair<int, int>> vect_case;
 	pair<int, int> duo;
@@ -195,7 +199,7 @@ int jeu::lancerPartie()
 
 	//Placement trésor
 	vect_objet.push_back(tres);
-	vector<objet>::iterator itvo = vect_objet.begin();
+	vector<objetCarte>::iterator itvo = vect_objet.begin();
 
 	alea = rand() % (vect_case.size() + 1);	//indice aléatoire
 
@@ -220,7 +224,7 @@ int jeu::lancerPartie()
 		alea = rand() % (vect_case.size() + 1);
 
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-		vect_ennemi[i].setSlot(duo);
+		vect_ennemi[i].setCoordonnees(duo);
 	}
 
 	//Placement objets
@@ -254,22 +258,16 @@ int jeu::lancerPartie()
 
 void jeu::tourJoueur(joueur player)
 {
-	player.deplacerJoueur(mappe);
+	player.seDeplacer(mappe);
 
 	//Ramassage auto
-	player.ramasser(mappe);
-
-	//Creusage auto
-	if (player.getPellePoss() == true)
-	{
-		player.ramasser(mappe);
-	}
+	//player.ramasser(mappe);
 }
 
 void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 {
 	//Déplacement ennemis
-	enemy.deplacerMob();
+	enemy.seDeplacer(mappe);
 
 	//Check joueurs à portée
 	for (unsigned int j = 0; j < enemy.getVectPort().size(); j++)	//Pour chaque case accessible
@@ -281,7 +279,7 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 				continue;
 			}
 
-			if (enemy.getVectPort()[j].getValeurs() == getVectJoueur()[k].getSlot().getValeurs())	//Si joueur à portée
+			if (enemy.getVectPort()[j] == getVectJoueur()[k].getCoordonnees())	//Si joueur à portée
 			{				
 				//Scores de base:
 				//Corsaire: 0 ATT, 0 DEF
@@ -289,7 +287,7 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 
 				//Règles scores:
 				//Mousquet = +150 ATT
-				//Armure = +91 DEF, ATT * 2
+				//Armure = +91 DEF, ATT +50
 					
 				//Règle combat: pour avoir 100% de chances de tuer l'ennemi,
 				//le score d'ATT doit être au moins égal à 2 * la DEF adverse.
@@ -410,10 +408,6 @@ vector<ennemi> jeu::getVectEnnemi()
 	return vect_ennemi;
 }
 
-jeu::~jeu()
-{
-
-}
 
 //Fonctions diverses
 bool isInteger(std::string s_input)
@@ -432,4 +426,8 @@ bool isInteger(std::string s_input)
 	}
 
 	return true;
+}
+
+jeu::~jeu()
+{
 }

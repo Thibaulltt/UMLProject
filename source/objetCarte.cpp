@@ -6,9 +6,14 @@
 
 using namespace std;
 
-objetCarte::objetCarte(string nom_n)
+objetCarte::objetCarte()
+{
+}
+
+objetCarte::objetCarte(string nom_n, bool ramassable_n)
 {
 	nom = nom_n;
+	ramassable = ramassable_n;
 }
 
 pair<int,int> objetCarte::getCoordonnees() {
@@ -27,4 +32,8 @@ void objetCarte::setCoordonnees(int nouveauX, int nouveauY) {
 
 std::string objetCarte::getType() {
 	return typeid(this).name();
+}
+
+objetCarte::~objetCarte()
+{
 }

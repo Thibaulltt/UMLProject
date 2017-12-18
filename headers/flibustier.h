@@ -6,6 +6,10 @@
 class flibustier : public ennemi
 {
 	public:
-		flibustier(string nom_n);
+		flibustier(string nom_n, bool ramassable_n);
+		~flibustier();
+
+		//Virtual & override
 		void seDeplacer(carte mappe) override;
+		void attaquer() override;	// Attaque de l'ennemi
 };

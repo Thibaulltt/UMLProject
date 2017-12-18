@@ -1,16 +1,19 @@
 ﻿#include <vector>
 
 #include "../headers/carte.h"
+#include "../headers/objetCarte.h"
 
 using namespace std;
 
 //Fonctions classe carte
+carte::carte()
+{
+}
+
 carte::carte(int taille_n)
 {
 	taille = taille_n;
 	aireJeu.resize(taille);
-
-	objetCarte objC;	//Objet vide à insérer
 
 	vector<vector<vector<objetCarte>>>::iterator it_vvi;	//Parcours carte
 
@@ -19,15 +22,14 @@ carte::carte(int taille_n)
 		for (int i = 0; i < taille; i++)	//Pour chaque case carte
 		{
 			vector<objetCarte> vect_objC;	//Vecteur d'objets			
-			vect_objC.push_back(objC);		//Rajout objet vide
 			(*it_vvi).push_back(vect_objC);	//Rajout vecteur d'objets dans case carte
 		}
 	}
 }
 
-string carte::carteString()
+string carte::carteString()		//A REVOIR
 {
-	string stringRetour = "";
+	/*string stringRetour = "";
 
 	for (int i = 0; i < aireJeu.size(); i++)
 	{
@@ -37,7 +39,7 @@ string carte::carteString()
 		}
 	}
 
-	return stringRetour;
+	return stringRetour;*/
 }
 
 

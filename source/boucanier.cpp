@@ -1,12 +1,15 @@
-﻿#include "../headers/boucanier.h"
+﻿#include <math.h>
+
+#include "../headers/boucanier.h"
 
 
-boucanier::boucanier(string nom_n) : ennemi(nom_n)
+boucanier::boucanier(string nom_n, bool ramassable_n) : ennemi(nom_n, ramassable_n)
 {
 	nom = nom_n;
 	scoreATT = 100;
 	scoreDEF = 100;
 	porteeDEP = 2;
+	ramassable = ramassable_n;
 }
 
 void boucanier::seDeplacer(carte mappe)
@@ -14,7 +17,7 @@ void boucanier::seDeplacer(carte mappe)
 
 }
 
-void boucanier::setVectPort(pair<int, int> slot_n, int tailleMap) //[A DEPLACER DANS ENTITE CONCERNEE]
+void boucanier::setVectPort(pair<int, int> slot_n, int tailleMap) //[A COPIER DANS FLIBUSTIER]
 {
 	pair<int, int> pair_c = slot_n;
 	pair<int, int> dummy;
@@ -40,4 +43,13 @@ void boucanier::setVectPort(pair<int, int> slot_n, int tailleMap) //[A DEPLACER 
 			vectPort.push_back(dummy);
 		}
 	}
+}
+
+void boucanier::attaquer()
+{
+
+}
+
+boucanier::~boucanier()
+{
 }

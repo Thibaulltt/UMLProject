@@ -6,13 +6,18 @@
 using namespace std;
 
 class objetCarte {
-	string nom;
-	pair<int, int> coordonnees;
+
+	protected:
+		string nom;
+		pair<int, int> coordonnees;
+		bool ramassable;
 
 	public:
-		objetCarte(string nom_n);			// Construction de l'objet
+		objetCarte();
+		objetCarte(string nom_n, bool ramassable_n);
 		pair<int,int> getCoordonnees();
 		void setCoordonnees(pair<int,int>);
 		void setCoordonnees(int,int);
 		std::string getType();
+		~objetCarte();
 };

@@ -172,7 +172,7 @@ namespace io {
 		pair<int,int> dummyCoordinates;
 		for (int i = -1; i <= 1; i++) { // i va iterer pour x
 			for (int j = -1; j <= 1; j++) { // j va iterer pour y
-				dummyCoordinates.first = playerPos.first+i
+				dummyCoordinates.first = playerPos.first+i;
 				dummyCoordinates.second = playerPos.second+j;
 				resultVector.push_back(std::make_pair(dummyCoordinates, false));
 			}
@@ -184,10 +184,10 @@ namespace io {
 			int y = i->first.second;
 			if (x >= 0 && x < MAX_X_MAP && y >= 0 && y < MAX_Y_MAP) {
 				// Si la case de la map est pas prise
-				if (gameMap.getCase(i->first) == 0) {
-					// Mettre la valeur a true
-					i->second = true;
-				}
+				//if (gameMap.getCase(i->first) == 0) {	//A REVOIR
+				//	// Mettre la valeur a true
+				//	i->second = true;
+				//}
 			}
 		}
 		return resultVector;
@@ -220,7 +220,7 @@ namespace io {
 		for (int i = 0; i < MAX_Y_MAP; i++) {
 			cout << std::string(leftMarginMap, ' ');
 			for (int j = 0; j < MAX_X_MAP; j++) {
-				int contenuCase = gameMap.getCase(std::make_pair(i,j));
+				/*string contenuCase = gameMap.getCase(std::make_pair(i,j));
 				switch (contenuCase) {
 					case 1:
 						cout << TERM_COLOR_TEXT_BLUE << 'X' << TERM_COLOR_TEXT_BLANK;
@@ -237,7 +237,7 @@ namespace io {
 					default:
 						cout << ' ';
 						break;
-				}
+				}*/
 			}
 			cout << endl;
 		}
@@ -245,12 +245,13 @@ namespace io {
 			cout << std::string(upperMarginMap, '\n');
 		}
 		afficherMessage();
-		io::margesCarte.setValeurs(std::make_pair(leftMarginMap+1,upperMarginMap+1));
+		//io::margesCarte.setValeurs(std::make_pair(leftMarginMap+1,upperMarginMap+1));
+		io::margesCarte = make_pair(leftMarginMap + 1, upperMarginMap + 1);
 
 		// Tests ...
 		std::stringstream launchMessage;
-		launchMessage << "Voila les coordonnees carte : (" << margesCarte.getValeurs().first;
-		launchMessage << "," << margesCarte.getValeurs().second << ").";
+		launchMessage << "Voila les coordonnees carte : (" << margesCarte.first;
+		launchMessage << "," << margesCarte.second << ").";
 		launchMessage << launchMessage.str();
 		launchMessage << launchMessage.str();
 		launchMessage << launchMessage.str();
@@ -266,7 +267,7 @@ namespace io {
 		}
 		cout << TERM_COLOR_TEXT_BLUE << std::string(getTerminalWidth(), '*') << TERM_COLOR_TEXT_BLANK;
 
-		TERM_MOVE_CURSOR_GOTO(io::margesCarte.getValeurs().first+1,io::margesCarte.getValeurs().second+1);
+		TERM_MOVE_CURSOR_GOTO(io::margesCarte.first+1,io::margesCarte.second+1);
 	}
 
 	void updateMessage(int selectedLine, std::string desiredMessage) {
@@ -323,6 +324,6 @@ namespace io {
 			// On remet le curseur dans le coin du message
 			TERM_MOVE_CURSOR_GOTO(getTerminalHeight()-TERM_MESSAGE_HEIGHT + 1, 1);
 		}
-		TERM_MOVE_CURSOR_GOTO(io::margesCarte.getValeurs().first+1,io::margesCarte.getValeurs().second+1);
+		TERM_MOVE_CURSOR_GOTO(io::margesCarte.first+1,io::margesCarte.second+1);
 	}
 }

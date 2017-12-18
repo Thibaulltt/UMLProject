@@ -11,6 +11,7 @@
 #include <sstream>
 #include <vector>
 #include <termios.h>
+
 #include "carte.h"
 #include "joueur.h"
 #include "ennemi.h"

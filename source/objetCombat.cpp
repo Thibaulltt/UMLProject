@@ -1,9 +1,12 @@
-﻿#include "../headers/objetCombat.h"
+﻿
+#include "../headers/objetCombat.h"
 
-objetCombat::objetCombat() : objet()
+objetCombat::objetCombat(string nom_n, int att_n, int def_n, bool ramassable_n) : objetCarte(nom_n, ramassable_n)
 {
-	attack = 0;
-	defense = 0;
+	nom = nom_n;
+	attack = att_n;
+	defense = def_n;
+	ramassable = true;
 }
 
 int objetCombat::getAttack()
@@ -18,5 +21,4 @@ int objetCombat::getDefense()
 
 objetCombat::~objetCombat()
 {
-
 }

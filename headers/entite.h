@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 
-#include "objetCarte.h"
+#include "../headers/carte.h"
+#include "../headers/objetCarte.h"
 
 class entite : public objetCarte
 {
@@ -16,19 +17,19 @@ class entite : public objetCarte
 		vector<pair<int,int>> vectPort;
 
 	public :
-		~entite();				// Destruction
+		entite(string nom_n, bool ramassable_n);
 		string getNom();			// Retourne le nom de l'unite
+		vector<pair<int, int>> getVectPort();	//Retourne le vecteur de portée
 		int getScoreATT();			// Retourne le nb de points d'attaque
 		int getScoreDEF();			// Retourne le nb de points de defense
 		void setVivant(bool vivant_n);		// IT'S ALIVE !!!
 		bool getVivant();			// It's alive ???
 
 		//Virtual & override
-		virtual vector<pair<int, int>> getVectPort();
-		virtual void seDeplacer();
+		virtual void seDeplacer(carte mappe);
 		virtual void setVectPort(pair<int, int>, int);		// Set vector portee
 		virtual void attaquer();	// Attaque de l'ennemi
-		entite(string nom_n) override;
+		virtual ~entite();
 };
 
 /*Refonte fonctionnement portée [POUR DOC, PAS SUPPR PLZ]

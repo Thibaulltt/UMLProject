@@ -140,8 +140,5 @@ int main()
 	///Partie[end]
 	}
 
-
-
-
 	return 0;
 }

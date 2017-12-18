@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "objetCarte.h"
+#include "../headers/objetCarte.h"
 
 using namespace std;
 
@@ -13,6 +13,7 @@ class carte
 	vector<vector<vector<objetCarte>>> aireJeu;
 
 public:
+	carte();
 	carte(int taille_n);
 	int getTaille();
 	void setCase(pair<int, int> slot, objetCarte objC);

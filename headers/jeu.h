@@ -7,7 +7,7 @@
 
 #include "../headers/ennemi.h"
 #include "../headers/joueur.h"
-#include "../headers/objet.h"
+#include "../headers/objetCarte.h"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ class jeu
 	int nb_joueurs;
 	int difficulte;
 	vector<joueur> vect_joueur;
-	vector<objet> vect_objet;
+	vector<objetCarte> vect_objet;
 	vector<ennemi> vect_ennemi;
 	carte mappe;
 

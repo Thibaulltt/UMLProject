@@ -4,23 +4,31 @@
 
 #include "../headers/carte.h"
 #include "../headers/entite.h"
+#include "../headers/objetCarte.h"
 
 using namespace std;
 
 //Fonctions classe entite
 
-entite::entite(string nom_n)	//Ca marche ça?
+entite::entite(string nom_n, bool ramassable_n) : objetCarte(nom_n, ramassable_n)
 {
+	nom = nom_n;
 	porteeDEP = 1;
 	scoreATT = 0;
 	porteeATT = 0;
 	scoreDEF = 0;
 	vivant = true;
+	ramassable = ramassable_n;
 }
 
 string entite::getNom()
 {
 	return nom;
+}
+
+vector<pair<int, int>> entite::getVectPort()
+{
+	return vectPort;
 }
 
 int entite::getScoreATT()
@@ -43,4 +51,18 @@ bool entite::getVivant()
 	return vivant;
 }
 
-entite::~entite() {}
+void entite::seDeplacer(carte mappe)
+{
+}
+
+void entite::setVectPort(pair<int, int>, int)
+{
+}
+
+void entite::attaquer()
+{
+}
+
+entite::~entite()
+{
+}

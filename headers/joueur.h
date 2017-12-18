@@ -3,14 +3,10 @@
 #include <string>
 #include <vector>
 
-#include "../headers/armure.h"
-#include "../headers/entite.h"
 #include "../headers/carte.h"
-#include "../headers/mousquet.h"
-#include "../headers/pelle.h"
-#include "../headers/objet.h"
-#include "../headers/tresor.h"
+#include "../headers/entite.h"
 #include "../headers/io.h"
+#include "../headers/objetCarte.h"
 
 using namespace std;
 
@@ -18,14 +14,17 @@ class joueur : public entite
 {
 	bool pellePoss;
 	bool victoire;
-	vector<objet> equipement;
+	vector<objetCarte> equipement;
 
 public:
-	joueur(string nom_n);
-	~joueur();
-	void seDeplacer(carte mappe) override;
+	joueur(string nom_n, bool ramassable_n);
 	bool getPellePoss();
-	void ramasser(carte map);
+	void ramasser(carte mappe);
 	bool getVictoire();
 	string joueurString();
+	~joueur();
+
+	//Virtual & override
+	void seDeplacer(carte mappe) override;
+	void attaquer() override;
 };
