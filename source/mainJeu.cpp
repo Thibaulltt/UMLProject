@@ -8,8 +8,6 @@
 #include "../headers/joueur.h"
 #include "../headers/coords.h"
 
-//g++ -std=c++11 -Wall -pedantic armure.cpp boucanier.cpp carte.cpp coords.cpp ennemi.cpp entite.cpp flibustier.cpp io.cpp jeu.cpp joueur.cpp mainJeu.cpp mousquet.cpp objet.cpp objetCombat.cpp pelle.cpp tresor.cpp -o Dig_or_die
-
 using namespace std;
 
 int main()
@@ -22,7 +20,7 @@ int main()
 
 		int nb_joueurs_g = 0;
 
-		//Présentation des règles à mettre ici
+		
 
 		cout << "\n";
 		cout << "                                Bienvenue\n";
@@ -134,9 +132,6 @@ int main()
 		}
 	///Partie[end]
 	}
-
-
-
 
 	return 0;
 }
