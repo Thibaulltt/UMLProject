@@ -20,7 +20,10 @@ class objetCarte {
 		void setCoordonnees(int,int);
 		string getType();
 		string getNom();
+		
 
 		virtual string toString();
+		virtual int getAttack();
+		virtual int getDefense();
 		~objetCarte();
 };

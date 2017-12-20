@@ -48,6 +48,14 @@ string objetCarte::getNom()
 	return nom;
 }
 
+int objetCarte::getAttack()
+{
+}
+
+int objetCarte::getDefense()
+{
+}
+
 objetCarte::~objetCarte()
 {
 }

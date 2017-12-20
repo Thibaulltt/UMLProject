@@ -14,7 +14,7 @@ class joueur : public entite
 {
 	bool pellePoss;
 	bool victoire;
-	vector<objetCarte> equipement;
+	vector<objetCarte *> equipement;
 
 public:
 	joueur(string nom_n, bool ramassable_n);
@@ -22,8 +22,7 @@ public:
 	void ramasser(carte mappe);
 	bool getVictoire();
 	~joueur();
-
-	string getType();
+	bool checkPoss(string nomObjet);
 
 	//Virtual & override
 	void seDeplacer(carte mappe) override;

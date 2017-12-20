@@ -34,10 +34,6 @@ string objetCombat::toString() //Format retour : nom / attack : defense
 	return stringRetour;
 }
 
-void objetCombat::theFct()
-{
-	cout << "bob bg" << endl;
-}
 objetCombat::~objetCombat()
 {
 }

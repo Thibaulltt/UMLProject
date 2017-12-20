@@ -9,7 +9,6 @@ class objetCombat : public objetCarte
 		int defense;
 
 	public:
-			void theFct();
 		objetCombat(string nom_n, int att_n, int def_n, bool ramassable_n);
 		int getAttack();
 		int getDefense();

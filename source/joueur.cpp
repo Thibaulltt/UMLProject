@@ -24,92 +24,105 @@ void joueur::seDeplacer(carte mappe)
 	io::choisirCase(mappe, positionJoueur);
 }
 
+bool joueur::checkPoss(string nomObjet)
+{
+	for (int i = 0; i < equipement.size(); i++)
+	{
+		if (equipement[i]->getNom() == nomObjet)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 
 void joueur::ramasser(carte mappe)
 {
-	////Vecteur contenant les objets de la carte
-	//vector<vector<vector<objetCarte>>> aireJeu = mappe.getAireJeu();
+	//Vecteur contenant les objets de la carte
+	vector<vector<vector<objetCarte *>>> aireJeu = mappe.getAireJeu();
 
 	////Coordonnées du joueur
-	//int x = getCoordonnees().first;
-	//int y = getCoordonnees().second;
+	int x = coordonnees.first;
+	int y = coordonnees.second;
 
 
-	//if (aireJeu[x][y] != 0) //Si la case n'est pas vide
-	//{
-	//	//Case tresor
-	//	if (aireJeu[x][y] == 1) //Si on est sur le tresor
-	//	{
-	//		/*if (pellePoss == true) //Si le joueur a une pelle
-	//		{
-	//			tresor coffre();								/////// A METTRE A JOUR
-	//			this->equipement[1] = coffre;							/////// A METTRE A JOUR
-	//			aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
-	//			cout << "Vous avez trouvé le trésor ! " << endl;									////////// COUT A MODIFIER ////////////
-	//		}*/
-	//	}
+	if (aireJeu[x][y].size() > 1) //Si il y a autre chose qu'un joueur sur la case
+	{
+		for (int i = 0; i < aireJeu[x][y].size(); i++) //Parcours de ce qu'il se trouve dans la case
+		{
+			//Pelle
+			if (aireJeu[x][y][i]->getNom() == "pelle") //Si on est sur une case avec pelle
+			{
+				if (!checkPoss("pelle")) //Si le joueur n'a pas de pelle
+				{
+					equipement.push_back(aireJeu[x][y][i]); //On met la pelle dans l'equipement du joueur
+					
+					cout << "Vous avez trouvé la pelle ! " << endl;													//////////// COUT A MODIFIER ///////////
+					
+				}
+				else
+				{
+					cout << "Vous avez déjà une pelle ! " << endl;													//////////// COUT A MODIFIER ///////////
+				}
+			}
 
-	//	//Case pelle
-	//	if (aireJeu[x][y] == 2) //Si on est sur la pelle
-	//	{
-	//		/*if (pellePoss == false) //Si le joueur n'a pas de pelle
-	//		{
-	//			pellePoss = true;
-	//			pelle shovel();									/////// A METTRE A JOUR
-	//			this->equipement[2] = shovel;							/////// A METTRE A JOUR
-	//			aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
-	//			cout << "Bravo ! Vous avez trouvé la pelle !" << endl;								////////// COUT A MODIFIER ////////////
-	//		}*/
-	//		
-	//		if (pellePoss == false) //Si le joueur a déjà une pelle
-	//		{
-	//			cout << "Vous avez trouvé une pelle, mais vous en avez déjà une." << endl;			////////// COUT A MODIFIER ////////////
-	//		}
-	//	}
+			//Tresor
+			if (checkPoss("pelle")) //On ne peur chercher le tresor que si on a une pelle
+			{
+				if (aireJeu[x][y][i]->getNom() == "tresor") //Si on est sur la case tresor
+				{
+					if (!checkPoss("pelle")) //Si le joueur n'a pas de pelle
+					{
+						equipement.push_back(aireJeu[x][y][i]); //On met le tresor dans l'equipement du joueur
 
-	//	//Case mousquet
-	//	if (aireJeu[x][y] == 3) //Si on est sur une case avec mousquet
-	//	{
-	//		/*if (equipement[3].getID() != 3) //Si le joueur n'a pas de mousquet
-	//		{
-	//			mousquet fusil();								/////// A METTRE A JOUR
-	//			equipement[3] = fusil;								/////// A METTRE A JOUR
-	//			aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
-	//			this->scoreATT += fusil.getAttack(); //MaJ stat joueur				/////// A METTRE A JOUR
-	//			cout << "Bravo ! Vous avez trouvé le mousquet !" << endl;							////////// COUT A MODIFIER ////////////
-	//		}*/
+						cout << "Vous avez trouvé le tresor  ! " << endl;													//////////// COUT A MODIFIER ///////////
 
-	//		/*if (equipement[3].getID() == 3 ) //Si le joueur a déjà un mousquet			/////// A METTRE A JOUR
-	//		{
-	//			cout << "Vous avez trouvé un mousquet, mais vous en avez déjà un." << endl;			////////// COUT A MODIFIER ////////////
-	//		}*/
-	//	}
+					}
+				}
+			}
 
-	//	//Case armure
-	//	if (aireJeu[x][y] == 4) //Si on est sur une case avec armure
-	//	{
-	//		/*if (equipement[4].getID( ) != 4) //Si le joueur n'a pas d'armure			/////// A METTRE A JOUR
-	//		{
-	//			armure armor();									/////// A METTRE A JOUR
-	//			equipement[4] = armor;								/////// A METTRE A JOUR
-	//			aireJeu[x][y] = 0; //On enleve de la carte l'objet trouvé
-	//			this->scoreATT *= 2; //MaJ stat joueur (attaque)
-	//			this->scoreDEF += armor.getDefense(); //MaJ stat joueur (defense)		/////// A METTRE A JOUR
-	//			cout << "Bravo ! Vous avez trouvé l'armure !" << endl;								////////// COUT A MODIFIER ////////////
-	//		}*/
+			//Mousquet
+			if (aireJeu[x][y][i]->getNom() == "mousquet") //Si on est sur une case avec un mousquet
+			{
+				if (!checkPoss("mousquet")) //Si le joueur n'a pas de mousquet
+				{
+					equipement.push_back(aireJeu[x][y][i]); //On met le mousquet dans l'equipement du joueur
+					scoreATT += aireJeu[x][y][i]->getAttack(); //MaJ stats
+					scoreDEF += aireJeu[x][y][i]->getDefense();
+					cout << "Vous avez trouvé le mousquet ! " << endl;													//////////// COUT A MODIFIER ///////////
 
-	//		/*if (equipement[4].getID() == 4) //Si le joueur a déjà un mousquet
-	//		{
-	//			cout << "Vous avez trouvé une armure, mais vous en avez déjà une." << endl;			////////// COUT A MODIFIER ////////////
-	//		}*/
-	//	}
-	//}
+				}
+				else
+				{
+					cout << "Vous avez déjà un mousquet ! " << endl;													//////////// COUT A MODIFIER ///////////
+				}
+			}
+
+			//Armure
+			if (aireJeu[x][y][i]->getNom() == "armure") //Si on est sur une case avec une armure 
+			{
+				if (!checkPoss("armure")) //Si le joueur n'a pas d'armure
+				{
+					equipement.push_back(aireJeu[x][y][i]); //On met l'armure
+					scoreATT += aireJeu[x][y][i]->getAttack(); //MaJ stats
+					scoreDEF += aireJeu[x][y][i]->getDefense();
+					cout << "Vous avez trouvé l'armure ! " << endl;													//////////// COUT A MODIFIER ///////////
+
+				}
+				else
+				{
+					cout << "Vous avez déjà une armure ! " << endl;													//////////// COUT A MODIFIER ///////////
+				}
+			}			
+		}
+	}
 }
 
 
 string joueur::toString() //Format retour : nom / porteeDEP : scoreATT : scoreDEF / objet1 § objet2 § objet3
 {
-	string stringRetour =  entite::toString();
+	string stringRetour = "J/" + entite::toString();
 
 	//Ajout vecteur objet 
 	string allObjet = "";
@@ -118,11 +131,11 @@ string joueur::toString() //Format retour : nom / porteeDEP : scoreATT : scoreDE
 	{
 		if (i != (equipement.size()) - 1)
 		{
-			allObjet = allObjet + equipement[i].toString() + "§";
+			allObjet = allObjet + equipement[i]->toString() + "§";
 		}
 		else
 		{
-			allObjet = allObjet + equipement[i].toString();
+			allObjet = allObjet + equipement[i]->toString();
 		}
 	}
 
@@ -142,9 +155,6 @@ void joueur::attaquer()
 
 }
 
-string joueur::getType() {
-	return typeid(this).name();
-}
 
 joueur::~joueur()
 {
