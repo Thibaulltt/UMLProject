@@ -1,6 +1,8 @@
 ﻿
 #include "../headers/objetCombat.h"
+#include <iostream>
 
+using namespace std;
 objetCombat::objetCombat(string nom_n, int att_n, int def_n, bool ramassable_n) : objetCarte(nom_n, ramassable_n)
 {
 	nom = nom_n;
@@ -19,6 +21,23 @@ int objetCombat::getDefense()
 	return this->defense;
 }
 
+string objetCombat::toString() //Format retour : nom / attack : defense
+{
+	string stringRetour = objetCarte::toString();
+
+	string stats ="";
+	
+	//Ajout stats
+	stats = to_string(attack) + ":" + to_string(defense);
+	
+	stringRetour += ":" + stats;
+	return stringRetour;
+}
+
+void objetCombat::theFct()
+{
+	cout << "bob bg" << endl;
+}
 objetCombat::~objetCombat()
 {
 }

@@ -15,6 +15,7 @@ objetCarte::objetCarte(string nom_n, bool ramassable_n)
 	nom = nom_n;
 	setCoordonnees(make_pair(0, 0));
 	ramassable = ramassable_n;
+	setCoordonnees(make_pair(0, 0));
 }
 
 pair<int,int> objetCarte::getCoordonnees() {
@@ -31,8 +32,20 @@ void objetCarte::setCoordonnees(int nouveauX, int nouveauY) {
 	coordonnees.second = nouveauY;
 }
 
-std::string objetCarte::getType() {
+
+string objetCarte::getType() {
 	return typeid(this).name();
+}
+
+string objetCarte::toString()
+{
+	string stringRetour = nom;
+	return stringRetour;
+}
+
+string objetCarte::getNom()
+{
+	return nom;
 }
 
 objetCarte::~objetCarte()

@@ -18,6 +18,9 @@ class objetCarte {
 		pair<int,int> getCoordonnees();
 		void setCoordonnees(pair<int,int>);
 		void setCoordonnees(int,int);
-		std::string getType();
+		string getType();
+		string getNom();
+
+		virtual string toString();
 		~objetCarte();
 };

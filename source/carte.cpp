@@ -1,5 +1,5 @@
 ﻿#include <vector>
-
+#include <iostream>
 #include "../headers/carte.h"
 #include "../headers/objetCarte.h"
 
@@ -27,19 +27,39 @@ carte::carte(int taille_n)
 	}
 }
 
-string carte::carteString()		//A REVOIR
+string carte::toString()
 {
-	/*string stringRetour = "";
+	string stringRetour = "";
 
 	for (int i = 0; i < aireJeu.size(); i++)
 	{
 		for (int j = 0; j < aireJeu[i].size(); j++)
 		{
-			stringRetour += to_string(aireJeu[i][j]);
+			if (aireJeu[i][j].size() == 0) // Si case vide
+			{
+				stringRetour += "0";
+			}
+			
+			if (aireJeu[i][j].size() != 0) // Si case non vide
+			{
+				for (int k = 0; k < aireJeu[i][j].size(); k++)
+				{
+					cout << aireJeu[i][j][k].getNom() << " ";
+					stringRetour += aireJeu[i][j][k].toString() + "$";
+				}
+			}
+
+			stringRetour += "|";
 		}
 	}
 
-	return stringRetour;*/
+	return stringRetour;
+
+	/*Format retour : 
+0 si case vide
+| séparateur de case
+$ séparateur de ce qui se trouve dans une case
+	*/
 }
 
 
