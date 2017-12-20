@@ -8,6 +8,8 @@
 #include "../headers/ennemi.h"
 #include "../headers/joueur.h"
 #include "../headers/objetCarte.h"
+#include "../headers/objetCombat.h"
+#include "../headers/flibustier.h"
 
 using namespace std;
 

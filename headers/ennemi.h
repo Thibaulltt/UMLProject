@@ -7,8 +7,9 @@ class ennemi : public entite //Classe ennemi heritant d'entite
 {
 	public:
 		ennemi(string nom_n, bool ramassable_n);	// Construction d'un ennemi
-		std::string ennemiString();	// Fonction pour la sauvegarde
 
+	
+		virtual string toString() override;
 		//Virtual & override
 		virtual void seDeplacer(carte mappe) override;	// Deplacement de l'ennemi
 		virtual void setVectPort(pair<int, int>, int) override;		// Set vector portee

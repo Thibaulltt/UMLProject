@@ -1,6 +1,7 @@
 #include <math.h>
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "../headers/carte.h"
 #include "../headers/entite.h"
@@ -61,6 +62,19 @@ void entite::setVectPort(pair<int, int>, int)
 
 void entite::attaquer()
 {
+}
+
+string entite::toString() //Format retour : nom / porteeATT : scoreATT : scoreDEF
+{
+	string stringRetour = objetCarte::toString();
+
+	//Ajout stats
+	string stats = to_string(porteeATT) + ":" + to_string(scoreATT) + ":" + to_string(scoreDEF);
+
+	//String final
+	stringRetour += "/" + stats;
+
+	return stringRetour;
 }
 
 entite::~entite()

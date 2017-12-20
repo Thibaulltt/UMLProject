@@ -24,11 +24,13 @@ class entite : public objetCarte
 		int getScoreDEF();			// Retourne le nb de points de defense
 		void setVivant(bool vivant_n);		// IT'S ALIVE !!!
 		bool getVivant();			// It's alive ???
+		
 
 		//Virtual & override
 		virtual void seDeplacer(carte mappe);
 		virtual void setVectPort(pair<int, int>, int);		// Set vector portee
 		virtual void attaquer();	// Attaque de l'ennemi
+		virtual string toString() override;
 		virtual ~entite();
 };
 

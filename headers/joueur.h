@@ -21,10 +21,12 @@ public:
 	bool getPellePoss();
 	void ramasser(carte mappe);
 	bool getVictoire();
-	string joueurString();
 	~joueur();
+
+	string getType();
 
 	//Virtual & override
 	void seDeplacer(carte mappe) override;
 	void attaquer() override;
+	string toString() override;
 };

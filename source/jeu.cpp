@@ -142,7 +142,7 @@ int jeu::lancerPartie()
 
 		getline(cin, s_validation);
 
-		while (s_validation != "o" || s_validation != "O" || s_validation != "n" || s_validation != "N")
+		while (s_validation != "o" && s_validation != "O" && s_validation != "n" && s_validation != "N")
 		{
 			cout << "\nValeur incorrecte.\nValidez-vous ces choix? (o/n)\n";
 			getline(cin, s_validation);
@@ -215,6 +215,7 @@ int jeu::lancerPartie()
 
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);	//case aléatoire
 		vect_joueur[i].setCoordonnees(duo);
+		mappe.setCase(duo, vect_joueur[i]);
 		vect_case.erase(vect_case.begin() + alea);
 	}
 
@@ -222,9 +223,9 @@ int jeu::lancerPartie()
 	for (unsigned int i = 0; i < vect_ennemi.size(); i++)	//pour chaque ennemi
 	{
 		alea = rand() % (vect_case.size() + 1);
-
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
 		vect_ennemi[i].setCoordonnees(duo);
+		mappe.setCase(duo, vect_ennemi[i]);
 	}
 
 	//Placement objets
@@ -248,10 +249,10 @@ int jeu::lancerPartie()
 	}
 	
 	//Test affichage map début partie
-	io::afficherCarte(mappe);
+	//io::afficherCarte(mappe);
 
 	cout.flush();
-	sleep(10);
+//	sleep(10);
 
 	return nb_joueurs;
 }
@@ -328,6 +329,7 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 
 void jeu::sauvegarderPartie()
 {
+	string finalString = "";
 	ifstream fichierSaveL("../saves.txt", ios::in);
 
 	//ID save
@@ -341,50 +343,8 @@ void jeu::sauvegarderPartie()
 	fichierSaveL.close();
 
 	ofstream fichierSave("../saves.txt", ios::app);
-
-
-	//Joueurs
-	string allPlayers = "";
-	for (int i = 0; i < vect_joueur.size(); i++)
-	{
-		if (vect_joueur.size() >= 2)
-		{
-			if (i != (vect_joueur.size()) - 1)
-			{
-				allPlayers = allPlayers + vect_joueur[i].joueurString() + "§";
-			}
-			else
-			{
-				allPlayers = allPlayers + vect_joueur[i].joueurString();
-			}
-		}
-
-		else
-		{
-			allPlayers = vect_joueur[0].joueurString();
-		}
-		
-	}
-
-	//Ennemis
-	string allEnemys = "";
-	for (int j = 0; j == vect_ennemi.size(); j++)
-	{
-		if (j != (vect_ennemi.size()) - 1)
-		{
-			allEnemys = allEnemys + vect_ennemi[j].ennemiString() + "§";
-		}
-		else
-		{
-			allEnemys = allEnemys + vect_ennemi[j].ennemiString();
-		}
-	}
-
-	//Carte
-	string strMap = mappe.carteString();
-
-	//String final
-	string finalString = ligne + "|" + strMap + "|" + allPlayers + "|" + allEnemys + "\n"; //Format final : IDsauvegarde | carte | joueur1 § joueur2 | ennemi1 § ennemi2 
+	
+	finalString += ligne + "@" + mappe.toString() + "\n";
 
 	if (fichierSave)
 	{
