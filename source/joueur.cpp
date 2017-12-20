@@ -2,6 +2,9 @@
 #include "../headers/jeu.h"
 #include "../headers/joueur.h"
 #include "../headers/io.h"
+#include <unistd.h>
+
+using namespace io;
 
 //Fonctions classe joueur
 joueur::joueur(string nom_n) : entite(nom_n)
@@ -19,6 +22,8 @@ void joueur::deplacerJoueur(carte map)
 	//mettre à jour nouvelle position (slot)
 	//en utilisant setSlot() et la position précédente + direction de déplacement
 	// Ici, on utilise la valeur slot dans entite.h pour modifier la case joueur
+	sleep(2);
+	updateMessage(0,"Rentre dans joueur::deplacerJoueur()");
 	io::choisirCase(map, slot);
 }
 

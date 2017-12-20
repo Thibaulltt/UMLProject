@@ -7,6 +7,9 @@
 #include "../headers/ennemi.h"
 #include "../headers/jeu.h"
 #include "../headers/joueur.h"
+#include "../headers/io.h"
+
+using namespace io;
 
 jeu::jeu()
 {
@@ -31,12 +34,12 @@ int jeu::lancerPartie()
 
 		while (valid == false)
 		{
-			getline(cin, s_nb_joueurs);
+			s_nb_joueurs = de();
 
 			while (isInteger(s_nb_joueurs) == false)
 			{
 				cout << "\nValeur incorrecte. Veuillez réessayer: ";
-				getline(cin, s_nb_joueurs);
+				s_nb_joueurs = de();
 			}
 
 			nb_joueurs = atoi(s_nb_joueurs.c_str());
@@ -80,12 +83,12 @@ int jeu::lancerPartie()
 
 		while (valid == false)
 		{
-			getline(cin, s_difficulte);
+			s_difficulte = de();
 
 			while (isInteger(s_difficulte) == false)
 			{
 				cout << "\nValeur incorrecte. Veuillez réessayer: ";
-				getline(cin, s_difficulte);
+				s_difficulte = de();
 			}
 
 			difficulte = atoi(s_difficulte.c_str());
@@ -136,7 +139,7 @@ int jeu::lancerPartie()
 		cout << ") en difficulté " << difficulte << ".\n";
 		cout << "Validez-vous ces choix? (o/n)\n";
 
-		getline(cin, s_validation);
+		s_validation = de();
 
 		if (s_validation == "o" || s_validation == "O" || s_validation == "0")
 		{
@@ -241,7 +244,9 @@ int jeu::lancerPartie()
 	io::afficherCarte(mappe);
 
 	cout.flush();
-	sleep(10);
+	sleep(5);
+	updateMessage(0,"Voila, on se deplace maintenant.");
+	vect_joueur[0].deplacerJoueur(mappe);
 
 	return nb_joueurs;
 }

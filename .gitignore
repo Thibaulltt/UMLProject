@@ -2,4 +2,5 @@
 source/Dig_or_die
 *.o
 *.exe
+objects/*
 source/Dig_or_die

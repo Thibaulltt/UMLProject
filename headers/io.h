@@ -56,9 +56,13 @@ namespace io {
 	extern void afficherMessage();
 	// contient case a mettre a jour
 	extern void updateCarte(coords);
+	extern void updateMouvements(coords, bool);
 	// genere les mouvements possibles sur une case passee en argument
 	vector< pair<coords,bool> > genererMouvements(carte, pair<int,int>);
 	// verifie que le terminal est bien configure avant de commencer le programme
-	bool setup();
+	extern bool setup();
+	extern void afficherPossibilitesMouvements();
+	extern void afficherMouvements(vector<pair<coords,bool>>, coords&);
+	extern coords choisirLieu(vector<pair<coords,bool>>,coords&);
 }
 #endif

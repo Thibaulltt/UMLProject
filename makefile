@@ -1,18 +1,30 @@
-test_io: headers/io.h source/io.cpp tests/main_io.cpp obj_io obj_carte obj_coords
-	@g++ tests/main_io.cpp objects/io.o objects/coords.o objects/carte.o -o tests/main_io.exe -std=c++11
+# The flags passed to the compiler for each instruction
+FLAGS=-Wall -pedantic -std=c++11
+# Target files
+TARGET=jeu
+# Rajoute .cpp pour l'entree
+SOURCEFILE=source/$(TARGET).cpp
+# Rajoute .o pour la sortie
+OUTPUTFILE=objects/$(TARGET).o
+HEADERFILE=headers/$(TARGET).h
+ALL_OBJECTS=source/armure.cpp source/boucanier.cpp source/ennemi.cpp source/entite.cpp source/flibustier.cpp source/joueur.cpp source/mousquet.cpp source/objet.cpp source/objetCombat.cpp source/pelle.cpp source/tresor.cpp headers/armure.h headers/boucanier.h headers/ennemi.h headers/entite.h headers/flibustier.h headers/joueur.h headers/mousquet.h headers/objet.h headers/objetCombat.h headers/pelle.h headers/tresor.h 
 
-obj_io: source/io.cpp headers/io.h obj_carte obj_coords
+# Commande permettant de compiler tous fichiers 1 par 1
+object: $(SOURCEFILE) $(HEADERFILE)
+	@echo "Compiling $(SOURCEFILE) into $(OUTPUTFILE) ..."
+	@g++ $(FLAGS) -c $(SOURCEFILE) -o $(OUTPUTFILE)
+	@echo "Compiling of $(OUTPUTFILE) complete."
+
+Dig_or_die:
 	@echo "Compiling $@ ..."
-	@g++ -c source/io.cpp -o objects/io.o -std=c++11
-	@echo "Compilation of $@ done."
+	@echo
+	@g++ source/*.cpp -o $@ $(FLAGS)
+	@echo
+	@echo "Compilation of $@ complete."
 
-obj_coords: source/coords.cpp headers/coords.h
-	@g++ -c source/coords.cpp -o objects/coords.o -std=c++11
-
-obj_carte: source/carte.cpp headers/carte.h
-	@echo "Compiling $@ ..."
-	@g++ -c $< -o objects/carte.o -std=c++11
-	@echo "Compilation of $@ done."
-
-all: source/$(wildcard*.cpp)
-	cd source && g++ -std=c++11 -Wall -pedantic armure.cpp boucanier.cpp carte.cpp coords.cpp ennemi.cpp entite.cpp flibustier.cpp io.cpp jeu.cpp joueur.cpp mainJeu.cpp mousquet.cpp objet.cpp objetCombat.cpp pelle.cpp tresor.cpp -o ../Dig_or_die
+all_objects: 
+	@echo "Compiling all objects ..."
+	@ for loopTarget in armure boucanier ennemi entite flibustier io joueur mousquet objet objetCombat pelle tresor; do \
+		make object TARGET=$$loopTarget; \
+	done
+	@echo "Compiling complete."

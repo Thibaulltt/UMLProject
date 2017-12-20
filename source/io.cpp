@@ -37,6 +37,13 @@
 #define TERM_COLOR_TEXT_YELLOW "\033[93m"
 #define TERM_COLOR_TEXT_BLUE "\033[94m"
 #define TERM_COLOR_TEXT_MAGENTA "\033[95m"
+// Couleur de fond pour le terminal
+#define TERM_COLOR_BACK_BLANK "\033[0m"
+#define TERM_COLOR_BACK_RED "\033[41m"
+#define TERM_COLOR_BACK_GREEN "\033[42m"
+#define TERM_COLOR_BACK_YELLOW "\033[43m"
+#define TERM_COLOR_BACK_BLUE "\033[44m"
+#define TERM_COLOR_BACK_MAGENTA "\033[45m"
 
 using namespace std;
 
@@ -159,13 +166,82 @@ namespace io {
 		mettre a jour affichage
 		retourner
 		*/
+		sleep(1);
+		updateMessage(0,"Rentre dans choisirCase()");
 		vector< pair<coords,bool> > positionsPossibles = genererMouvements(gameMap, posJ.getValeurs()); // Positions possibles dans la vicinite directe du joueur
+		sleep(1);
+		updateMessage(1,"");
+		updateMessage(2,"");
+		//afficherPossibilitesMouvements();
+		afficherMouvements(positionsPossibles, posJ);
+		coords nouvellePositionJoueur = io::choisirLieu(positionsPossibles, posJ);
 		// Maintenant on update l'affichage pour chaque case dispo
 		// afficherMouvements(positionsPossibles);
 		return;
 	}
 
+	void afficherMouvements(vector<pair<coords,bool>> positionsPossibles,coords &posJ) {
+		// pourquoi
+		sleep(2);
+		updateMessage(0,"Rentre dans afficherMouvements()");
+		coords caseMiseAJour;
+		int j = 0;
+		for (vector<pair<coords,bool>>::iterator i = positionsPossibles.begin() ; i <= positionsPossibles.end(); i++) {
+			if (i->second == true) {
+				std::string resStr = "updateCarte(), " + std::to_string(j++) + std::to_string(i->second);
+				usleep(500);
+				updateMessage(1,resStr);
+				updateCarte(i->first);
+			}
+		}
+	}
+
+	void updateCarte(coords updatedSlot) {
+		TERM_MOVE_CURSOR_GOTO(updatedSlot.getValeurs().first,updatedSlot.getValeurs().second);
+		cout << TERM_COLOR_TEXT_BLUE << 'O' << TERM_COLOR_TEXT_BLANK;
+		TERM_MOVE_CURSOR_GOTO(margesCarte.getValeurs().first, margesCarte.getValeurs().second);
+	}
+
+	coords choisirLieu(vector<pair<coords,bool>> positionsPossibles, coords& posJ) {
+		char selectedChar = '@';
+		coords currentCoords = posJ;
+		coords currentRealCoords;
+		currentRealCoords.setValeurs(std::make_pair(posJ.getValeurs().first+margesCarte.getValeurs().first, posJ.getValeurs().second+margesCarte.getValeurs().second));
+		TERM_MOVE_CURSOR_GOTO(currentRealCoords.getValeurs().first, currentRealCoords.getValeurs().second);
+		cout << TERM_COLOR_TEXT_BLUE << 'X' << TERM_COLOR_TEXT_BLANK;
+		while (selectedChar != 13) {
+			// Tant qu'on a pas 'entrée'
+			// Attendre input joueur
+			switch (selectedChar) {
+				case 'z':
+					updateMouvements(currentRealCoords, false);
+					currentRealCoords.setValeurs(std::make_pair(currentRealCoords.getValeurs().first-1, currentRealCoords.getValeurs().second));
+					updateMouvements(currentRealCoords, true);
+					break;
+				case 's':
+					updateMouvements(currentRealCoords, false);
+					currentRealCoords.setValeurs(std::make_pair(currentRealCoords.getValeurs().first+1, currentRealCoords.getValeurs().second));
+					updateMouvements(currentRealCoords, true);
+					break;
+				case 'q':
+					updateMouvements(currentRealCoords, false);
+					currentRealCoords.setValeurs(std::make_pair(currentRealCoords.getValeurs().first, currentRealCoords.getValeurs().second-1));
+					updateMouvements(currentRealCoords, true);
+					break;
+				case 'd':
+					updateMouvements(currentRealCoords, false);
+					currentRealCoords.setValeurs(std::make_pair(currentRealCoords.getValeurs().first-1, currentRealCoords.getValeurs().second+1));
+					updateMouvements(currentRealCoords, true);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
 	vector< pair<coords,bool> > genererMouvements(carte gameMap, pair<int,int> playerPos) {
+		sleep(2);
+		updateMessage(1, "Rentre dans genererMouvements()");
 		// Generation du vecteur avec des valeurs de base
 		vector< pair<coords,bool> > resultVector;
 		// Coordonnees utilisees pour la paire dans le vecteur
@@ -176,6 +252,8 @@ namespace io {
 				resultVector.push_back(std::make_pair(dummyCoordinates, false));
 			}
 		}
+		sleep(2);
+		updateMessage(2, "Generation vecteur finie.");
 		// Des valeurs par default sont initialisees, donc on les traite maintenant
 		// On itere de vector.begin() a vector.end()
 		for (vector< pair<coords,bool> >::iterator i = resultVector.begin(); i != resultVector.end(); i++) {
@@ -183,13 +261,25 @@ namespace io {
 			int y = i->first.getValeurs().second;
 			if (x >= 0 && x < MAX_X_MAP && y >= 0 && y < MAX_Y_MAP) {
 				// Si la case de la map est pas prise
-				if (gameMap.getCase(i->first.getValeurs()) == 0) {
+				//if (gameMap.getCase(i->first.getValeurs()) == 0) {
 					// Mettre la valeur a true
 					i->second = true;
-				}
+				//}
 			}
 		}
+		sleep(2);
+		updateMessage(2, "Remplissage de vecteur fini.");
 		return resultVector;
+	}
+
+	void updateMouvements(coords wantedUpdate, bool erased) {
+		TERM_MOVE_CURSOR_GOTO(wantedUpdate.getValeurs().first, wantedUpdate.getValeurs().second);
+		if (erased) {
+			cout << TERM_COLOR_TEXT_MAGENTA << 'X' << TERM_COLOR_TEXT_BLANK;
+		} else {
+			cout << ' ';
+		}
+		TERM_MOVE_CURSOR_GOTO(margesCarte.getValeurs().first, margesCarte.getValeurs().second);
 	}
 
 	bool setup() {
@@ -234,7 +324,7 @@ namespace io {
 						cout << TERM_COLOR_TEXT_RED << 'A' << TERM_COLOR_TEXT_BLANK;
 						break;
 					default:
-						cout << ' ';
+						cout << '.';
 						break;
 				}
 			}
@@ -250,9 +340,6 @@ namespace io {
 		std::stringstream launchMessage;
 		launchMessage << "Voila les coordonnees carte : (" << margesCarte.getValeurs().first;
 		launchMessage << "," << margesCarte.getValeurs().second << ").";
-		launchMessage << launchMessage.str();
-		launchMessage << launchMessage.str();
-		launchMessage << launchMessage.str();
 		updateMessage(0,launchMessage.str());
 	} 
 
@@ -292,7 +379,7 @@ namespace io {
 		// reste a afficher le message
 		for (int i = 0; i < int(floor(quotientLinesMessage+1.0)); i++) {
 			for (int j = 0; j < numberLinesMessage; j++) {
-				// On essaie d'afficher le message
+				// On *essaie* d'afficher le message
 				std::string arrgh;
 				try {
 					arrgh = desiredMessage.substr(stringPosition, maxTextOnLine);
