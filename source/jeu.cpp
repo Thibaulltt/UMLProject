@@ -215,7 +215,7 @@ int jeu::lancerPartie()
 
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);	//case aléatoire
 		vect_joueur[i].setCoordonnees(duo);
-		vect_objet[vect_case[alea].first][vect_case[alea].second].push_back(vect_joueur[i]);
+		mappe.setCase(duo, vect_joueur[i]);
 		vect_case.erase(vect_case.begin() + alea);
 	}
 
@@ -226,7 +226,7 @@ int jeu::lancerPartie()
 
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
 		vect_ennemi[i].setCoordonnees(duo);
-		vect_objet[vect_case[alea].first][vect_case[alea].second].push_back(vect_ennemi[i]);
+		mappe.setCase(duo, vect_ennemi[i]);
 	}
 
 	//Placement objets
