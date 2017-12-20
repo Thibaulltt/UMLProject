@@ -17,18 +17,18 @@ class jeu
 {
 	int nb_joueurs;
 	int difficulte;
-	vector<joueur> vect_joueur;
-	vector<objetCarte> vect_objet;
-	vector<ennemi> vect_ennemi;
+	vector<joueur*> vect_joueur;
+	vector<objetCarte*> vect_objet;
+	vector<ennemi*> vect_ennemi;
 	carte mappe;
 
 public:
 	jeu(int taille_n);
 	int lancerPartie();
-	void tourJoueur(joueur player);
-	vector<joueur> getVectJoueur();
-	void tourEnnemi(ennemi enemy, int & nb_joueurs_n);
-	vector<ennemi> getVectEnnemi();
+	void tourJoueur(joueur * player);
+	vector<joueur*> getVectJoueur();
+	void tourEnnemi(ennemi * enemy, int & nb_joueurs_n);
+	vector<ennemi*> getVectEnnemi();
 	void sauvegarderPartie();
 	~jeu();
 };

@@ -159,13 +159,13 @@ int jeu::lancerPartie()
 	//Création des joueurs
 	for (unsigned int i = 0; i < vect_string.size(); i++)
 	{
-		joueur dummy(vect_string[i], false);
+		joueur * dummy = new joueur(vect_string[i], false);
 		vect_joueur.push_back(dummy);
 	}
 
 	//Création des ennemis
-	boucanier bouc("Boucanier", false);
-	flibustier flib("Flibustier", false);
+	boucanier * bouc = new boucanier("Boucanier", false);
+	flibustier * flib = new flibustier("Flibustier", false);
 
 	vect_ennemi.push_back(bouc);
 	vect_ennemi.push_back(flib);
@@ -179,10 +179,10 @@ int jeu::lancerPartie()
 	cout << "\n";
 
 	//Création objets + carte
-	objetCarte tres("trésor", true);
-	objetCarte pel("pelle", true);
-	objetCombat mousq("mousquet", 150, 0, true);
-	objetCombat arm("armure", 91, 50, true);
+	objetCarte * tres = new objetCarte("trésor", true);
+	objetCarte * pel = new objetCarte("pelle", true);
+	objetCombat * mousq = new objetCombat("mousquet", 150, 0, true);
+	objetCombat * arm = new objetCombat("armure", 91, 50, true);
 
 	vector<pair<int, int>> vect_case;
 	pair<int, int> duo;
@@ -199,7 +199,7 @@ int jeu::lancerPartie()
 
 	//Placement trésor
 	vect_objet.push_back(tres);
-	vector<objetCarte>::iterator itvo = vect_objet.begin();
+	vector<objetCarte*>::iterator itvo = vect_objet.begin();
 
 	alea = rand() % (vect_case.size() + 1);	//indice aléatoire
 
@@ -214,7 +214,7 @@ int jeu::lancerPartie()
 		alea = rand() % (vect_case.size() + 1);	//indice aléatoire
 
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);	//case aléatoire
-		vect_joueur[i].setCoordonnees(duo);
+		vect_joueur[i] -> setCoordonnees(duo);
 		mappe.setCase(duo, vect_joueur[i]);
 		vect_case.erase(vect_case.begin() + alea);
 	}
@@ -224,7 +224,7 @@ int jeu::lancerPartie()
 	{
 		alea = rand() % (vect_case.size() + 1);
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
-		vect_ennemi[i].setCoordonnees(duo);
+		vect_ennemi[i] -> setCoordonnees(duo);
 		mappe.setCase(duo, vect_ennemi[i]);
 	}
 
@@ -252,7 +252,7 @@ int jeu::lancerPartie()
 
 	for (int i = 0; i < vect_joueur.size(); i++)
 	{
-		cout << "Nom joueur: " << vect_joueur[i].getNom() << "\n";
+		cout << "Nom joueur: " << vect_joueur[i] -> getNom() << "\n";
 	}
 
 	//Test affichage map début partie
@@ -264,30 +264,30 @@ int jeu::lancerPartie()
 	return nb_joueurs;
 }
 
-void jeu::tourJoueur(joueur player)
+void jeu::tourJoueur(joueur * player)
 {
-	player.seDeplacer(mappe);
+	player -> seDeplacer(mappe);
 
 	//Ramassage auto
 	//player.ramasser(mappe);
 }
 
-void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
+void jeu::tourEnnemi(ennemi * enemy, int & nb_joueurs_n)
 {
 	//Déplacement ennemis
-	enemy.seDeplacer(mappe);
+	enemy -> seDeplacer(mappe);
 
 	//Check joueurs à portée
-	for (unsigned int j = 0; j < enemy.getVectPort().size(); j++)	//Pour chaque case accessible
+	for (unsigned int j = 0; j < enemy -> getVectPort().size(); j++)	//Pour chaque case accessible
 	{
 		for (unsigned int k = 0; k < getVectJoueur().size(); k++)	//Pour chaque joueur
 		{
-			if (getVectJoueur()[k].getVivant() == false)
+			if (getVectJoueur()[k] -> getVivant() == false)
 			{
 				continue;
 			}
 
-			if (enemy.getVectPort()[j] == getVectJoueur()[k].getCoordonnees())	//Si joueur à portée
+			if (enemy -> getVectPort()[j] == getVectJoueur()[k] -> getCoordonnees())	//Si joueur à portée
 			{				
 				//Scores de base:
 				//Corsaire: 0 ATT, 0 DEF
@@ -306,7 +306,7 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 				//etc...
 
 				//Attaque joueur
-				double d_resATTJoueur = (getVectJoueur()[j].getScoreATT() * 100) / enemy.getScoreDEF();
+				double d_resATTJoueur = (getVectJoueur()[j] -> getScoreATT() * 100) / enemy -> getScoreDEF();
 				d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
 				int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
 
@@ -314,12 +314,12 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 
 				if (alea < resATTJoueur)	//Coup fatal
 				{
-					enemy.setVivant(false);	//Ennemi mort
+					enemy -> setVivant(false);	//Ennemi mort
 					return;
 				}
 
 				//Attaque pirate
-				double d_resATTEnnemi = (enemy.getScoreATT() * 100) / getVectJoueur()[j].getScoreDEF();
+				double d_resATTEnnemi = (enemy -> getScoreATT() * 100) / getVectJoueur()[j] -> getScoreDEF();
 				d_resATTEnnemi = ceil(d_resATTEnnemi - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
 				int resATTEnnemi = (int)d_resATTEnnemi;	//Conversion entier
 
@@ -327,7 +327,7 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 
 				if (alea < resATTEnnemi)	//Coup fatal
 				{
-					getVectJoueur()[j].setVivant(false);	//Joueur mort
+					getVectJoueur()[j] -> setVivant(false);	//Joueur mort
 					nb_joueurs_n--;
 				}
 			}
@@ -366,12 +366,12 @@ void jeu::sauvegarderPartie()
 	}
 }
 
-vector<joueur> jeu::getVectJoueur()
+vector<joueur *> jeu::getVectJoueur()
 {
 	return vect_joueur;
 }
 
-vector<ennemi> jeu::getVectEnnemi()
+vector<ennemi *> jeu::getVectEnnemi()
 {
 	return vect_ennemi;
 }

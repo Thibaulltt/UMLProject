@@ -15,13 +15,13 @@ carte::carte(int taille_n)
 	taille = taille_n;
 	aireJeu.resize(taille);
 
-	vector<vector<vector<objetCarte>>>::iterator it_vvi;	//Parcours carte
+	vector<vector<vector<objetCarte *>>>::iterator it_vvi;	//Parcours carte
 
 	for (it_vvi = aireJeu.begin(); it_vvi != aireJeu.end(); it_vvi++)	//Pour toute la carte
 	{
 		for (int i = 0; i < taille; i++)	//Pour chaque case carte
 		{
-			vector<objetCarte> vect_objC;	//Vecteur d'objets			
+			vector<objetCarte *> vect_objC;	//Vecteur d'objets			
 			(*it_vvi).push_back(vect_objC);	//Rajout vecteur d'objets dans case carte
 		}
 	}
@@ -44,8 +44,8 @@ string carte::toString()
 			{
 				for (int k = 0; k < aireJeu[i][j].size(); k++)
 				{
-					cout << aireJeu[i][j][k].getNom() << " ";
-					stringRetour += aireJeu[i][j][k].toString() + "$";
+					cout << aireJeu[i][j][k] -> getType() << " ";
+					stringRetour += aireJeu[i][j][k] -> toString() + "$";
 				}
 			}
 
@@ -69,17 +69,17 @@ int carte::getTaille()
 }
 
 
-void carte::setCase(pair<int, int> slot, objetCarte objC)
+void carte::setCase(pair<int, int> slot, objetCarte * objC)
 {
 	aireJeu[slot.first][slot.second].push_back(objC);
 }
 
-vector<objetCarte> carte::getCase(pair<int,int> slot) 
+vector<objetCarte *> carte::getCase(pair<int,int> slot) 
 {
 	return aireJeu[slot.first][slot.second];
 }
 
-vector<vector<vector<objetCarte>>> carte::getAireJeu()
+vector<vector<vector<objetCarte *>>> carte::getAireJeu()
 {
 	return aireJeu;
 }

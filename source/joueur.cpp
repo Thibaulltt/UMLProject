@@ -7,7 +7,6 @@
 joueur::joueur(string nom_n, bool ramassable_n) : entite(nom_n, ramassable_n)
 {
 	nom = nom_n;
-	this->equipement.resize(5);
 	ramassable = ramassable_n;
 }
 

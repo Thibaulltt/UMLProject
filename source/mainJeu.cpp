@@ -134,7 +134,7 @@ int main()
 		{
 			current.tourJoueur(current.getVectJoueur()[i]);
 
-			if (current.getVectJoueur()[i].getVictoire() == true)
+			if (current.getVectJoueur()[i] -> getVictoire() == true)
 			{
 				return 1;	//Victoire
 			}
