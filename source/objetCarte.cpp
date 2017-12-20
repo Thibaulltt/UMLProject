@@ -13,6 +13,7 @@ objetCarte::objetCarte()
 objetCarte::objetCarte(string nom_n, bool ramassable_n)
 {
 	nom = nom_n;
+	setCoordonnees(make_pair(0, 0));
 	ramassable = ramassable_n;
 }
 

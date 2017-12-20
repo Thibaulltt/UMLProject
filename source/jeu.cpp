@@ -142,9 +142,9 @@ int jeu::lancerPartie()
 
 		getline(cin, s_validation);
 
-		while (s_validation != "o" || s_validation != "O" || s_validation != "n" || s_validation != "N")
+		while (s_validation != "o" && s_validation != "O" && s_validation != "n" && s_validation != "N")
 		{
-			cout << "\nValeur incorrecte.\nValidez-vous ces choix? (o/n)\n";
+			cout << "\nValeur incorrecte.Validez-vous ces choix? (o/n)\n";
 			getline(cin, s_validation);
 		}
 
@@ -215,6 +215,7 @@ int jeu::lancerPartie()
 
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);	//case aléatoire
 		vect_joueur[i].setCoordonnees(duo);
+		vect_objet[vect_case[alea].first][vect_case[alea].second].push_back(vect_joueur[i]);
 		vect_case.erase(vect_case.begin() + alea);
 	}
 
@@ -225,6 +226,7 @@ int jeu::lancerPartie()
 
 		duo = pair<int, int>(vect_case[alea].first, vect_case[alea].second);
 		vect_ennemi[i].setCoordonnees(duo);
+		vect_objet[vect_case[alea].first][vect_case[alea].second].push_back(vect_ennemi[i]);
 	}
 
 	//Placement objets
