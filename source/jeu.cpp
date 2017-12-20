@@ -248,6 +248,13 @@ int jeu::lancerPartie()
 		}
 	}
 	
+	//Tests
+
+	for (int i = 0; i < vect_joueur.size(); i++)
+	{
+		cout << "Nom joueur: " << vect_joueur[i].getNom() << "\n";
+	}
+
 	//Test affichage map début partie
 	//io::afficherCarte(mappe);
 
@@ -284,7 +291,8 @@ void jeu::tourEnnemi(ennemi enemy, int & nb_joueurs_n)
 			{				
 				//Scores de base:
 				//Corsaire: 0 ATT, 0 DEF
-				//Pirate: 100 ATT, 100 DEF
+				//Boucanier: 100 ATT, 100 DEF
+				//Flibustier: 100 ATT, 100 DEF
 
 				//Règles scores:
 				//Mousquet = +150 ATT
@@ -370,7 +378,7 @@ vector<ennemi> jeu::getVectEnnemi()
 
 
 //Fonctions diverses
-bool isInteger(std::string s_input)
+bool isInteger(std::string s_input)	//Renvoie true si le string en paramètre "est" un entier, faux sinon
 {
 	for (unsigned int i = 0; i < s_input.size(); i++)
 	{
