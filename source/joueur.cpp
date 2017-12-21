@@ -123,21 +123,18 @@ void joueur::ramasser(carte mappe)
 	}
 }
 
-void joueur::equiper(vector<objetCarte*> vect_o)
+void joueur::equiper(objetCarte vect_o)
 {
-	for (int i = 0; i < vect_o.size(); i++)
-	{
-		equipement.push_back(vect_o[i]);
+	equipement.push_back(&vect_o);
 
-		if (vect_o[i]->getType() == "objetCombat")
-		{
-			scoreATT += vect_o[i]->getAttack();
-			scoreDEF += vect_o[i]->getDefense();
-		}
-		else if (vect_o[i]->getNom() == "pelle")
-		{
-			pellePoss = true;
-		}
+	if (vect_o.getType() == "objetCombat")
+	{
+		scoreATT += vect_o.getAttack();
+		scoreDEF += vect_o.getDefense();
+	}
+	else if (vect_o.getNom() == "pelle")
+	{
+		pellePoss = true;
 	}
 }
 

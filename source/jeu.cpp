@@ -385,14 +385,24 @@ bool jeu::chargerPartie(int numLigne)
 
 	for (int i = 0; i < ligne.size(); i++)
 	{
-		while (ligne[i] != "@")	//skip numéro ligne
+		string nom = "";
+		string porteeDep = "";
+		string scoreATT = "";
+		string scoreDEF = "";
+		string nom_obj = "";
+		string ram = "";
+		string obj_att = "";
+		string obj_def = "";
+		vector<objetCarte> vect_obj;
+
+		while (ligne[i] != '@')	//skip numéro ligne
 		{
 			continue;
 		}
 
 		i++;	//après @
 
-		if (ligne[i] == "|" || ligne[i] == "0")	//case vide
+		if (ligne[i] == '|' || ligne[i] == '0')	//case vide
 		{
 			continue;
 		}
@@ -400,19 +410,9 @@ bool jeu::chargerPartie(int numLigne)
 		{
 			i++;	//après | ou 0
 
-			if (ligne[i] == "J")	//joueur
+			if (ligne[i] == 'J')	//joueur
 			{
-				string nom = "";
-				string porteeDep = "";
-				string scoreATT = "";
-				string scoreDEF = "";
-				string nom_obj = "";
-				string ram = "";
-				string obj_att = "";
-				string obj_def = "";
-				vector<objetCarte*> vect_obj;
-
-				while (ligne[i] != "/")	//nom joueur
+				while (ligne[i] != '/')	//nom joueur
 				{
 					nom += ligne[i];	//construction nom
 					i++;
@@ -420,7 +420,7 @@ bool jeu::chargerPartie(int numLigne)
 
 				i++;	//après /
 
-				while (ligne[i] != ":")	//portée déplacement joueur
+				while (ligne[i] != ':')	//portée déplacement joueur
 				{
 					porteeDep += ligne[i];	//construction portée
 					i++;
@@ -428,7 +428,7 @@ bool jeu::chargerPartie(int numLigne)
 
 				i++;	//après :
 
-				while (ligne[i] != ":")	//score attaque joueur
+				while (ligne[i] != ':')	//score attaque joueur
 				{
 					scoreATT += ligne[i];	//construction score attaque
 					i++;
@@ -436,7 +436,7 @@ bool jeu::chargerPartie(int numLigne)
 
 				i++;	//après :
 
-				while (ligne[i] != "/")	//score défense joueur
+				while (ligne[i] != '/')	//score défense joueur
 				{
 					scoreDEF += ligne[i];	//construction score défense
 					i++;
@@ -444,9 +444,9 @@ bool jeu::chargerPartie(int numLigne)
 
 				i++;	//après /
 
-				while (ligne[i] != "|")	//objets
+				while (ligne[i] != '|')	//objets
 				{
-					while (ligne[i] != ":")	//nom objet
+					while (ligne[i] != ':')	//nom objet
 					{
 						nom_obj += ligne[i];
 						i++;
@@ -458,9 +458,9 @@ bool jeu::chargerPartie(int numLigne)
 					
 					i++;	//après /
 
-					if (ligne[i] == "C")	//objetCombat
+					if (ligne[i] == 'C')	//objetCombat
 					{
-						while (ligne[i] != ":")	//attaque objet
+						while (ligne[i] != ':')	//attaque objet
 						{
 							obj_att += ligne[i];	//construction attaque objet
 							i++;
@@ -468,32 +468,32 @@ bool jeu::chargerPartie(int numLigne)
 
 						i++;	//après :
 
-						while (ligne[i] != "|" || ligne[i] != "$")	//fin des objets / d'un objet
+						while (ligne[i] != '|' || ligne[i] != '$')	//fin des objets / d'un objet
 						{
 							obj_def += ligne[i];	//construction défense objet
 							i++;
 						}
 
-						vect_obj.push_back(new objetCombat(nom_obj, obj_att, obj_def, ram));
+						vect_obj.push_back(objetCombat(nom_obj, stoi(obj_att), stoi(obj_def), stoi(ram)));
 					}
 					else	//objetCarte
 					{
-						vect_obj.push_back(new objetCarte(nom_obj, ram));
+						vect_obj.push_back(objetCarte(nom_obj, stoi(ram)));
 					}
 
-					if (ligne[i] == "$")	//autre objet
+					if (ligne[i] == '$')	//autre objet
 					{
 						i++;
 						continue;	//objet suivant
 					}
-					else if (ligne[i] == "|")	//plus d'objet
+					else if (ligne[i] == '|')	//plus d'objet
 					{
 						i++;
 						break;	//case suivante
 					}
 				}
 
-				joueur dummy = new joueur(nom, ram);	//création joueur
+				joueur * dummy = new joueur(nom, stoi(ram));	//création joueur
 
 				for (int i = 0; i < vect_obj.size(); i++)	//rajout objets dans joueur
 				{
@@ -503,14 +503,9 @@ bool jeu::chargerPartie(int numLigne)
 				vect_joueur.push_back(dummy);	//rajout joueur
 			}
 
-			else if (ligne[i] == "E") //ennemi
+			else if (ligne[i] == 'E') //ennemi
 			{
-				string nom = "";
-				string porteeDep = "";
-				string scoreATT = "";
-				string scoreDEF = "";
-
-				while (ligne[i] != "/")	//nom ennemi
+				while (ligne[i] != '/')	//nom ennemi
 				{
 					nom += ligne[i];	//construction nom
 					i++;
@@ -518,7 +513,7 @@ bool jeu::chargerPartie(int numLigne)
 
 				i++;	//après /
 
-				while (ligne[i] != ":")	//portée déplacement ennemi
+				while (ligne[i] != ':')	//portée déplacement ennemi
 				{
 					porteeDep += ligne[i];	//construction portée
 					i++;
@@ -526,7 +521,7 @@ bool jeu::chargerPartie(int numLigne)
 
 				i++;	//après :
 
-				while (ligne[i] != ":")	//score attaque ennemi
+				while (ligne[i] != ':')	//score attaque ennemi
 				{
 					scoreATT += ligne[i];	//construction score attaque
 					i++;
@@ -534,7 +529,7 @@ bool jeu::chargerPartie(int numLigne)
 
 				i++;	//après :
 
-				while (ligne[i] != "/")	//score défense ennemi
+				while (ligne[i] != '/')	//score défense ennemi
 				{
 					scoreDEF += ligne[i];	//construction score défense
 					i++;
