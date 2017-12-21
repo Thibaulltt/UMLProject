@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 #include <vector>
@@ -71,6 +71,8 @@ public:
 		Si le joueur se trouve sur le trésor, on vérifie d'abord qu'il posséde un pelle avant de ramasser.
 	*/
 	void ramasser(carte mappe);
+
+	void equiper(objetCarte obj_o);
 
 	//Virtual & override
 	void seDeplacer(carte mappe) override;

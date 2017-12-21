@@ -22,11 +22,6 @@ entite::entite(string nom_n, bool ramassable_n) : objetCarte(nom_n, ramassable_n
 	ramassable = ramassable_n;
 }
 
-string entite::getNom()
-{
-	return nom;
-}
-
 vector<pair<int, int>> entite::getVectPort()
 {
 	return vectPort;

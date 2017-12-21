@@ -173,10 +173,6 @@ void joueur::attaquer()
 
 }
 
-string joueur::getType() {
-	return typeid(this).name();
-}
-
 joueur::~joueur()
 {
 }
