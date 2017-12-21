@@ -60,7 +60,7 @@ void joueur::ramasser(carte mappe)
 					if (!checkPoss("pelle")) //Si le joueur n'a pas de pelle
 					{
 						equipement.push_back(aireJeu[x][y][i]); //On met la pelle dans l'equipement du joueur
-
+						mappe.delObjet(x, y, i); //Suppression de l'objet de la case
 						cout << "Vous avez trouvé la pelle ! " << endl;													//////////// COUT A MODIFIER ///////////
 
 					}
@@ -78,7 +78,7 @@ void joueur::ramasser(carte mappe)
 						if (!checkPoss("pelle")) //Si le joueur n'a pas de pelle
 						{
 							equipement.push_back(aireJeu[x][y][i]); //On met le tresor dans l'equipement du joueur
-
+							mappe.delObjet(x, y, i); //Suppression de l'objet de la case
 							cout << "Vous avez trouvé le tresor  ! " << endl;													//////////// COUT A MODIFIER ///////////
 
 						}
@@ -93,6 +93,7 @@ void joueur::ramasser(carte mappe)
 						equipement.push_back(aireJeu[x][y][i]); //On met le mousquet dans l'equipement du joueur
 						scoreATT += aireJeu[x][y][i]->getAttack(); //MaJ stats
 						scoreDEF += aireJeu[x][y][i]->getDefense();
+						mappe.delObjet(x, y, i); //Suppression de l'objet de la case
 						cout << "Vous avez trouvé le mousquet ! " << endl;													//////////// COUT A MODIFIER ///////////
 
 					}
@@ -110,8 +111,8 @@ void joueur::ramasser(carte mappe)
 						equipement.push_back(aireJeu[x][y][i]); //On met l'armure
 						scoreATT += aireJeu[x][y][i]->getAttack(); //MaJ stats
 						scoreDEF += aireJeu[x][y][i]->getDefense();
+						mappe.delObjet(x, y, i); //Suppression de l'objet de la case
 						cout << "Vous avez trouvé l'armure ! " << endl;													//////////// COUT A MODIFIER ///////////
-
 					}
 					else
 					{
@@ -138,7 +139,7 @@ void joueur::equiper(objetCarte vect_o)
 	}
 }
 
-string joueur::toString() //Format retour : nom / porteeDEP : scoreATT : scoreDEF / objet1 § objet2 § objet3
+string joueur::toString() //Format retour : J / nom / porteeDEP : scoreATT : scoreDEF / objet1 § objet2 § objet3
 {
 	string stringRetour =  "J/" + entite::toString();
 

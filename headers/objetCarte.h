@@ -14,8 +14,8 @@ using namespace std;
 	- un booléen indiquant si cet objet est ramassable par le joueur.
 */
 
-class objetCarte {
-
+class objetCarte 
+{
 	protected:
 		//! Nom de l'objet
 		string nom;

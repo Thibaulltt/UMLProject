@@ -7,7 +7,7 @@
 #include "../headers/jeu.h"
 #include "../headers/joueur.h"
 
-//g++ -std=c++11 -Wall -pedantic armure.cpp boucanier.cpp carte.cpp coords.cpp ennemi.cpp entite.cpp flibustier.cpp io.cpp jeu.cpp joueur.cpp mainJeu.cpp mousquet.cpp objet.cpp objetCombat.cpp pelle.cpp tresor.cpp -o Dig_or_die
+// g++ -std=c++11 -pedantic boucanier.cpp carte.cpp ennemi.cpp entite.cpp flibustier.cpp jeu.cpp joueur.cpp mainJeu.cpp objetCombat.cpp objetCarte.cpp io.cpp -o ../Dig_or_die
 
 using namespace std;
 

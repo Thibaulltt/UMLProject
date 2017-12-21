@@ -20,5 +20,6 @@ public:
 	vector<objetCarte*> getCase(pair<int,int> slot);
 	string toString();
 	vector<vector<vector<objetCarte*>>> getAireJeu();
+	void delObjet(int x, int y, int position);
 	~carte();
 };
