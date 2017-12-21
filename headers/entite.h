@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 #include <vector>
@@ -8,12 +8,12 @@
 
 //!
 /*!
-La classe “Entite” est une super-classe abstraite, heritant d'objetCarte (une entite est un élement se trouvant sur la carte) regroupant toutes les entités présentes dans notre jeu.
-Elle sera la classe mère des classes "joueur" et ennemi".
-Toutes celles-ci ont des propriétés communes :
-- etatVie : une unité est soit envie, soit morte (booléen).
-- scoreATT, porteeATT, scoreDef : propriétés donnant les stats d’une entité. Celles-ci seront affectées par le type d’unité, ou bien les objets pouvant être ramassés au cours de la partie (nombre entier).
-- porteeDep : donne la portée de déplacement permise en un tour. Par exemple, une portée de 2 permet de se déplacer sur 2 cases autour de l’entité.
+La classe â€œEntiteâ€ est une super-classe abstraite, heritant d'objetCarte (une entite est un Ã©lement se trouvant sur la carte) regroupant toutes les entitÃ©s prÃ©sentes dans notre jeu.
+Elle sera la classe mÃ¨re des classes "joueur" et ennemi".
+Toutes celles-ci ont des propriÃ©tÃ©s communes :
+- etatVie : une unitÃ© est soit envie, soit morte (boolÃ©en).
+- scoreATT, porteeATT, scoreDef : propriÃ©tÃ©s donnant les stats dâ€™une entitÃ©. Celles-ci seront affectÃ©es par le type dâ€™unitÃ©, ou bien les objets pouvant Ãªtre ramassÃ©s au cours de la partie (nombre entier).
+- porteeDep : donne la portÃ©e de dÃ©placement permise en un tour. Par exemple, une portÃ©e de 2 permet de se dÃ©placer sur 2 cases autour de lâ€™entitÃ©.
 */
 
 
@@ -22,53 +22,53 @@ class entite : public objetCarte
 	protected :
 		//! Portee de deplacement
 		int porteeDEP;
-		//! Points d'attaque (affecté par type d'unité et objets ramassés)
+		//! Points d'attaque (affectÃ© par type d'unitÃ© et objets ramassÃ©s)
 		int scoreATT;
-		//! Portée d'attaque
+		//! PortÃ©e d'attaque
 		int porteeATT;
-		//! Points de defense (affecté par type d'unité et objets ramassés)
+		//! Points de defense (affectÃ© par type d'unitÃ© et objets ramassÃ©s)
 		int scoreDEF;
-		//! Etat de vie de l'unité
+		//! Etat de vie de l'unitÃ©
 		bool vivant;
 
 		vector<pair<int,int>> vectPort;
 
 	public :
-		//! Constructeur permettant de créer une entité.
+		//! Constructeur permettant de crÃ©er une entitÃ©.
 		/*!
-		Le constructeur de la classe mère (objetCarte) est appelé.
-		Une entité est initalisée ainsi :
-		- portée de déplacement de 1
-		- scoreATT, porteeATT, scoreDEF à 0
+		Le constructeur de la classe mÃ¨re (objetCarte) est appelÃ©.
+		Une entitÃ© est initalisÃ©e ainsi :
+		- portÃ©e de dÃ©placement de 1
+		- scoreATT, porteeATT, scoreDEF Ã  0
 		- vivante = true
 		*/
 		entite(string nom_n, bool ramassable_n);
 
-		vector<pair<int, int>> getVectPort();	//Retourne le vecteur de portée
+		vector<pair<int, int>> getVectPort();	//Retourne le vecteur de portÃ©e
 
-		//! Fonction retournant le scoreATT de l'entité
+		//! Fonction retournant le scoreATT de l'entitÃ©
 		/*!
-		Utilisée lors du combat.
+		UtilisÃ©e lors du combat.
 		\return Un entier donnant le scoreATT
 		*/
 		int getScoreATT();
 
-		//! Fonction retournant le scoreDEF de l'entité
+		//! Fonction retournant le scoreDEF de l'entitÃ©
 		/*!
-		Utilisée lors du combat.
+		UtilisÃ©e lors du combat.
 		\return Un entier donnant le scoreDEF
 		*/
 		int getScoreDEF();	
 
-		//! Fonction retournant l'état de vie d'un entité
+		//! Fonction retournant l'Ã©tat de vie d'un entitÃ©
 		/*!
-			\return Un booléen, true si l'entité est en vie, false sinon.
+			\return Un boolÃ©en, true si l'entitÃ© est en vie, false sinon.
 		*/
 		bool getVivant();
 
-		//! Fonction permettant de faire vivre ou mourir une entité
+		//! Fonction permettant de faire vivre ou mourir une entitÃ©
 		/*!
-		Utilisé en combat lors de la mort d'une entité par exemple
+		UtilisÃ© en combat lors de la mort d'une entitÃ© par exemple
 		*/
 		void setVivant(bool vivant_n);		
 					
@@ -78,27 +78,27 @@ class entite : public objetCarte
 		virtual void setVectPort(pair<int, int>, int);		// Set vector portee
 		virtual void attaquer();	// Attaque de l'ennemi
 		
-		//! Permet de convertir les caractéristiques d'une entité en string. 
+		//! Permet de convertir les caractÃ©ristiques d'une entitÃ© en string. 
 		/*!
-		Fonction utilisée dans la sauvegarde.
-		On rappelle le code de la classe mère, qui renvoie le nom.
-		\return Une string formatée ainsi : nom / porteeATT : scoreATT : scoreDEF
+		Fonction utilisÃ©e dans la sauvegarde.
+		On rappelle le code de la classe mÃ¨re, qui renvoie le nom.
+		\return Une string formatÃ©e ainsi : nom / porteeATT : scoreATT : scoreDEF
 		*/
 		virtual string toString() override;
 		
-		//!Destructeur d'entité
+		//!Destructeur d'entitÃ©
 		virtual ~entite();
 };
 
-/*Refonte fonctionnement portée [POUR DOC, PAS SUPPR PLZ]
-Désormais, on prend la stat de portée d'attaque, et on entre 2 points:
-- le point supérieur gauche (i-porteeATT, j-porteeATT) = a
-- le point inférieur droit (i+porteeATT, j+porteeATT) = b
-Ensuite, on fait une boucle ij qui part de a et qui va jusqu'à b
-en remplissant vectPort avec toutes les cases rencontrées.
-Résumé: on crée un carré autour de l'entité et on remplit.
+/*Refonte fonctionnement portÃ©e [POUR DOC, PAS SUPPR PLZ]
+DÃ©sormais, on prend la stat de portÃ©e d'attaque, et on entre 2 points:
+- le point supÃ©rieur gauche (i-porteeATT, j-porteeATT) = a
+- le point infÃ©rieur droit (i+porteeATT, j+porteeATT) = b
+Ensuite, on fait une boucle ij qui part de a et qui va jusqu'Ã  b
+en remplissant vectPort avec toutes les cases rencontrÃ©es.
+RÃ©sumÃ©: on crÃ©e un carrÃ© autour de l'entitÃ© et on remplit.
 Avantages: moins sale qu'avant; permet d'avoir toutes les cases
-(l'ancienne méthode ne rajoutait que les lignes droites et diagonales).
-Inconvénient: oblige à réécrire cette fonction pour chaque entité qui a
-un pattern différent, mais c'était pareil avant.
+(l'ancienne mÃ©thode ne rajoutait que les lignes droites et diagonales).
+InconvÃ©nient: oblige Ã  rÃ©Ã©crire cette fonction pour chaque entitÃ© qui a
+un pattern diffÃ©rent, mais c'Ã©tait pareil avant.
 */

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "../headers/carte.h"
 #include "../headers/ennemi.h"

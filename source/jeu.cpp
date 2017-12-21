@@ -247,16 +247,9 @@ int jeu::lancerPartie()
 			vect_case.erase(vect_case.begin() + alea);	//suppression case (dispo -> indispo)
 		}
 	}
-	
-	//Tests
-
-	for (int i = 0; i < vect_joueur.size(); i++)
-	{
-		cout << "Nom joueur: " << vect_joueur[i] -> getNom() << "\n";
-	}
 
 	//Test affichage map début partie
-	//io::afficherCarte(mappe);
+	io::afficherCarte(mappe);
 
 	cout.flush();
 //	sleep(10);
@@ -367,9 +360,92 @@ bool jeu::sauvegarderPartie()
 	return true;
 }
 
+bool jeu::afficherSave()
+{
+	string dump = "";
+	ifstream fichierRead("../saves.txt", ios::in);
+
+	if (!fichierRead)
+	{
+		return false;
+	}
+
+	cout << "\nListe des sauvegardes: \n";
+
+	while (getline(fichierRead, dump))
+	{
+		cout << dump[0] << " -  ";	//n° sauvegarde
+
+		int i = 0;
+		int cpt = 0;
+		vector<string> vect_name;
+
+		while (i < dump.size() - 1)	//parcours ligne
+		{
+			if (dump[i] == 'J')	//joueur trouvé
+			{
+				string name = "";
+
+				cpt++;
+
+				i += 2;	//début nom joueur
+
+				while (dump[i] != ':')	//parcours nom
+				{
+					name += dump[i];
+					i++;
+				}
+
+				vect_name.push_back(name);	//nom du joueur cpt
+			}
+
+			i++;
+		}
+
+		cout << cpt;
+
+		if (cpt == 1)
+		{
+			cout << " joueur: (";
+		}
+		else
+		{
+			cout << " joueurs: (";
+		}
+
+
+		for (int j = 0; j < vect_name.size(); j++)
+		{
+			cout << vect_name[j];
+
+			if (j + 1 < vect_name.size())
+			{
+				if (j + 1 < vect_name.size() - 1)
+				{
+					cout << ", ";
+				}
+				else
+				{
+					cout << " et ";
+				}
+			}
+		}
+
+		cout << ")\n";
+
+		dump = "";
+	}
+	cout << "\n";
+}
+
 bool jeu::chargerPartie(int numLigne)
 {
 	ifstream fichierLoad("../saves.txt", ios::in);
+
+	if (!fichierLoad)
+	{
+		return false;
+	}
 
 	//Line load
 	int nbLignes = 1;
@@ -380,37 +456,32 @@ bool jeu::chargerPartie(int numLigne)
 	{
 		getline(fichierLoad, dump);
 		nbLignes++;
+		dump.resize(0);
 	}
 
 	getline(fichierLoad, ligne);
 
-	cout << "taille ligne: " << ligne.size() << "\n";
-	cout << ligne << "\n\n";
+	cout << ligne;
 
 	int i = 0;	//parcours string
 	int j = 0;	//compteur cases
 
-	while (ligne[i] != '~')
+	while (i < ligne.size() - 1)
 	{
 		string nom = "";
-		string porteeDep = "";
-		string scoreATT = "";
-		string scoreDEF = "";
-		string nom_obj = "";
 		string ram = "";
+		string nom_obj = "";
+		string ram_obj = "";
 		string obj_att = "";
 		string obj_def = "";
-		vector<objetCarte> vect_obj;
 
 		if (i == 0)
 		{
 			while (ligne[i] != '@')	//skip numéro ligne
-			{
-				cerr << ligne[i];
+			{		
 				i++;
 			}
-
-			cerr << ligne[i];
+			
 			i++;	//après @
 		}
 
@@ -420,87 +491,93 @@ bool jeu::chargerPartie(int numLigne)
 			{
 				j++;
 			}
-
-			cerr << ligne[i];
+			
 			i++;
 		}
 		
 		if (ligne[i] == 'J')	//joueur
 		{
-			cerr << ligne[i];
-			i++;
-			cerr << ligne[i];
+			i++;			
 			i++;
 
 			while (ligne[i] != ':')	//nom joueur
 			{
-				nom += ligne[i];	//construction nom
-				cerr << ligne[i];
+				nom += ligne[i];	//construction nom				
 				i++;
 			}
-
-			cerr << ligne[i];
+			
 			i++;	//après :
 
 			ram += ligne[i];	//bool ramassable
-			cerr << ligne[i];
+			
 			i++;	//après ramassable
 
-			cerr << ligne[i];
-			i++;	//après /
+			vector<objetCarte> vect_obj;
 
 			while (ligne[i] != '|')	//objets
 			{
-				while (ligne[i] != ':')	//nom objet
-				{
-					nom_obj += ligne[i];
-					cerr << ligne[i];
-					i++;
-				}
+				string nom_obj = "";
+				string ram_obj = "";
+				string obj_att = "";
+				string obj_def = "";
+				
+				i++;	//après :
 
 				if (ligne[i] == 'C')	//objetCombat
-				{
-					while (ligne[i] != ':')	//attaque objet
+				{				
+					i++;					
+					i++;
+
+					while (ligne[i] != ':')	//nom objet
 					{
-						obj_att += ligne[i];	//construction attaque objet
-						cerr << ligne[i];
+						nom_obj += ligne[i];	//construction nom objet						
 						i++;
 					}
-
-					cerr << ligne[i];
+					
 					i++;	//après :
 
-					while (ligne[i] != '|' || ligne[i] != '$')	//fin des objets / d'un objet
+					ram_obj += ligne[i];	//ramassable					
+					i++;	//après ramassable
+					
+					i++;	//après :
+
+					while (ligne[i] != ':')	//attaque objet
 					{
-						obj_def += ligne[i];	//construction défense objet
-						cerr << ligne[i];
+						obj_att += ligne[i];	//construction attaque objet						
+						i++;
+					}
+					
+					i++;	//après :
+
+					while (ligne[i] != '|' && ligne[i] != '§')	//fin des objets / d'un objet
+					{
+						obj_def += ligne[i];	//construction défense objet					
 						i++;
 					}
 
-					vect_obj.push_back(objetCombat(nom_obj, stoi(obj_att), stoi(obj_def), stoi(ram)));
+					vect_obj.push_back(objetCombat(nom_obj, stoi(obj_att), stoi(obj_def), stoi(ram_obj)));
 				}
 
 				else	//objetCarte
 				{
-					vect_obj.push_back(objetCarte(nom_obj, stoi(ram)));
-				}
+					while (ligne[i] != ':')	//nom objet
+					{
+						nom_obj += ligne[i];						
+						i++;
+					}
+					
+					i++;	//après :
 
-				if (ligne[i] == '$')	//autre objet
-				{
-					cerr << ligne[i];
-					i++;
-					continue;	//objet suivant
-				}
-				else if (ligne[i] == '|')	//plus d'objet
-				{
-					cerr << ligne[i];
-					i++;
-					break;	//case suivante
+					ram_obj += ligne[i];	//ramassable	
+					i++;	//après ramassable
+	
+					i++;	//après :
+
+					vect_obj.push_back(objetCarte(nom_obj, stoi(ram_obj)));
 				}
 			}
 
-			joueur * dummy = new joueur(nom, stoi(ram));	//création joueur
-			dummy->setCoordonnees(j / 12, j % 12);	//coordonnées selon positionnement dans string
+			joueur * dummy = new joueur(nom, stoi(ram));
 
 			for (int i = 0; i < vect_obj.size(); i++)	//rajout objets dans joueur + màj stats
 			{
@@ -509,167 +586,132 @@ bool jeu::chargerPartie(int numLigne)
 
 			vect_joueur.push_back(dummy);	//rajout joueur
 			mappe.setCase(make_pair(j / 12, j % 12), dummy);	//rajout joueur dans case
-
-			cout << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
-			cout << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
 		}
 
 		else if (ligne[i] == 'F') //flibustier
-		{
-			cerr << ligne[i];
-			i++;
-			cerr << ligne[i];
+		{	
+			i++;		
 			i++;
 
 			while (ligne[i] != ':')	//nom flibustier
 			{
-				nom += ligne[i];	//construction nom
-				cerr << ligne[i];
+				nom += ligne[i];	//construction nom				
 				i++;
 			}
-
-			cerr << ligne[i];
+	
 			i++;	//après :
 
-			ram += ligne[i];	//bool ramassable
-			cerr << ligne[i];
+			ram += ligne[i];	//ramassable
+			
 			i++;	//après ramassable
 
 			flibustier * dummemy = new flibustier(nom, stoi(ram));
 			dummemy->setCoordonnees(j / 12, j % 12);
 			vect_ennemi.push_back(dummemy);
 			mappe.setCase(make_pair(j / 12, j % 12), dummemy);
-
-			cout << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
-			cout << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
 		}
 
 		else if (ligne[i] == 'B') //boucanier
 		{
-			cerr << ligne[i];
-			i++;
-			cerr << ligne[i];
+			i++;			
 			i++;
 
 			while (ligne[i] != ':')	//nom boucanier
 			{
-				nom += ligne[i];	//construction nom
-				cerr << ligne[i];
+				nom += ligne[i];	//construction nom			
 				i++;
 			}
-
-			cerr << ligne[i];
+		
 			i++;	//après :
 
-			ram += ligne[i];	//string ramassable
-			cerr << ligne[i];
+			ram += ligne[i];	//ramassable	
 			i++;	//après ramassable
 
 			boucanier * dummemy = new boucanier(nom, stoi(ram));	//création boucanier
 			dummemy->setCoordonnees(j / 12, j % 12);	//coordonnées boucanier
 			vect_ennemi.push_back(dummemy);	//rajout dans vecteur ennemis
 			mappe.setCase(make_pair(j / 12, j % 12), dummemy);	//rajout dans case carte
-
-			cout << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
-			cout << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
 		}
 
 		else	//objet
 		{
-			cerr << "\ntest ici\n";
-
 			if (ligne[i] == 'C')	//objetCombat
 			{
-				cerr << "\ntest ici2\n";
-				cerr << ligne[i];
-				i++;
-				cerr << ligne[i];
+				i++;	
 				i++;
 
 				while (ligne[i] != ':')	//nom objet
 				{
-					cerr << "\ntest ici3\n";
-					nom += ligne[i];	//construction attaque objet
-					cerr << ligne[i];
+					nom_obj += ligne[i];	//construction attaque objet		
 					i++;
 				}
-
-				cerr << ligne[i];
+				
 				i++;	//après :
 
-				ram += ligne[i];	//string ramassable
-				cerr << ligne[i];
+				ram_obj += ligne[i];	//ramassable
+				
 				i++;	//après ramassable
-
-				cerr << ligne[i];
+		
 				i++;	//après :
-
-				cerr << "\ntest ici. nom= " << nom << "\n";
 
 				while (ligne[i] != ':')	//attaque objet
 				{
-					cerr << "\ntest ici5\n";
-					obj_att += ligne[i];	//construction attaque objet
-					cerr << ligne[i];
+					obj_att += ligne[i];	//construction attaque objet					
 					i++;
 				}
-
-				cerr << "\ntest ici. Attaque= " << obj_att << "\n";
-
-				cerr << ligne[i];
+				
 				i++;	//après :
 
-				while (ligne[i] != '|' && ligne[i] != '$')	//fin des objets / d'un objet
+				while (ligne[i] != '|' && ligne[i] != '§')	//fin des objets / d'un objet
 				{
-					cerr << "test def: " << obj_def << "\n";
-					obj_def += ligne[i];	//construction défense objet
-					cerr << ligne[i];
+					obj_def += ligne[i];	//construction défense objet		
 					i++;
 				}
 
-				objetCombat * dummbat = new objetCombat(nom, stoi(obj_att), stoi(obj_def), stoi(ram));
-				cerr << "\ntest ici6\n";
+				objetCombat * dummbat = new objetCombat(nom_obj, stoi(obj_att), stoi(obj_def), stoi(ram_obj));
 				dummbat->setCoordonnees(j / 12, j % 12);	//coordonnées objet
-				cerr << "\ntest ici7\n";
 				mappe.setCase(make_pair(j / 12, j % 12), dummbat);
-
-				cerr << "\ntest ici8\n";
-
-				cout << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
-				cout << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
 			}
 
 			else	//objetCarte
 			{
-				cerr << "\ntest ici objcarte\n";
-
 				while (ligne[i] != ':')	//nom objet
 				{
-					cerr << "\ntest nom:\n";
 					nom_obj += ligne[i];
-					cerr << ligne[i];
 					i++;
 				}
 
-				cerr << ligne[i];
 				i++;	//après :
 
-				ram += ligne[i];	//string ramassable
-				cerr << ligne[i];
+				ram_obj += ligne[i];	//ramassable
 				i++;	//après ramassable
 
-				cerr << ligne[i];
 				i++;	//après :
 
-				objetCarte * dummap = new objetCarte(nom_obj, stoi(ram));
+				objetCarte * dummap = new objetCarte(nom_obj, stoi(ram_obj));
 				dummap->setCoordonnees(j / 12, j % 12);	//coordonnées objetCarte
 				mappe.setCase(make_pair(j / 12, j % 12), dummap);
-
-				cerr << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
-				cerr << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
 			}
 		}
 	}
+
+
+	//Lancement partie
+	//io::afficherCarte(mappe);
+
+	//Affichage test
+	for (int i = 0; i < mappe.getTaille(); i++)
+	{
+		for (int j = 0; j < mappe.getTaille(); j++)
+		{
+			for (int k = 0; k < mappe.getAireJeu()[i][j].size(); k++)
+			{
+				cout << mappe.getAireJeu()[i][j][k]->getNom() << " (indice: " << i << "," << j << "," << k << ")\n";
+			}
+		}
+	}
+
+	return true;
 }
 
 vector<joueur *> jeu::getVectJoueur()

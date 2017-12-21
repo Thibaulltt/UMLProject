@@ -30,6 +30,7 @@ public:
 	void tourEnnemi(ennemi * enemy, int & nb_joueurs_n);
 	vector<ennemi*> getVectEnnemi();
 	bool sauvegarderPartie();
+	bool afficherSave();
 	bool chargerPartie(int numLigne);
 	~jeu();
 };

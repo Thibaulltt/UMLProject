@@ -33,10 +33,10 @@ int main()
 
 		int nb_joueurs_g = 0;
 
-		cout << "\nDig or Die est un jeu dans lequel vous devez trouver des objets\n";
+		cout << "\n\nDig or Die est un jeu dans lequel vous devez trouver des objets\n";
 		cout << "et combattre d'impitoyables pirates afin de vous frayer un chemin jusqu'au trésor.\n";
 		cout << "Mais attention! Vous devrez dénicher la précieuse pelle afin d'avoir une chance de le trouver!\n";
-		cout << "\n Appuyez sur n'importe quelle touche pour continuer...\n";
+		cout << "\n Appuyez sur entrée pour continuer...\n";
 
 		string cont;
 		getline(cin, cont);
@@ -113,6 +113,9 @@ int main()
 				case 2:						//Chargement de partie
 				{
 					int numLigne;
+
+					current.afficherSave();
+
 					cout << "Veuillez choisir une sauvegarde: ";
 					cin >> numLigne;
 					current.chargerPartie(numLigne);
@@ -137,7 +140,7 @@ int main()
 		{
 			current.tourJoueur(current.getVectJoueur()[i]);
 
-			if (current.getVectJoueur()[i] -> getVictoire() == true)
+			if (current.getVectJoueur()[i]->getVictoire() == true)
 			{
 				return 1;	//Victoire
 			}
