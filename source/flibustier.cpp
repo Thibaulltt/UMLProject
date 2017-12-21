@@ -18,6 +18,12 @@ void flibustier::attaquer()
 {
 }
 
+string flibustier::toString()
+{
+	string stringRetour = "F/" + ennemi::toString();
+	return stringRetour;
+}
+
 flibustier::~flibustier()
 {
 }

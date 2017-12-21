@@ -123,10 +123,24 @@ void joueur::ramasser(carte mappe)
 	}
 }
 
+void joueur::equiper(objetCarte vect_o)
+{
+	equipement.push_back(&vect_o);
+
+	if (vect_o.getType() == "objetCombat")
+	{
+		scoreATT += vect_o.getAttack();
+		scoreDEF += vect_o.getDefense();
+	}
+	else if (vect_o.getNom() == "pelle")
+	{
+		pellePoss = true;
+	}
+}
 
 string joueur::toString() //Format retour : J / nom / porteeDEP : scoreATT : scoreDEF / objet1 § objet2 § objet3
 {
-	string stringRetour = "J/" + entite::toString();
+	string stringRetour =  "J/" + entite::toString();
 
 	//Ajout vecteur objet 
 	string allObjet = "";
@@ -135,11 +149,11 @@ string joueur::toString() //Format retour : J / nom / porteeDEP : scoreATT : sco
 	{
 		if (i != (equipement.size()) - 1)
 		{
-			allObjet = allObjet + equipement[i]->toString() + "§";
+			allObjet = allObjet + equipement[i] -> toString() + "§";
 		}
 		else
 		{
-			allObjet = allObjet + equipement[i]->toString();
+			allObjet = allObjet + equipement[i] -> toString();
 		}
 	}
 
@@ -158,7 +172,6 @@ void joueur::attaquer()
 {
 
 }
-
 
 joueur::~joueur()
 {

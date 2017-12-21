@@ -12,4 +12,5 @@ class flibustier : public ennemi
 		//Virtual & override
 		void seDeplacer(carte mappe) override;
 		void attaquer() override;	// Attaque de l'ennemi
+		string toString() override;
 };

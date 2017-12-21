@@ -39,7 +39,7 @@ string objetCarte::getType() {
 
 string objetCarte::toString()
 {
-	string stringRetour = nom;
+	string stringRetour = nom + ":" + to_string(ramassable);
 	return stringRetour;
 }
 

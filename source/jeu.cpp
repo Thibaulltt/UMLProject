@@ -335,7 +335,7 @@ void jeu::tourEnnemi(ennemi * enemy, int & nb_joueurs_n)
 	}
 }
 
-void jeu::sauvegarderPartie()
+bool jeu::sauvegarderPartie()
 {
 	string finalString = "";
 	ifstream fichierSaveL("../saves.txt", ios::in);
@@ -359,10 +359,316 @@ void jeu::sauvegarderPartie()
 		fichierSave << finalString; //Ecriture
 		fichierSave.close();
 	}
-
 	else
 	{
-		cout << "Impossible d'ouvrir le fichier de sauvegarde." << endl;								///////////// COUT A CHANGER //////////////
+		return false;
+	}
+
+	return true;
+}
+
+bool jeu::chargerPartie(int numLigne)
+{
+	ifstream fichierLoad("../saves.txt", ios::in);
+
+	//Line load
+	int nbLignes = 1;
+	string dump = "";
+	string ligne = "";
+
+	while (nbLignes < numLigne)
+	{
+		getline(fichierLoad, dump);
+		nbLignes++;
+	}
+
+	getline(fichierLoad, ligne);
+
+	cout << "taille ligne: " << ligne.size() << "\n";
+	cout << ligne << "\n\n";
+
+	int i = 0;	//parcours string
+	int j = 0;	//compteur cases
+
+	while (ligne[i] != '~')
+	{
+		string nom = "";
+		string porteeDep = "";
+		string scoreATT = "";
+		string scoreDEF = "";
+		string nom_obj = "";
+		string ram = "";
+		string obj_att = "";
+		string obj_def = "";
+		vector<objetCarte> vect_obj;
+
+		if (i == 0)
+		{
+			while (ligne[i] != '@')	//skip numéro ligne
+			{
+				cerr << ligne[i];
+				i++;
+			}
+
+			cerr << ligne[i];
+			i++;	//après @
+		}
+
+		while (ligne[i] == '|' || ligne[i] == '0')	//case vide
+		{
+			if (ligne[i] == '|')
+			{
+				j++;
+			}
+
+			cerr << ligne[i];
+			i++;
+		}
+		
+		if (ligne[i] == 'J')	//joueur
+		{
+			cerr << ligne[i];
+			i++;
+			cerr << ligne[i];
+			i++;
+
+			while (ligne[i] != ':')	//nom joueur
+			{
+				nom += ligne[i];	//construction nom
+				cerr << ligne[i];
+				i++;
+			}
+
+			cerr << ligne[i];
+			i++;	//après :
+
+			ram += ligne[i];	//bool ramassable
+			cerr << ligne[i];
+			i++;	//après ramassable
+
+			cerr << ligne[i];
+			i++;	//après /
+
+			while (ligne[i] != '|')	//objets
+			{
+				while (ligne[i] != ':')	//nom objet
+				{
+					nom_obj += ligne[i];
+					cerr << ligne[i];
+					i++;
+				}
+
+				if (ligne[i] == 'C')	//objetCombat
+				{
+					while (ligne[i] != ':')	//attaque objet
+					{
+						obj_att += ligne[i];	//construction attaque objet
+						cerr << ligne[i];
+						i++;
+					}
+
+					cerr << ligne[i];
+					i++;	//après :
+
+					while (ligne[i] != '|' || ligne[i] != '$')	//fin des objets / d'un objet
+					{
+						obj_def += ligne[i];	//construction défense objet
+						cerr << ligne[i];
+						i++;
+					}
+
+					vect_obj.push_back(objetCombat(nom_obj, stoi(obj_att), stoi(obj_def), stoi(ram)));
+				}
+
+				else	//objetCarte
+				{
+					vect_obj.push_back(objetCarte(nom_obj, stoi(ram)));
+				}
+
+				if (ligne[i] == '$')	//autre objet
+				{
+					cerr << ligne[i];
+					i++;
+					continue;	//objet suivant
+				}
+				else if (ligne[i] == '|')	//plus d'objet
+				{
+					cerr << ligne[i];
+					i++;
+					break;	//case suivante
+				}
+			}
+
+			joueur * dummy = new joueur(nom, stoi(ram));	//création joueur
+			dummy->setCoordonnees(j / 12, j % 12);	//coordonnées selon positionnement dans string
+
+			for (int i = 0; i < vect_obj.size(); i++)	//rajout objets dans joueur + màj stats
+			{
+				dummy->equiper(vect_obj[i]);
+			}
+
+			vect_joueur.push_back(dummy);	//rajout joueur
+			mappe.setCase(make_pair(j / 12, j % 12), dummy);	//rajout joueur dans case
+
+			cout << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
+			cout << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
+		}
+
+		else if (ligne[i] == 'F') //flibustier
+		{
+			cerr << ligne[i];
+			i++;
+			cerr << ligne[i];
+			i++;
+
+			while (ligne[i] != ':')	//nom flibustier
+			{
+				nom += ligne[i];	//construction nom
+				cerr << ligne[i];
+				i++;
+			}
+
+			cerr << ligne[i];
+			i++;	//après :
+
+			ram += ligne[i];	//bool ramassable
+			cerr << ligne[i];
+			i++;	//après ramassable
+
+			flibustier * dummemy = new flibustier(nom, stoi(ram));
+			dummemy->setCoordonnees(j / 12, j % 12);
+			vect_ennemi.push_back(dummemy);
+			mappe.setCase(make_pair(j / 12, j % 12), dummemy);
+
+			cout << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
+			cout << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
+		}
+
+		else if (ligne[i] == 'B') //boucanier
+		{
+			cerr << ligne[i];
+			i++;
+			cerr << ligne[i];
+			i++;
+
+			while (ligne[i] != ':')	//nom boucanier
+			{
+				nom += ligne[i];	//construction nom
+				cerr << ligne[i];
+				i++;
+			}
+
+			cerr << ligne[i];
+			i++;	//après :
+
+			ram += ligne[i];	//string ramassable
+			cerr << ligne[i];
+			i++;	//après ramassable
+
+			boucanier * dummemy = new boucanier(nom, stoi(ram));	//création boucanier
+			dummemy->setCoordonnees(j / 12, j % 12);	//coordonnées boucanier
+			vect_ennemi.push_back(dummemy);	//rajout dans vecteur ennemis
+			mappe.setCase(make_pair(j / 12, j % 12), dummemy);	//rajout dans case carte
+
+			cout << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
+			cout << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
+		}
+
+		else	//objet
+		{
+			cerr << "\ntest ici\n";
+
+			if (ligne[i] == 'C')	//objetCombat
+			{
+				cerr << "\ntest ici2\n";
+				cerr << ligne[i];
+				i++;
+				cerr << ligne[i];
+				i++;
+
+				while (ligne[i] != ':')	//nom objet
+				{
+					cerr << "\ntest ici3\n";
+					nom += ligne[i];	//construction attaque objet
+					cerr << ligne[i];
+					i++;
+				}
+
+				cerr << ligne[i];
+				i++;	//après :
+
+				ram += ligne[i];	//string ramassable
+				cerr << ligne[i];
+				i++;	//après ramassable
+
+				cerr << ligne[i];
+				i++;	//après :
+
+				cerr << "\ntest ici. nom= " << nom << "\n";
+
+				while (ligne[i] != ':')	//attaque objet
+				{
+					cerr << "\ntest ici5\n";
+					obj_att += ligne[i];	//construction attaque objet
+					cerr << ligne[i];
+					i++;
+				}
+
+				cerr << "\ntest ici. Attaque= " << obj_att << "\n";
+
+				cerr << ligne[i];
+				i++;	//après :
+
+				while (ligne[i] != '|' && ligne[i] != '$')	//fin des objets / d'un objet
+				{
+					cerr << "test def: " << obj_def << "\n";
+					obj_def += ligne[i];	//construction défense objet
+					cerr << ligne[i];
+					i++;
+				}
+
+				objetCombat * dummbat = new objetCombat(nom, stoi(obj_att), stoi(obj_def), stoi(ram));
+				cerr << "\ntest ici6\n";
+				dummbat->setCoordonnees(j / 12, j % 12);	//coordonnées objet
+				cerr << "\ntest ici7\n";
+				mappe.setCase(make_pair(j / 12, j % 12), dummbat);
+
+				cerr << "\ntest ici8\n";
+
+				cout << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
+				cout << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
+			}
+
+			else	//objetCarte
+			{
+				cerr << "\ntest ici objcarte\n";
+
+				while (ligne[i] != ':')	//nom objet
+				{
+					cerr << "\ntest nom:\n";
+					nom_obj += ligne[i];
+					cerr << ligne[i];
+					i++;
+				}
+
+				cerr << ligne[i];
+				i++;	//après :
+
+				ram += ligne[i];	//string ramassable
+				cerr << ligne[i];
+				i++;	//après ramassable
+
+				cerr << ligne[i];
+				i++;	//après :
+
+				objetCarte * dummap = new objetCarte(nom_obj, stoi(ram));
+				dummap->setCoordonnees(j / 12, j % 12);	//coordonnées objetCarte
+				mappe.setCase(make_pair(j / 12, j % 12), dummap);
+
+				cerr << "taille case (" << j / 12 << "," << j % 12 << "): " << mappe.getCase(make_pair(j / 12, j % 12)).size() << "\n";
+				cerr << "objet contenu dans la case: " << mappe.getCase(make_pair(j / 12, j % 12))[0]->getNom() << "\n";
+			}
+		}
 	}
 }
 
@@ -378,7 +684,7 @@ vector<ennemi *> jeu::getVectEnnemi()
 
 
 //Fonctions diverses
-bool isInteger(std::string s_input)	//Renvoie true si le string en paramètre "est" un entier, faux sinon
+bool isInteger(std::string s_input)	//Renvoie true si le string en paramètre représente un entier, faux sinon
 {
 	for (unsigned int i = 0; i < s_input.size(); i++)
 	{

@@ -29,7 +29,8 @@ public:
 	vector<joueur*> getVectJoueur();
 	void tourEnnemi(ennemi * enemy, int & nb_joueurs_n);
 	vector<ennemi*> getVectEnnemi();
-	void sauvegarderPartie();
+	bool sauvegarderPartie();
+	bool chargerPartie(int numLigne);
 	~jeu();
 };
 

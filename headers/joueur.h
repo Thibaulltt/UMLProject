@@ -72,6 +72,8 @@ public:
 	*/
 	void ramasser(carte mappe);
 
+	void equiper(objetCarte obj_o);
+
 	//Virtual & override
 	void seDeplacer(carte mappe) override;
 	void attaquer() override;

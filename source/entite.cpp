@@ -22,11 +22,6 @@ entite::entite(string nom_n, bool ramassable_n) : objetCarte(nom_n, ramassable_n
 	ramassable = ramassable_n;
 }
 
-string entite::getNom()
-{
-	return nom;
-}
-
 vector<pair<int, int>> entite::getVectPort()
 {
 	return vectPort;
@@ -64,16 +59,9 @@ void entite::attaquer()
 {
 }
 
-string entite::toString() //Format retour : nom / porteeATT : scoreATT : scoreDEF
+string entite::toString() //Format retour : nom / ramassable
 {
 	string stringRetour = objetCarte::toString();
-
-	//Ajout stats
-	string stats = to_string(porteeATT) + ":" + to_string(scoreATT) + ":" + to_string(scoreDEF);
-
-	//String final
-	stringRetour += "/" + stats;
-
 	return stringRetour;
 }
 
