@@ -7,7 +7,7 @@ using namespace std;
 
 //!
 /*!
-	Superclasse contenant regroupant tous les objets pouvant se trouver sur la carte.
+	Superclasse contenant regroupant tous les élements pouvant se trouver sur la carte.
 	Tout ces objets ont :
 	- un nom, 
 	- des coordonnées (utilisées pour éviter de reparcourir toute la carte pour savoir ou se trouve ces objets),
@@ -51,15 +51,24 @@ class objetCarte {
 		string getType();
 		
 		//! Fonction retournant le nom de l'objet
+		/*!
+			Utilisée pour obtenir le nom de l'objet, notamment lors du ramassage de l'un deux.
+			\return Une string contenant le nom
+		*/
 		string getNom();
 		
 		//! Fonction retournant si l'objet est ramassable ou pas
+		/*!
+		Utilisée pour savoir si l'objt est ramassable ou non, notamment lors du ramassage de l'un deux.
+		\return Une booléen. True si on peut le ramasser, false sinon.
+		*/
 		bool getRamassable();
 		
 		//! Fonction convertissant les données d'un objet en string.
 		/*!
 			Utilisée pour la sauvegarde dans un fichier texte. 
 			A ce stade, celle-ci renvoie seulement le nom de l'objet. Elle sera ensuite "override" dans les classes filles.
+			\return Une string sous ce format : nom
 		*/
 		virtual string toString();
 		
