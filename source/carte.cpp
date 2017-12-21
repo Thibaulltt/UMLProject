@@ -44,8 +44,15 @@ string carte::toString()
 			{
 				for (int k = 0; k < aireJeu[i][j].size(); k++)
 				{
-					cout << aireJeu[i][j][k] -> getType() << " ";
-					stringRetour += aireJeu[i][j][k] -> toString() + "$";
+					if (k != (aireJeu[i][j].size()) - 1)
+					{
+						stringRetour += aireJeu[i][j][k]->toString() + "$";
+					}
+					else
+					{
+						stringRetour += aireJeu[i][j][k]->toString();
+					}
+					
 				}
 			}
 
