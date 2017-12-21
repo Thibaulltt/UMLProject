@@ -124,7 +124,7 @@ void joueur::ramasser(carte mappe)
 }
 
 
-string joueur::toString() //Format retour : nom / porteeDEP : scoreATT : scoreDEF / objet1 § objet2 § objet3
+string joueur::toString() //Format retour : J / nom / porteeDEP : scoreATT : scoreDEF / objet1 § objet2 § objet3
 {
 	string stringRetour = "J/" + entite::toString();
 
