@@ -179,7 +179,7 @@ int jeu::lancerPartie()
 	cout << "\n";
 
 	//Création objets + carte
-	objetCarte * tres = new objetCarte("trésor", true);
+	objetCarte * tres = new objetCarte("tresor", true);
 	objetCarte * pel = new objetCarte("pelle", true);
 	objetCombat * mousq = new objetCombat("mousquet", 150, 0, true);
 	objetCombat * arm = new objetCombat("armure", 91, 50, true);

@@ -49,6 +49,19 @@ string objetCarte::getNom()
 	return nom;
 }
 
+int objetCarte::getAttack()
+{
+}
+
+int objetCarte::getDefense()
+{
+}
+
+bool objetCarte::getRamassable()
+{
+	return ramassable;
+}
+
 objetCarte::~objetCarte()
 {
 }

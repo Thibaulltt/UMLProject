@@ -20,7 +20,7 @@ public:
 	joueur(string nom_n, bool ramassable_n);
 	bool getPellePoss();
 	void ramasser(carte mappe);
-	void ramasser(vector<objetCarte*> vect_o);
+	void equiper(vector<objetCarte*> vect_o);
 	bool getVictoire();
 	~joueur();
 
