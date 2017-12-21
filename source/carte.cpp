@@ -69,6 +69,11 @@ $ séparateur de ce qui se trouve dans une case
 	*/
 }
 
+void carte::delObjet(int x, int y, int position)
+{
+	aireJeu[x][y].erase(aireJeu[x][y].begin() + position);
+}
+
 
 int carte::getTaille()
 {
