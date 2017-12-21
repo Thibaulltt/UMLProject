@@ -25,8 +25,7 @@ void ennemi::attaquer()
 
 string ennemi::toString()
 {
-	string stringRetour = "E/" + entite::toString();
-	//string stringRetour = nom;
+	string stringRetour = entite::toString();
 	return stringRetour;
 }
 

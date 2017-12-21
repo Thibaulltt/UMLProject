@@ -50,6 +50,12 @@ void boucanier::attaquer()
 
 }
 
+string boucanier::toString()
+{
+	string stringRetour = "B/" + ennemi::toString();
+	return stringRetour;
+}
+
 boucanier::~boucanier()
 {
 }

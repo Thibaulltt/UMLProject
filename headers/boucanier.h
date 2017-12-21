@@ -13,4 +13,5 @@ class boucanier : public ennemi
 		void seDeplacer(carte mappe) override;
 		void setVectPort(pair<int, int> slot_n, int tailleMap) override;
 		void attaquer() override;	// Attaque de l'ennemi
+		string toString() override;
 };

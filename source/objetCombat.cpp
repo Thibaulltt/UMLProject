@@ -25,7 +25,7 @@ string objetCombat::toString() //Format retour : nom / attack : defense
 {
 	string stringRetour;
 	
-	stringRetour += "/C/" + objetCarte::toString();
+	stringRetour += "C/" + objetCarte::toString();
 
 	string stats = "";
 	
