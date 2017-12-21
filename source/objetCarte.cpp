@@ -39,7 +39,8 @@ string objetCarte::getType() {
 
 string objetCarte::toString()
 {
-	string stringRetour = nom;
+	int ram = ramassable;
+	string stringRetour = nom + ":" + ram;
 	return stringRetour;
 }
 

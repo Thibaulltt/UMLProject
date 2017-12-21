@@ -112,7 +112,10 @@ int main()
 				}
 				case 2:						//Chargement de partie
 				{
-					//chargerPartie();
+					int numLigne;
+					cout << "Veuillez choisir une sauvegarde: ";
+					cin >> numLigne;
+					current.chargerPartie(numLigne);
 					break;
 				}
 				case 3:						//Quitter jeu

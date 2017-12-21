@@ -335,7 +335,7 @@ void jeu::tourEnnemi(ennemi * enemy, int & nb_joueurs_n)
 	}
 }
 
-void jeu::sauvegarderPartie()
+bool jeu::sauvegarderPartie()
 {
 	string finalString = "";
 	ifstream fichierSaveL("../saves.txt", ios::in);
@@ -359,11 +359,196 @@ void jeu::sauvegarderPartie()
 		fichierSave << finalString; //Ecriture
 		fichierSave.close();
 	}
-
 	else
 	{
-		cout << "Impossible d'ouvrir le fichier de sauvegarde." << endl;								///////////// COUT A CHANGER //////////////
+		return false;
 	}
+
+	return true;
+}
+
+bool jeu::chargerPartie(int numLigne)
+{
+	ifstream fichierLoad("../saves.txt", ios::in);
+
+	//Line load
+	int nbLignes = 1;
+	string ligne = "";
+
+	while (nbLignes < numLigne)
+	{
+		getline(fichierLoad, ligne);
+		nbLignes++;
+	}
+
+	getline(fichierLoad, ligne);
+
+	for (int i = 0; i < ligne.size(); i++)
+	{
+		while (ligne[i] != "@")	//skip numéro ligne
+		{
+			continue;
+		}
+
+		i++;	//après @
+
+		if (ligne[i] == "|" || ligne[i] == "0")	//case vide
+		{
+			continue;
+		}
+		else	//case intéressante
+		{
+			i++;	//après | ou 0
+
+			if (ligne[i] == "J")	//joueur
+			{
+				string nom = "";
+				string porteeDep = "";
+				string scoreATT = "";
+				string scoreDEF = "";
+				string nom_obj = "";
+				string ram = "";
+				string obj_att = "";
+				string obj_def = "";
+				vector<objetCarte*> vect_obj;
+
+				while (ligne[i] != "/")	//nom joueur
+				{
+					nom += ligne[i];	//construction nom
+					i++;
+				}
+
+				i++;	//après /
+
+				while (ligne[i] != ":")	//portée déplacement joueur
+				{
+					porteeDep += ligne[i];	//construction portée
+					i++;
+				}
+
+				i++;	//après :
+
+				while (ligne[i] != ":")	//score attaque joueur
+				{
+					scoreATT += ligne[i];	//construction score attaque
+					i++;
+				}
+
+				i++;	//après :
+
+				while (ligne[i] != "/")	//score défense joueur
+				{
+					scoreDEF += ligne[i];	//construction score défense
+					i++;
+				}
+
+				i++;	//après /
+
+				while (ligne[i] != "|")	//objets
+				{
+					while (ligne[i] != ":")	//nom objet
+					{
+						nom_obj += ligne[i];
+						i++;
+					}
+
+					i++;	//après :
+
+					ram += ligne[i++];	//bool ramassage + incrémentation i
+					
+					i++;	//après /
+
+					if (ligne[i] == "C")	//objetCombat
+					{
+						while (ligne[i] != ":")	//attaque objet
+						{
+							obj_att += ligne[i];	//construction attaque objet
+							i++;
+						}
+
+						i++;	//après :
+
+						while (ligne[i] != "|" || ligne[i] != "$")	//fin des objets / d'un objet
+						{
+							obj_def += ligne[i];	//construction défense objet
+							i++;
+						}
+
+						vect_obj.push_back(new objetCombat(nom_obj, obj_att, obj_def, ram));
+					}
+					else	//objetCarte
+					{
+						vect_obj.push_back(new objetCarte(nom_obj, ram));
+					}
+
+					if (ligne[i] == "$")	//autre objet
+					{
+						i++;
+						continue;	//objet suivant
+					}
+					else if (ligne[i] == "|")	//plus d'objet
+					{
+						i++;
+						break;	//case suivante
+					}
+				}
+
+				joueur dummy = new joueur(nom, ram);	//création joueur
+
+				for (int i = 0; i < vect_obj.size(); i++)	//rajout objets dans joueur
+				{
+					dummy->equiper(vect_obj[i]);
+				}
+
+				vect_joueur.push_back(dummy);	//rajout joueur
+			}
+
+			else if (ligne[i] == "E") //ennemi
+			{
+				string nom = "";
+				string porteeDep = "";
+				string scoreATT = "";
+				string scoreDEF = "";
+
+				while (ligne[i] != "/")	//nom ennemi
+				{
+					nom += ligne[i];	//construction nom
+					i++;
+				}
+
+				i++;	//après /
+
+				while (ligne[i] != ":")	//portée déplacement ennemi
+				{
+					porteeDep += ligne[i];	//construction portée
+					i++;
+				}
+
+				i++;	//après :
+
+				while (ligne[i] != ":")	//score attaque ennemi
+				{
+					scoreATT += ligne[i];	//construction score attaque
+					i++;
+				}
+
+				i++;	//après :
+
+				while (ligne[i] != "/")	//score défense ennemi
+				{
+					scoreDEF += ligne[i];	//construction score défense
+					i++;
+				}
+			}
+			else	//objet
+			{
+
+			}
+		}
+	}
+
+
+
 }
 
 vector<joueur *> jeu::getVectJoueur()
@@ -378,7 +563,7 @@ vector<ennemi *> jeu::getVectEnnemi()
 
 
 //Fonctions diverses
-bool isInteger(std::string s_input)	//Renvoie true si le string en paramètre "est" un entier, faux sinon
+bool isInteger(std::string s_input)	//Renvoie true si le string en paramètre représente un entier, faux sinon
 {
 	for (unsigned int i = 0; i < s_input.size(); i++)
 	{

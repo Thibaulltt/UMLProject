@@ -14,12 +14,13 @@ class joueur : public entite
 {
 	bool pellePoss;
 	bool victoire;
-	vector<objetCarte> equipement;
+	vector<objetCarte*> equipement;
 
 public:
 	joueur(string nom_n, bool ramassable_n);
 	bool getPellePoss();
 	void ramasser(carte mappe);
+	void ramasser(vector<objetCarte*> vect_o);
 	bool getVictoire();
 	~joueur();
 
