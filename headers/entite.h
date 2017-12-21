@@ -30,7 +30,7 @@ class entite : public objetCarte
 		int scoreDEF;
 		//! Etat de vie de l'unité
 		bool vivant;
-
+		//! Vecteur donnant la zone dans laquelle une entité a la possibilité d'attaquer
 		vector<pair<int,int>> vectPort;
 
 	public :
@@ -73,9 +73,18 @@ class entite : public objetCarte
 		void setVivant(bool vivant_n);		
 					
 
+
 		//Virtual & override
+		
 		virtual void seDeplacer(carte mappe);
-		virtual void setVectPort(pair<int, int>, int);		// Set vector portee
+		
+		//! Fonction definissant une zone dans laquelle une entité peut attaquer
+		/*!
+			Cette fonction sera définie précisement dans les classes filles, permettant de gérer les différents cas possible d'attaque. (Par exemple, si un ennemi peut seulement attaquer en diagonale).
+		*/
+		virtual void setVectPort(pair<int, int>, int);
+
+
 		virtual void attaquer();	// Attaque de l'ennemi
 		
 		//! Permet de convertir les caractéristiques d'une entité en string. 
