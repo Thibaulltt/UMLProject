@@ -44,7 +44,7 @@ class flibustier : public ennemi
 
 		void seDeplacer(carte mappe) override;
 
-		//void attaquer() override;	// Attaque de l'ennemi
+		bool attaquer(entite * adver) override;	// Attaque de l'ennemi
 		
 		//! Permet de convertir les caractéristiques d'un flibustier en string. 
 		/*!

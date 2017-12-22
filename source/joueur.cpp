@@ -169,10 +169,20 @@ bool joueur::getVictoire()
 	return victoire;
 }
 
-/*bool joueur::attaquer(entite adver)
+bool joueur::attaquer(entite * adver)
 {
+	double d_resATTJoueur = (this->getScoreATT() * 100) / adver->getScoreDEF();
+	d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+	int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
 
-}*/
+	int alea = rand() % 100 + 1;	//entre 1 et 100
+
+	if (alea < resATTJoueur)	//Coup fatal
+	{
+		return true;
+	}
+	return false;
+}
 
 joueur::~joueur()
 {

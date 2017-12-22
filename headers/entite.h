@@ -85,7 +85,7 @@ class entite : public objetCarte
 		virtual void setVectPort(pair<int, int>, int);
 
 		//! Fonction permettant d'attaquer un adversaire
-		//virtual bool attaquer(entite adver);	
+		virtual bool attaquer(entite * adver);	
 
 		//! Permet de convertir les caractéristiques d'une entité en string. 
 		/*!

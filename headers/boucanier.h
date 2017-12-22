@@ -43,7 +43,7 @@ class boucanier : public ennemi
 		void setVectPort(pair<int, int> slot_n, int tailleMap) override;
 		
 
-		//void attaquer() override;	// Attaque de l'ennemi
+		bool attaquer(entite * adver) override;	// Attaque de l'ennemi
 		
 		//! Permet de convertir les caractéristiques d'un boucanier en string. 
 		/*!

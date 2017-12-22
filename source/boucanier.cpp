@@ -45,10 +45,20 @@ void boucanier::setVectPort(pair<int, int> slot_n, int tailleMap)
 	}
 }
 
-/*void boucanier::attaquer()
+bool boucanier::attaquer(entite * adver)
 {
+	double d_resATTBouc = (this->getScoreATT() * 100) / adver->getScoreDEF();
+	d_resATTBouc = ceil(d_resATTBouc - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+	int resATTBouc = (int)d_resATTBouc;	//Conversion entier
 
-}*/
+	int alea = rand() % 100 + 1;	//entre 1 et 100
+
+	if (alea < resATTBouc)	//Coup fatal
+	{
+		return true;
+	}
+	return false;
+}
 
 string boucanier::toString()
 {

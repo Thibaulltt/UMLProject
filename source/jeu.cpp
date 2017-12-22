@@ -298,30 +298,27 @@ void jeu::tourEnnemi(ennemi * enemy, int & nb_joueurs_n)
 				//Si ATT = 1.5 * DEF: 50% de chances.
 				//etc...
 
+				bool tuer;
+
 				//Attaque joueur
-				double d_resATTJoueur = (getVectJoueur()[j] -> getScoreATT() * 100) / enemy -> getScoreDEF();
-				d_resATTJoueur = ceil(d_resATTJoueur - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
-				int resATTJoueur = (int)d_resATTJoueur;	//Conversion entier
 
-				int alea = rand() % 100 + 1;	//entre 1 et 100
+				tuer = getVectJoueur()[k]->attaquer(enemy);
 
-				if (alea < resATTJoueur)	//Coup fatal
+				if (tuer == true)
 				{
-					enemy -> setVivant(false);	//Ennemi mort
+					enemy->setVivant(false);
+
 					return;
 				}
 
 				//Attaque pirate
-				double d_resATTEnnemi = (enemy -> getScoreATT() * 100) / getVectJoueur()[j] -> getScoreDEF();
-				d_resATTEnnemi = ceil(d_resATTEnnemi - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
-				int resATTEnnemi = (int)d_resATTEnnemi;	//Conversion entier
+				tuer = enemy->attaquer(getVectJoueur()[k]);
 
-				alea = rand() % 100 + 1;	//entre 1 et 100
-
-				if (alea < resATTEnnemi)	//Coup fatal
+				if (tuer == true)
 				{
-					getVectJoueur()[j] -> setVivant(false);	//Joueur mort
+					getVectJoueur()[k]->setVivant(false);
 					nb_joueurs_n--;
+					return;
 				}
 			}
 		}

@@ -42,9 +42,20 @@ void flibustier::seDeplacer(carte mappe)
 {
 }
 
-/*void flibustier::attaquer()
+bool flibustier::attaquer(entite * adver)
 {
-}*/
+	double d_resATTFlib = (this->getScoreATT() * 100) / adver->getScoreDEF();
+	d_resATTFlib = ceil(d_resATTFlib - 100); //Chances de tuer sur 100 (arrondies à l'unité supérieure)
+	int resATTFlib = (int)d_resATTFlib;	//Conversion entier
+
+	int alea = rand() % 100 + 1;	//entre 1 et 100
+
+	if (alea < resATTFlib)	//Coup fatal
+	{
+		return true;
+	}
+	return false;
+}
 
 string flibustier::toString()
 {
