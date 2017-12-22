@@ -19,7 +19,7 @@ void ennemi::setVectPort(pair<int, int>, int)
 {
 }
 
-void ennemi::attaquer()
+bool ennemi::attaquer(entite adver)
 {
 }
 

@@ -72,17 +72,26 @@ public:
 	*/
 	void ramasser(carte mappe);
 
+	//! Fonction permerttant d'équiper des objets (mettre à jour les stats du joueur) lors du chargement de partie
 	void equiper(objetCarte obj_o);
-
+	/*!
+		La fonction parcourt simplement le vecteur d'objet passé en argument en mettant ceux-ci dans le vecteur d'équipement du joueur.
+		Si il s'agit d'objet de combat, les stats du joueur sont alors mises à jour.
+	*/
 	//Virtual & override
 	void seDeplacer(carte mappe) override;
-	void attaquer() override;
+	
+	//* Fonction permettant d'attaquer un ennemi
+	/*!
+		\return Booléen à true si l'adversaire a été tuée.
+	*/
+	bool attaquer(entite adver) override;
 
 	//! Permet de convertir les caractéristiques d'une entité en string. 
 	/*!
 	Fonction utilisée dans la sauvegarde.
-	On rappelle le code de la classe mère, qui renvoie :  nom / porteeATT : scoreATT : scoreDEF
-	\return Une string formatée ainsi : nom / porteeDEP : scoreATT : scoreDEF / objet1 § objet2 § objet3
+	On rappelle le code de la classe mère, qui renvoie :  nom 
+	\return Une string formatée ainsi : J / nom / objet1 § objet2 § objet3
 	*/
 	string toString() override;
 };
