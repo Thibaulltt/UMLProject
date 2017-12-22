@@ -24,11 +24,11 @@ namespace io {
 	/////////////////////////////////
 	/////////////////////////////////
 	
-	// Retiens la position du joueur pour mettre a jour l'affichage de la carte
+	//! Retiens la position du joueur pour mettre a jour l'affichage de la carte
 	extern pair<int,int> positionJoueur;
-	// Retiens la marge du coin HG de la carte par rapport au coin HG du terminal
+	//! Retiens la marge du coin HG de la carte par rapport au coin HG du terminal
 	extern pair<int,int> margesCarte;
-	// Vecteur de paire contenant un ennemi et une coordonnee
+	//! Vecteur de paire contenant un ennemi et une coordonnee
 	extern vector< pair<ennemi,pair<int,int>> > positionEnnemi;
 	extern int TermWidth;
 	extern int TermHeight;
@@ -47,18 +47,24 @@ namespace io {
 	void ChangeTerminal(bool Ech = 0);
 	void ResetTerminal();
 	char de();
-	//affiche la totalite de la carte
+	
+	//! Affiche la totalite de la carte
 	extern void afficherCarte(carte);
-	// permet au joueur de choisir ou il va se deplacer
+	
+	//! Permet au joueur de choisir ou il va se deplacer
 	extern void choisirCase(carte, pair<int,int>&);
-	// affiche un message dans la baniere en bas du jeu
+	
+	//! Affiche un message dans la baniere en bas du jeu
 	extern void updateMessage(int, string);
 	extern void afficherMessage();
-	// contient case a mettre a jour
+	
+	//! Contient case à mettre a jour
 	extern void updateCarte(pair<int,int>);
-	// genere les mouvements possibles sur une case passee en argument
+	
+	//! Genere les mouvements possibles sur une case passee en argument
 	vector< pair<pair<int,int>,bool> > genererMouvements(carte, pair<int,int>);
-	// verifie que le terminal est bien configure avant de commencer le programme
+	
+	//! Verifie que le terminal est bien configuré avant de commencer le programme
 	bool setup();
 }
 #endif

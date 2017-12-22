@@ -42,9 +42,9 @@ void flibustier::seDeplacer(carte mappe)
 {
 }
 
-void flibustier::attaquer()
+/*void flibustier::attaquer()
 {
-}
+}*/
 
 string flibustier::toString()
 {

@@ -18,6 +18,7 @@ void boucanier::seDeplacer(carte mappe)
 }
 
 void boucanier::setVectPort(pair<int, int> slot_n, int tailleMap)
+{
 	pair<int, int> pair_c = slot_n;
 	pair<int, int> dummy;
 
@@ -44,10 +45,10 @@ void boucanier::setVectPort(pair<int, int> slot_n, int tailleMap)
 	}
 }
 
-void boucanier::attaquer()
+/*void boucanier::attaquer()
 {
 
-}
+}*/
 
 string boucanier::toString()
 {

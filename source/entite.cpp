@@ -55,9 +55,9 @@ void entite::setVectPort(pair<int, int>, int)
 {
 }
 
-void entite::attaquer()
+/*void entite::attaquer()
 {
-}
+}*/
 
 string entite::toString() //Format retour : nom / ramassable
 {

@@ -85,7 +85,7 @@ public:
 	/*!
 		\return Booléen à true si l'adversaire a été tuée.
 	*/
-	bool attaquer(entite adver) override;
+	//bool attaquer(entite adver) override;
 
 	//! Permet de convertir les caractéristiques d'une entité en string. 
 	/*!
