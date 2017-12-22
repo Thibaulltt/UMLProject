@@ -41,9 +41,14 @@ class boucanier : public ennemi
 		Les cases en dehors de la carte ne sont pas inclus.
 		*/
 		void setVectPort(pair<int, int> slot_n, int tailleMap) override;
-		
-
-		bool attaquer(entite * adver) override;	// Attaque de l'ennemi
+			
+		//* Fonction permettant d'attaquer un adversaire
+		/*!
+			On calcule à partir du scoreATT du boucanier et de la defense de l'adversaire, les chances /100 de tuer cet adversaire.
+			On fait un tirage aléatoire entre 1 et 100, si ce tirage est inférieur aux calcul précédent, l'adversaire est alors tué.
+			\return Booléen à true si l'adversaire a été tué.
+		*/
+		bool attaquer(entite * adver) override;	
 		
 		//! Permet de convertir les caractéristiques d'un boucanier en string. 
 		/*!

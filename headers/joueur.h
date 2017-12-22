@@ -78,12 +78,15 @@ public:
 		La fonction parcourt simplement le vecteur d'objet passé en argument en mettant ceux-ci dans le vecteur d'équipement du joueur.
 		Si il s'agit d'objet de combat, les stats du joueur sont alors mises à jour.
 	*/
+	
 	//Virtual & override
 	void seDeplacer(carte mappe) override;
 	
-	//* Fonction permettant d'attaquer un ennemi
+	//* Fonction permettant d'attaquer un adversaire
 	/*!
-		\return Booléen à true si l'adversaire a été tuée.
+		On calcule à partir du scoreATT du joueur et de la defense de l'ennemi, les chances /100 de tuer l'ennemi.
+		On fait un tirage aléatoire entre 1 et 100, si ce tirage est inférieur aux calcul précédent, l'adversaire est alors tué.
+		\return Booléen à true si l'adversaire a été tué.
 	*/
 	bool attaquer(entite * adver) override;
 
