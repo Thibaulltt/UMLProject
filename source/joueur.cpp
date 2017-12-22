@@ -150,7 +150,7 @@ string joueur::toString() //Format retour : J / nom / objet1 § objet2 § objet3
 	{
 		if (i != (equipement.size()) - 1)
 		{
-			allObjet = allObjet + equipement[i] -> toString() + "§";
+			allObjet = allObjet + equipement[i] -> toString() + "#";
 		}
 		else
 		{
