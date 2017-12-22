@@ -5,13 +5,13 @@
 
 //!
 /*!
-Cette classe hérite directement de la classe entité. 
-Elle représente un personnage étant controlé par l'ordinateur.
-Elle ne possède pas d'attributs supplémentaire par rapport à sa clase mère.
-De cette classe vont hériter les deux types d'ennemis présents dans le jeu : le flibustier et le boucannier.
+Cette classe hérite directement de la classe entité.
+Elle représente un personnage étant contrôlé par l'ordinateur.
+Elle ne possède pas d'attributs supplémentaire par rapport à sa classe mère.
+De cette classe vont hériter les deux types d'ennemis présents dans le jeu : le flibustier et le boucanier.
 */
 
-class ennemi : public entite //Classe ennemi heritant d'entite
+class ennemi : public entite //Classe ennemi héritant d'entite.
 {
 	public:
 	//! Constructeur permettant de créer un ennemi.
@@ -23,25 +23,25 @@ class ennemi : public entite //Classe ennemi heritant d'entite
 
 	//Virtual & override
 
-	//! Permet de convertir les caractéristiques d'un ennemi en string. 
+	//! Permet de convertir les caractéristiques d'un ennemi en string.
 	/*!
 	Fonction utilisée dans la sauvegarde.
-	On rappelle le code de la classe mère, qui renvoie :  nom 
-	\return Une string formatée ainsi :  nom
+	On rappelle le code de la classe mère, qui renvoie :  nom.
+	\return Une string formatée ainsi :  nom.
 	*/
 	virtual string toString() override;
 
-	virtual void seDeplacer(carte mappe) override;	// Deplacement de l'ennemi
+	virtual void seDeplacer(carte mappe) override;	// Deplacement de l'ennemi.
 
-	//! Fonction definissant une zone dans laquelle une entité peut attaquer
+	//! Fonction definissant une zone dans laquelle une entité peut attaquer.
 	virtual void setVectPort(pair<int, int>, int) override;		
 	
-	//* Fonction permettant d'attaquer un adversaire
+	//* Fonction permettant d'attaquer un adversaire.
 	/*!
-		Définie dans les sous classes
+		Définie dans les sous classes.
 	*/
 	virtual bool attaquer(entite * adver) override;
 	
-	//! Destructeur d'ennemi
+	//! Destructeur d'ennemi.
 	virtual ~ennemi();
 };
