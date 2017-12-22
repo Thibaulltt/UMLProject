@@ -36,7 +36,11 @@ class ennemi : public entite //Classe ennemi heritant d'entite
 		//! Fonction definissant une zone dans laquelle une entité peut attaquer
 		virtual void setVectPort(pair<int, int>, int) override;		
 		
-		virtual void attaquer() override;	// Attaque de l'ennemi
+		//* Fonction permettant d'attaquer un ennemi
+		/*!
+			\return Booléen à true si l'adversaire a été tuée.
+		*/
+		bool attaquer(entite adver) override;
 		
 		//! Destructeur d'ennemi
 		virtual ~ennemi();

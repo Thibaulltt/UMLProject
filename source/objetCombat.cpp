@@ -21,7 +21,7 @@ int objetCombat::getDefense()
 	return this->defense;
 }
 
-string objetCombat::toString() //Format retour : nom / attack : defense
+string objetCombat::toString() //Format retour : C / nom / attack : defense
 {
 	string stringRetour;
 	

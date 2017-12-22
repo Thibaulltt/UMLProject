@@ -80,7 +80,12 @@ public:
 	*/
 	//Virtual & override
 	void seDeplacer(carte mappe) override;
-	void attaquer() override;
+	
+	//* Fonction permettant d'attaquer un ennemi
+	/*!
+		\return Booléen à true si l'adversaire a été tuée.
+	*/
+	bool attaquer(entite adver) override;
 
 	//! Permet de convertir les caractéristiques d'une entité en string. 
 	/*!

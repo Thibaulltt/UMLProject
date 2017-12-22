@@ -12,6 +12,7 @@ using namespace std;
 	- un nom, 
 	- des coordonnées (utilisées pour éviter de reparcourir toute la carte pour savoir ou se trouve ces objets),
 	- un booléen indiquant si cet objet est ramassable par le joueur.
+Les objets Trésor et Pelle seront des instances de cette classe.
 */
 
 class objetCarte 
@@ -31,7 +32,7 @@ class objetCarte
 		*/
 		objetCarte();
 
-		//! Constructeur permettant de créer un objer nommé et d'indiquer si il est ramassable ou pas.
+		//! Constructeur permettant de créer un objet nommé et d'indiquer si il est ramassable ou pas.
 		/*!
 			L'objet sera initialisé avec les valeurs suivantes :
 			- nom = nom_n

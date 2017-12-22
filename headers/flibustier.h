@@ -41,14 +41,15 @@ class flibustier : public ennemi
 		*/
 		void setVectPort(pair<int, int> slot_n, int tailleMap) override;
 
+		void seDeplacer(carte mappe) override;
+
+		void attaquer() override;	// Attaque de l'ennemi
+		
 		//! Permet de convertir les caractéristiques d'un flibustier en string. 
 		/*!
 		Fonction utilisée dans la sauvegarde.
 		On rappelle le code de la classe mère, qui renvoie :  nom 
 		\return Une string formatée ainsi :  F / nom
 		*/
-		void seDeplacer(carte mappe) override;
-
-		void attaquer() override;	// Attaque de l'ennemi
 		string toString() override;
 };
