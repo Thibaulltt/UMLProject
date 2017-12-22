@@ -279,8 +279,9 @@ namespace io {
 		int maxTextOnLine = getTerminalWidth()-4;
 
 		// dont ask why, it just works™
-		int timetemp = TERM_MESSAGE_REFRESH_DELAY;
-		int ttemp = TERM_MESSAGE_LINES_AVAILABLE;
+		// okay maybe not
+		// int timetemp = TERM_MESSAGE_REFRESH_DELAY;
+		// int ttemp = TERM_MESSAGE_LINES_AVAILABLE;
 		double temp = (double)TERM_MESSAGE_LINES_AVAILABLE;
 		
 		// Donne le nombre de lignes necessaires pour afficher TOUT le message
@@ -288,7 +289,8 @@ namespace io {
 		// Donne le nombre d' "ecrans" necessaires pour afficher TOUT le message
 		double quotientLinesMessage = numberLinesMessage / temp;
 		// eh je sais pas putain
-		int remainderLinesMessage = int(floor(numberLinesMessage)) % ttemp;
+		// elle sert pas celle la de toute facon
+		// int remainderLinesMessage = int(floor(numberLinesMessage)) % ttemp;
 
 		// faut faire des substrings
 		// et puis

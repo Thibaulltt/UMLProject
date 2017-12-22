@@ -276,6 +276,8 @@ void jeu::tourEnnemi(ennemi * enemy, int & nb_joueurs_n)
 	//Déplacement ennemis
 	enemy -> seDeplacer(mappe);
 
+	enemy->setVectPort(enemy->getCoordonnees(),mappe.getTaille());
+
 	//Check joueurs à portée
 	for (unsigned int j = 0; j < enemy -> getVectPort().size(); j++)	//Pour chaque case accessible
 	{
@@ -334,7 +336,7 @@ void jeu::tourEnnemi(ennemi * enemy, int & nb_joueurs_n)
 bool jeu::sauvegarderPartie()
 {
 	string finalString = "";
-	ifstream fichierSaveL("../saves.txt", ios::in);
+	ifstream fichierSaveL("saves.txt", ios::in);
 
 	//ID save
 	int nbLignes = 1;
@@ -346,7 +348,7 @@ bool jeu::sauvegarderPartie()
 	ligne = to_string(nbLignes);
 	fichierSaveL.close();
 
-	ofstream fichierSave("../saves.txt", ios::app);
+	ofstream fichierSave("./saves.txt", ios::app);
 	
 	finalString += ligne + "@" + mappe.toString() + "\n";
 
@@ -366,7 +368,7 @@ bool jeu::sauvegarderPartie()
 bool jeu::afficherSave()
 {
 	string dump = "";
-	ifstream fichierRead("../saves.txt", ios::in);
+	ifstream fichierRead("./saves.txt", ios::in);
 
 	if (!fichierRead)
 	{
@@ -443,7 +445,7 @@ bool jeu::afficherSave()
 
 bool jeu::chargerPartie(int numLigne)
 {
-	ifstream fichierLoad("../saves.txt", ios::in);
+	ifstream fichierLoad("./saves.txt", ios::in);
 
 	if (!fichierLoad)
 	{
