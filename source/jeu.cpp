@@ -12,6 +12,8 @@
 #include "../headers/objetCarte.h"
 #include "../headers/objetCombat.h"
 
+using namespace io;
+
 jeu::jeu(int taille_n)
 {
 	mappe = carte(taille_n);
@@ -259,6 +261,8 @@ int jeu::lancerPartie()
 
 void jeu::tourJoueur(joueur * player)
 {
+	updateMessage(1, "Déplacement Joueur.");
+
 	player -> seDeplacer(mappe);
 
 	//Ramassage auto
@@ -267,6 +271,8 @@ void jeu::tourJoueur(joueur * player)
 
 void jeu::tourEnnemi(ennemi * enemy, int & nb_joueurs_n)
 {
+	io::updateMessage(1,"Déplacement Ennemi");
+
 	//Déplacement ennemis
 	enemy -> seDeplacer(mappe);
 

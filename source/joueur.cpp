@@ -63,12 +63,12 @@ void joueur::ramasser(carte mappe)
 					{
 						equipement.push_back(aireJeu[x][y][i]); //On met la pelle dans l'equipement du joueur
 						mappe.delObjet(x, y, i); //Suppression de l'objet de la case
-						cout << "Vous avez trouvé la pelle ! " << endl;													//////////// COUT A MODIFIER ///////////
+						io::updateMessage(1,"Vous avez trouvé la pelle ! ");													//////////// COUT A MODIFIER ///////////
 
 					}
 					else
 					{
-						cout << "Vous avez déjà une pelle ! " << endl;													//////////// COUT A MODIFIER ///////////
+						io::updateMessage(1,"Vous avez déjà une pelle ! ");													//////////// COUT A MODIFIER ///////////
 					}
 				}
 
@@ -81,7 +81,7 @@ void joueur::ramasser(carte mappe)
 						{
 							equipement.push_back(aireJeu[x][y][i]); //On met le tresor dans l'equipement du joueur
 							mappe.delObjet(x, y, i); //Suppression de l'objet de la case
-							cout << "Vous avez trouvé le tresor  ! " << endl;													//////////// COUT A MODIFIER ///////////
+							io::updateMessage(1,"Vous avez trouvé le tresor  ! ");													//////////// COUT A MODIFIER ///////////
 
 						}
 					}
@@ -96,12 +96,12 @@ void joueur::ramasser(carte mappe)
 						scoreATT += aireJeu[x][y][i]->getAttack(); //MaJ stats
 						scoreDEF += aireJeu[x][y][i]->getDefense();
 						mappe.delObjet(x, y, i); //Suppression de l'objet de la case
-						cout << "Vous avez trouvé le mousquet ! " << endl;													//////////// COUT A MODIFIER ///////////
+						io::updateMessage(1,"Vous avez trouvé le mousquet ! " );													//////////// COUT A MODIFIER ///////////
 
 					}
 					else
 					{
-						cout << "Vous avez déjà un mousquet ! " << endl;													//////////// COUT A MODIFIER ///////////
+						io::updateMessage(1,"Vous avez déjà un mousquet ! ");													//////////// COUT A MODIFIER ///////////
 					}
 				}
 
@@ -114,11 +114,11 @@ void joueur::ramasser(carte mappe)
 						scoreATT += aireJeu[x][y][i]->getAttack(); //MaJ stats
 						scoreDEF += aireJeu[x][y][i]->getDefense();
 						mappe.delObjet(x, y, i); //Suppression de l'objet de la case
-						cout << "Vous avez trouvé l'armure ! " << endl;													//////////// COUT A MODIFIER ///////////
+						io::updateMessage(1,"Vous avez trouvé l'armure ! ");													//////////// COUT A MODIFIER ///////////
 					}
 					else
 					{
-						cout << "Vous avez déjà une armure ! " << endl;													//////////// COUT A MODIFIER ///////////
+						io::updateMessage(1,"Vous avez déjà une armure ! ");													//////////// COUT A MODIFIER ///////////
 					}
 				}
 			}
