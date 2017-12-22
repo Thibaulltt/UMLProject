@@ -546,7 +546,7 @@ bool jeu::chargerPartie(int numLigne)
 					
 					i++;	//après :
 
-					while (ligne[i] != '|' && ligne[i] != '§')	//fin des objets / d'un objet
+					while (ligne[i] != '|' && ligne[i] != '#')	//fin des objets / d'un objet
 					{
 						obj_def += ligne[i];	//construction défense objet					
 						i++;
@@ -659,7 +659,7 @@ bool jeu::chargerPartie(int numLigne)
 				
 				i++;	//après :
 
-				while (ligne[i] != '|' && ligne[i] != '§')	//fin des objets / d'un objet
+				while (ligne[i] != '|' && ligne[i] != '#')	//fin des objets / d'un objet
 				{
 					obj_def += ligne[i];	//construction défense objet		
 					i++;
