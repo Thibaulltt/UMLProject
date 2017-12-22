@@ -92,6 +92,10 @@ public:
 	bool sauvegarderPartie();
 
 	//! Fonction permettant d'afficher la liste des sauvegardes avec la liste des joueurs présents sur chaque sauvegarde.
+	/*!
+		Affiche la liste des sauvegardes en lisant chaque ligne du fichier de sauvegarde et en comptant les joueurs présents + en stockant leur nom.
+		\return Un booléen à true si la lecture a réussi, false sinon.
+	*/
 	bool afficherSave();
 
 	//! Fonction permettant de charger une partie.
