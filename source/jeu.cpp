@@ -373,7 +373,7 @@ bool jeu::afficherSave()
 	{
 		cout << dump[0] << " -  ";	//n° sauvegarde
 
-		int i = 0;
+		unsigned long i = 0;
 		int cpt = 0;
 		vector<string> vect_name;
 
@@ -411,7 +411,7 @@ bool jeu::afficherSave()
 		}
 
 
-		for (int j = 0; j < vect_name.size(); j++)
+		for (unsigned long j = 0; j < vect_name.size(); j++)
 		{
 			cout << vect_name[j];
 
@@ -460,7 +460,7 @@ bool jeu::chargerPartie(int numLigne)
 
 	cout << ligne;
 
-	int i = 0;	//parcours string
+	unsigned long i = 0;	//parcours string
 	int j = 0;	//compteur cases
 
 	while (i < ligne.size() - 1)
@@ -576,7 +576,7 @@ bool jeu::chargerPartie(int numLigne)
 
 			joueur * dummy = new joueur(nom, stoi(ram));
 
-			for (int i = 0; i < vect_obj.size(); i++)	//rajout objets dans joueur + màj stats
+			for (unsigned long i = 0; i < vect_obj.size(); i++)	//rajout objets dans joueur + màj stats
 			{
 				dummy->equiper(vect_obj[i]);
 			}
@@ -701,7 +701,7 @@ bool jeu::chargerPartie(int numLigne)
 	{
 		for (int j = 0; j < mappe.getTaille(); j++)
 		{
-			for (int k = 0; k < mappe.getAireJeu()[i][j].size(); k++)
+			for (unsigned long k = 0; k < mappe.getAireJeu()[i][j].size(); k++)
 			{
 				cout << mappe.getAireJeu()[i][j][k]->getNom() << " (indice: " << i << "," << j << "," << k << ")\n";
 			}

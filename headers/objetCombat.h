@@ -30,10 +30,10 @@ class objetCombat : public objetCarte
 		objetCombat(string nom_n, int att_n, int def_n, bool ramassable_n);
 		
 		//! Fonction retournant l'attaque donnée par un objetCombat
-		int getAttack();
+		int getAttack() override;
 
 		//! Fonction retournant la défense donnée par un objetCombat
-		int getDefense();
+		int getDefense() override;
 
 		//! Permet de convertir les caractéristiques d'un objet en string. 
 		/*!

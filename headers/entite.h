@@ -64,7 +64,7 @@ class entite : public objetCarte
 		/*!
 			\return Un booléen, true si l'entité est en vie, false sinon.
 		*/
-		bool getVivant();
+		bool getVivant() override;
 
 		//! Fonction permettant de faire vivre ou mourir une entité
 		/*!

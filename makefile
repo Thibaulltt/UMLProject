@@ -7,7 +7,8 @@ SOURCEFILE=source/$(TARGET).cpp
 # Rajoute .o pour la sortie
 OUTPUTFILE=objects/$(TARGET).o
 HEADERFILE=headers/$(TARGET).h
-ALL_OBJECTS=source/armure.cpp source/boucanier.cpp source/ennemi.cpp source/entite.cpp source/flibustier.cpp source/joueur.cpp source/mousquet.cpp source/objet.cpp source/objetCombat.cpp source/pelle.cpp source/tresor.cpp headers/armure.h headers/boucanier.h headers/ennemi.h headers/entite.h headers/flibustier.h headers/joueur.h headers/mousquet.h headers/objet.h headers/objetCombat.h headers/pelle.h headers/tresor.h 
+ALL_OBJECTS=source/armure.cpp source/boucanier.cpp source/ennemi.cpp source/entite.cpp source/flibustier.cpp source/joueur.cpp source/mousquet.cpp source/objet.cpp source/objetCombat.cpp source/pelle.cpp source/tresor.cpp headers/armure.h headers/boucanier.h headers/ennemi.h headers/entite.h headers/flibustier.h headers/joueur.h headers/mousquet.h headers/objet.h headers/objetCombat.h headers/pelle.h headers/tresor.h
+H_FILES=boucanier carte ennemi entite flibustier io jeu joueur objetCarte objetCombat
 
 # Commande permettant de compiler tous fichiers 1 par 1
 object: $(SOURCEFILE) $(HEADERFILE)
@@ -15,13 +16,14 @@ object: $(SOURCEFILE) $(HEADERFILE)
 	@g++ $(FLAGS) -c $(SOURCEFILE) -o $(OUTPUTFILE)
 	@echo "Compiling of $(OUTPUTFILE) complete."
 
-Dig_or_die: objects/%.o headers/%.h
+project: all_objects
 	@echo "Compiling $@ ..."
-	@echo $<
+	@g++ objects/* source/mainJeu.cpp -o $@ $(FLAGS)
+	@echo "Compilation done."
 
 all_objects: 
 	@echo "Compiling all objects ..."
-	@ for loopTarget in armure boucanier ennemi entite flibustier joueur mousquet objet objetCombat pelle tresor; do \
+	@ for loopTarget in $(H_FILES); do \
 		make object TARGET=$$loopTarget; \
 	done
 	@echo "Compiling complete."

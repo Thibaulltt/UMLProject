@@ -26,7 +26,7 @@ void joueur::seDeplacer(carte mappe)
 
 bool joueur::checkPoss(string nomObjet)
 {
-	for (int i = 0; i < equipement.size(); i++)
+	for (unsigned long i = 0; i < equipement.size(); i++)
 	{
 		if (equipement[i]->getNom() == nomObjet)
 		{
@@ -49,7 +49,7 @@ void joueur::ramasser(carte mappe)
 
 	if (aireJeu[x][y].size() > 1) //Si il y a autre chose qu'un joueur sur la case
 	{
-		for (int i = 0; i < aireJeu[x][y].size(); i++) //Parcours de ce qu'il se trouve dans la case
+		for (unsigned long i = 0; i < aireJeu[x][y].size(); i++) //Parcours de ce qu'il se trouve dans la case
 		{
 			if (aireJeu[x][y][i]->getRamassable())
 			{
@@ -146,7 +146,7 @@ string joueur::toString() //Format retour : J / nom / objet1 § objet2 § objet3
 	//Ajout vecteur objet 
 	string allObjet = "";
 	
-	for (int i = 0; i < equipement.size(); i++)
+	for (unsigned long i = 0; i < equipement.size(); i++)
 	{
 		if (i != (equipement.size()) - 1)
 		{

@@ -19,7 +19,7 @@ carte::carte(int taille_n)
 
 	for (it_vvi = aireJeu.begin(); it_vvi != aireJeu.end(); it_vvi++)	//Pour toute la carte
 	{
-		for (int i = 0; i < taille; i++)	//Pour chaque case carte
+		for (unsigned int i = 0; i < taille; i++)	//Pour chaque case carte
 		{
 			vector<objetCarte *> vect_objC;	//Vecteur d'objets			
 			(*it_vvi).push_back(vect_objC);	//Rajout vecteur d'objets dans case carte
@@ -33,7 +33,7 @@ string carte::toString()
 
 	for (int i = 0; i < aireJeu.size(); i++)
 	{
-		for (int j = 0; j < aireJeu[i].size(); j++)
+		for (unsigned long j = 0; j < aireJeu[i].size(); j++)
 		{
 			if (aireJeu[i][j].size() == 0) // Si case vide
 			{
@@ -42,7 +42,7 @@ string carte::toString()
 			
 			if (aireJeu[i][j].size() != 0) // Si case non vide
 			{
-				for (int k = 0; k < aireJeu[i][j].size(); k++)
+				for (unsigned long k = 0; k < aireJeu[i][j].size(); k++)
 				{
 					if (aireJeu[i][j][k]->getVivant())
 					{
