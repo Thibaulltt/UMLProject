@@ -75,7 +75,7 @@ class objetCarte
 		
 		virtual int getAttack();
 		virtual int getDefense();
-		
+		virtual bool getVivant();
 		//! Destructeur d'objetCarte
 		~objetCarte();
 };
