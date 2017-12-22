@@ -40,7 +40,7 @@ class ennemi : public entite //Classe ennemi heritant d'entite
 		/*!
 			\return Booléen à true si l'adversaire a été tuée.
 		*/
-		bool attaquer(entite * adver) override;
+		virtual bool attaquer(entite * adver) override;
 		
 		//! Destructeur d'ennemi
 		virtual ~ennemi();
