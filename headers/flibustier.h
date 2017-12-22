@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <math.h>
 #include "../headers/carte.h"
 #include "../headers/ennemi.h"
 
@@ -43,7 +44,7 @@ class flibustier : public ennemi
 
 		void seDeplacer(carte mappe) override;
 
-		void attaquer() override;	// Attaque de l'ennemi
+		//void attaquer() override;	// Attaque de l'ennemi
 		
 		//! Permet de convertir les caractéristiques d'un flibustier en string. 
 		/*!

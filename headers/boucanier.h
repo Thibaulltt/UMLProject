@@ -27,7 +27,7 @@ class boucanier : public ennemi
 		~boucanier();
 
 		//Virtual & override
-		
+
 		void seDeplacer(carte mappe) override;
 
 		//! Fonction definissant une zone dans laquelle une entité peut attaquer
@@ -43,7 +43,7 @@ class boucanier : public ennemi
 		void setVectPort(pair<int, int> slot_n, int tailleMap) override;
 		
 
-		void attaquer() override;	// Attaque de l'ennemi
+		//void attaquer() override;	// Attaque de l'ennemi
 		
 		//! Permet de convertir les caractéristiques d'un boucanier en string. 
 		/*!

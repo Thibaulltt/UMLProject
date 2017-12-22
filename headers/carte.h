@@ -7,6 +7,11 @@
 
 using namespace std;
 
+
+//!
+/*!
+Classe représentant la carte où se déroule le jeu
+*/
 class carte
 {
 	unsigned int taille;

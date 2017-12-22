@@ -19,9 +19,9 @@ void ennemi::setVectPort(pair<int, int>, int)
 {
 }
 
-bool ennemi::attaquer(entite adver)
+/*bool ennemi::attaquer(entite adver)
 {
-}
+}*/
 
 string ennemi::toString()
 {

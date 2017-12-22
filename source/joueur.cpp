@@ -169,10 +169,10 @@ bool joueur::getVictoire()
 	return victoire;
 }
 
-bool joueur::attaquer(entite adver)
+/*bool joueur::attaquer(entite adver)
 {
 
-}
+}*/
 
 joueur::~joueur()
 {
