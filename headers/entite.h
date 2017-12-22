@@ -68,7 +68,7 @@ class entite : public objetCarte
 
 		//! Fonction permettant de faire vivre ou mourir une entité
 		/*!
-		Utilisé en combat lors de la mort d'une entité par exemple
+			Utilisé en combat lors de la mort d'une entité par exemple
 		*/
 		void setVivant(bool vivant_n);		
 					

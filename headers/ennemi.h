@@ -29,19 +29,19 @@ class ennemi : public entite //Classe ennemi heritant d'entite
 	On rappelle le code de la classe mère, qui renvoie :  nom 
 	\return Une string formatée ainsi :  nom
 	*/
-		virtual string toString() override;
+	virtual string toString() override;
 
-		virtual void seDeplacer(carte mappe) override;	// Deplacement de l'ennemi
+	virtual void seDeplacer(carte mappe) override;	// Deplacement de l'ennemi
 
-		//! Fonction definissant une zone dans laquelle une entité peut attaquer
-		virtual void setVectPort(pair<int, int>, int) override;		
-		
-		//* Fonction permettant d'attaquer un ennemi
-		/*!
-			\return Booléen à true si l'adversaire a été tuée.
-		*/
-		virtual bool attaquer(entite * adver) override;
-		
-		//! Destructeur d'ennemi
-		virtual ~ennemi();
+	//! Fonction definissant une zone dans laquelle une entité peut attaquer
+	virtual void setVectPort(pair<int, int>, int) override;		
+	
+	//* Fonction permettant d'attaquer un adversaire
+	/*!
+		Définie dans les sous classes
+	*/
+	virtual bool attaquer(entite * adver) override;
+	
+	//! Destructeur d'ennemi
+	virtual ~ennemi();
 };

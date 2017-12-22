@@ -44,6 +44,12 @@ class flibustier : public ennemi
 
 		void seDeplacer(carte mappe) override;
 
+		//* Fonction permettant d'attaquer un adversaire
+		/*!
+			On calcule à partir du scoreATT du flibustier et de la defense de l'adversaire, les chances /100 de tuer cet adversaire.
+			On fait un tirage aléatoire entre 1 et 100, si ce tirage est inférieur aux calcul précédent, l'adversaire est alors tué.
+			\return Booléen à true si l'adversaire a été tué.
+		*/
 		bool attaquer(entite * adver) override;	// Attaque de l'ennemi
 		
 		//! Permet de convertir les caractéristiques d'un flibustier en string. 

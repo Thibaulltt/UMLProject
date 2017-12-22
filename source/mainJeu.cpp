@@ -14,18 +14,6 @@ using namespace std;
 int main()
 {
 	srand(time(NULL));
-	
-	joueur bob("booob", false);
-	cout << "joueur :" << bob.toString() << endl; 
-
-	ennemi mechant("Flibustier", false);
-	cout << "ennemi:" << mechant.toString() << endl;
-
-	objetCombat fusil("fusil", 100, 50, true);
-	cout << "arme : " << fusil.toString();
-
-	cout << bob.getType();
-
 
 	while (1)
 	{
