@@ -252,7 +252,7 @@ int jeu::lancerPartie()
 	io::afficherCarte(mappe);
 
 	cout.flush();
-//	sleep(10);
+	sleep(10);
 
 	return nb_joueurs;
 }

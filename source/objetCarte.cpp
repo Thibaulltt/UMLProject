@@ -56,6 +56,10 @@ int objetCarte::getDefense()
 {
 }
 
+bool objetCarte::getVivant()
+{
+}
+
 bool objetCarte::getRamassable()
 {
 	return ramassable;

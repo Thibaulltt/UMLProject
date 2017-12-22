@@ -44,15 +44,17 @@ string carte::toString()
 			{
 				for (int k = 0; k < aireJeu[i][j].size(); k++)
 				{
-					if (k != (aireJeu[i][j].size()) - 1)
+					if (aireJeu[i][j][k]->getVivant())
 					{
-						stringRetour += aireJeu[i][j][k]->toString() + "$";
+						if (k != (aireJeu[i][j].size()) - 1)
+						{
+							stringRetour += aireJeu[i][j][k]->toString() + "$";
+						}
+						else
+						{
+							stringRetour += aireJeu[i][j][k]->toString();
+						}
 					}
-					else
-					{
-						stringRetour += aireJeu[i][j][k]->toString();
-					}
-					
 				}
 			}
 
