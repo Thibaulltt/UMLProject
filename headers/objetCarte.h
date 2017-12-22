@@ -24,6 +24,8 @@ class objetCarte
 		pair<int, int> coordonnees;
 		//! Booléen indiquant si l'objet est ramassable par le joueur ou pas.
 		bool ramassable;
+		//! Stocke le type de la variable
+		std::string baseType;
 
 	public:
 		//! Constructeur sans arguments.
@@ -93,6 +95,9 @@ class objetCarte
 		\return Un* booléen. True si l'objet est vivant, false sinon.
 		*/
 		virtual bool getVivant();
+
+		//! Permet de retourner le type d'un objet.
+		virtual std::string getBaseType() {return baseType;}
 
 		//! Destructeur d'objetCarte.
 		~objetCarte();

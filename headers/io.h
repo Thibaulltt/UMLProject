@@ -30,8 +30,11 @@ namespace io {
 	extern pair<int,int> margesCarte;
 	//! Vecteur de paire contenant un ennemi et une coordonnee
 	extern vector< pair<ennemi,pair<int,int>> > positionEnnemi;
+	//! Largeur du terminal
 	extern int TermWidth;
+	//! Hauteur du terminal
 	extern int TermHeight;
+	//! Stockage des états du terminal
 	static struct termios before, after;
 
 	//////////////////////////////////
@@ -40,12 +43,15 @@ namespace io {
 	//////////////////////////////////
 	//////////////////////////////////
 
-	// prends la largeur du terminal
+	//! Prends la largeur du terminal
 	int getTerminalWidth();
-	// prends la hauteur du terminal
+	//! Prends la hauteur du terminal
 	int getTerminalHeight();
+	//! Change le mode d'entrée standard du terminal
 	void ChangeTerminal(bool Ech = 0);
+	//! Remet le terminal comme avant
 	void ResetTerminal();
+	//! Entrée d'un seul caractère
 	char de();
 	
 	//! Affiche la totalite de la carte
@@ -63,7 +69,7 @@ namespace io {
 	
 	//! Genere les mouvements possibles sur une case passee en argument
 	vector< pair<pair<int,int>,bool> > genererMouvements(carte, pair<int,int>);
-	
+
 	//! Verifie que le terminal est bien configuré avant de commencer le programme
 	bool setup();
 }

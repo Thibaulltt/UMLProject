@@ -2,12 +2,14 @@
 #include "../headers/joueur.h"
 #include "../headers/io.h"
 #include <typeinfo>
+#include <math.h>
 
 //Fonctions classe joueur
 joueur::joueur(string nom_n, bool ramassable_n) : entite(nom_n, ramassable_n)
 {
 	nom = nom_n;
 	ramassable = ramassable_n;
+	baseType = "joueur";
 }
 
 bool joueur::getPellePoss()

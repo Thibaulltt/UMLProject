@@ -8,6 +8,7 @@ using namespace std;
 
 objetCarte::objetCarte()
 {
+	baseType = "objet";
 }
 
 objetCarte::objetCarte(string nom_n, bool ramassable_n)

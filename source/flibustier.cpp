@@ -8,6 +8,7 @@ flibustier::flibustier(string nom_n, bool ramassable_n) : ennemi(nom_n, ramassab
 	scoreDEF = 100;
 	porteeATT = 1;
 	ramassable = ramassable_n;
+	baseType = "flibustier";
 }
 
 void flibustier::setVectPort(pair<int, int> slot_n, int tailleMap)

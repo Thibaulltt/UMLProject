@@ -208,36 +208,46 @@ namespace io {
 	}
 
 	void afficherCarte(carte gameMap) {
+		// On efface l'écran
 		TERM_ERASE_SCREEN;
 
+		// On prends la taille terminal
 		io::TermHeight = getTerminalHeight();
 		io::TermWidth = getTerminalWidth();
+		// On prends les marges a mettre aux cotés de la carte
 		int leftMarginMap = (io::TermWidth - MAX_X_MAP) / 2;
 		int upperMarginMap = (io::TermHeight - MAX_Y_MAP - TERM_MESSAGE_HEIGHT) / 2;
-		if (upperMarginMap != 0) {
-			cout << std::string(upperMarginMap, '\n');
-		}
-		for (int i = 0; i < MAX_Y_MAP; i++) {
+		// On affiche lesdites marges
+//		if (upperMarginMap != 0) {
+//			cout << std::string(upperMarginMap, '\n');
+//		}
+		vector<vector<vector<objetCarte*>>> aireJeu = gameMap.getAireJeu();
+		int yMap = aireJeu.size();
+		for (int i = 0; i < yMap; i++) {
 			cout << std::string(leftMarginMap, ' ');
-			for (int j = 0; j < MAX_X_MAP; j++) {
-				/*string contenuCase = gameMap.getCase(std::make_pair(i,j));
-				switch (contenuCase) {
-					case 1:
-						cout << TERM_COLOR_TEXT_BLUE << 'X' << TERM_COLOR_TEXT_BLANK;
-						break;
-					case 2:
-						cout << TERM_COLOR_TEXT_GREEN << 'Y' << TERM_COLOR_TEXT_BLANK;
-						break;
-					case 3:
-						cout << TERM_COLOR_TEXT_MAGENTA << 'O' << TERM_COLOR_TEXT_BLANK;
-						break;
-					case 4:
-						cout << TERM_COLOR_TEXT_RED << 'A' << TERM_COLOR_TEXT_BLANK;
-						break;
-					default:
-						cout << ' ';
-						break;
-				}*/
+			int xMap = aireJeu.at(i).size();
+			for (int j = 0; j < xMap; j++) {
+				// On prends le vecteur des éléments de la carte
+				vector<objetCarte*> contenuCase = aireJeu.at(i).at(j);
+				if (contenuCase.size() != 0) {
+					for (int k = 0; k < contenuCase.size(); k++) {
+						std::string elementAnalyse = contenuCase.at(k)->getBaseType();
+						if (elementAnalyse == "flibustier" || elementAnalyse == "boucanier") {
+							// Si ennemi
+							cout << TERM_COLOR_TEXT_BLUE << "X" << TERM_COLOR_TEXT_BLANK;
+							TERM_MOVE_CURSOR_LEFT(0);
+						} else if (elementAnalyse == "joueur") {
+							cout << TERM_COLOR_TEXT_RED << "X" << TERM_COLOR_TEXT_BLANK;
+							TERM_MOVE_CURSOR_LEFT(0);
+						} else {
+							cout << TERM_COLOR_TEXT_BLUE << "O" << TERM_COLOR_TEXT_BLANK;
+							TERM_MOVE_CURSOR_LEFT(0);
+						}
+					}
+					TERM_MOVE_CURSOR_RIGHT(1);
+				} else {
+					cout << ".";
+				}
 			}
 			cout << endl;
 		}
@@ -245,17 +255,8 @@ namespace io {
 			cout << std::string(upperMarginMap, '\n');
 		}
 		afficherMessage();
-		//io::margesCarte.setValeurs(std::make_pair(leftMarginMap+1,upperMarginMap+1));
-		io::margesCarte = make_pair(leftMarginMap + 1, upperMarginMap + 1);
 
-		// Tests ...
-		std::stringstream launchMessage;
-		launchMessage << "Voila les coordonnees carte : (" << margesCarte.first;
-		launchMessage << "," << margesCarte.second << ").";
-		launchMessage << launchMessage.str();
-		launchMessage << launchMessage.str();
-		launchMessage << launchMessage.str();
-		updateMessage(0,launchMessage.str());
+		io::margesCarte = make_pair(leftMarginMap + 1, upperMarginMap + 1);
 	} 
 
 	void afficherMessage() {

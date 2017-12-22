@@ -13,6 +13,7 @@
 		"string_view": "cpp",
 		"vector": "cpp",
 		"ostream": "cpp",
-		"tuple": "cpp"
+		"tuple": "cpp",
+		"iostream": "cpp"
 	}
 }

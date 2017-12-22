@@ -10,6 +10,7 @@ boucanier::boucanier(string nom_n, bool ramassable_n) : ennemi(nom_n, ramassable
 	scoreDEF = 100;
 	porteeDEP = 2;
 	ramassable = ramassable_n;
+	baseType = "boucanier";
 }
 
 void boucanier::seDeplacer(carte mappe)
